@@ -168,13 +168,23 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Box9.Leds.Manager.Core\Box9.Leds.Manager.Core.csproj">
+      <Project>{9EC478A1-28A1-4D7F-AE59-2DA56BE36D98}</Project>
+      <Name>Box9.Leds.Manager.Core</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Box9.Leds.Manager.DataAccess\Box9.Leds.Manager.DataAccess.csproj">
       <Project>{0F776D21-878C-4C2E-9681-E0816E1C3769}</Project>
       <Name>Box9.Leds.Manager.DataAccess</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Box9.Leds.Manager.Services\Box9.Leds.Manager.Services.csproj">
+      <Project>{B88D81D9-EB78-4B61-A191-1FC4E00DBFAE}</Project>
+      <Name>Box9.Leds.Manager.Services</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Autofac\ApiModule.cs" />
+    <Compile Include="Controllers\AppPreferencesController.cs" />
+    <Compile Include="Controllers\DevicesController.cs" />
     <Compile Include="Controllers\ProjectsController.cs" />
     <Compile Include="EmptyResult.cs" />
     <Compile Include="Filters\GlobalActionFilter.cs" />
@@ -192,7 +202,9 @@
       <DependentUpon>Web.config</DependentUpon>
     </Content>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="ApiResults\" />
+  </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
   </ItemGroup>

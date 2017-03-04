@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Box9.Leds.Manager.Core", "B
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Box9.Leds.Manager.WebHost", "Box9.Leds.Manager.WebHost\Box9.Leds.Manager.WebHost.csproj", "{18D73078-F77B-48A5-8A70-4F3517FFF864}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Box9.Leds.Manager.Services", "Box9.Leds.Manager.Services\Box9.Leds.Manager.Services.csproj", "{B88D81D9-EB78-4B61-A191-1FC4E00DBFAE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{18D73078-F77B-48A5-8A70-4F3517FFF864}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{18D73078-F77B-48A5-8A70-4F3517FFF864}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{18D73078-F77B-48A5-8A70-4F3517FFF864}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B88D81D9-EB78-4B61-A191-1FC4E00DBFAE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B88D81D9-EB78-4B61-A191-1FC4E00DBFAE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B88D81D9-EB78-4B61-A191-1FC4E00DBFAE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B88D81D9-EB78-4B61-A191-1FC4E00DBFAE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
