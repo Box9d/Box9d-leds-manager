@@ -16,7 +16,7 @@ namespace Box9.Leds.Manager.DataAccess.Scripts
         {
             get
             {
-                return "CREATE TABLE IF NOT EXISTS Device(id INTEGER PRIMARY KEY, projectid INTEGER NOT NULL, name TEXT, ipaddress TEXT)";
+                return "CREATE TABLE IF NOT EXISTS Device(id INTEGER PRIMARY KEY, name TEXT, ipaddress TEXT)";
             }
         }
     }

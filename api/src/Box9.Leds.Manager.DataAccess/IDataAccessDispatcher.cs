@@ -1,4 +1,6 @@
-﻿namespace Box9.Leds.Manager.DataAccess
+﻿using System;
+
+namespace Box9.Leds.Manager.DataAccess
 {
     public interface IDataAccessDispatcher
     {

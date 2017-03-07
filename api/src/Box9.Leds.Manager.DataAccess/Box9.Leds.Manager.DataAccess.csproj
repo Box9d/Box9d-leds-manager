@@ -96,6 +96,7 @@
     <Compile Include="Scripts\0001_CreateProjectTable.cs" />
     <Compile Include="Scripts\0002_AddProjectNameColumn.cs" />
     <Compile Include="Scripts\0004_CreateAppPreferencesTable.cs" />
+    <Compile Include="Scripts\0005_CreateProjectDeviceTable.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

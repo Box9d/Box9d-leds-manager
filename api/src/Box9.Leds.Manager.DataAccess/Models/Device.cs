@@ -11,15 +11,14 @@ namespace Box9.Leds.Manager.DataAccess.Models
         [ExplicitKey]
         public int Id { get; internal set; }
 
-        public int ProjectId { get; set; }
-
         public string Name { get; set; }
 
         public string IpAddress { get; set; }
 
         public void Validate()
         {
-            throw new NotImplementedException();
+            Guard.This(Name).AgainstNullOrEmpty("Device name cannot be empty");
+            Guard.This(IpAddress).AgainstNonIpAddressFormat("Device IP address is not in the correct format");
         }
     }
 }

@@ -1,8 +1,11 @@
-﻿using Box9.Leds.Manager.Core.Validation;
+﻿using System;
+using Box9.Leds.Manager.Core.Validation;
+using Box9.Leds.Manager.DataAccess.Models;
+using SimpleMapping;
 
 namespace Box9.Leds.Manager.Services.DeviceSearch
 {
-    public class DiscoveredDevice
+    public class DiscoveredDevice : IMappableTo<Device>
     {
         public string Name { get; }
 
@@ -15,6 +18,15 @@ namespace Box9.Leds.Manager.Services.DeviceSearch
 
             Name = name;
             IpAddress = ipAddress;
+        }
+
+        public Device Map()
+        {
+            return new Device
+            {
+                Name = Name,
+                IpAddress = IpAddress
+            };
         }
     }
 }

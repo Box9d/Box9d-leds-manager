@@ -10,6 +10,9 @@ namespace Box9.Leds.Manager.Services.Autofac
             builder.RegisterType<DeviceSearchService>()
                 .As<IDeviceSearchService>()
                 .SingleInstance();
+
+            builder.RegisterType<Pinger>().As<IPinger>();
+            builder.RegisterType<FadeCandyPinger>().As<IFadeCandyPinger>();
         }
     }
 }

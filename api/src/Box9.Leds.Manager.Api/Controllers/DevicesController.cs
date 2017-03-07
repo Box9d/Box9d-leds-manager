@@ -1,6 +1,10 @@
-﻿using System.Net;
+﻿using System;
+using System.Net;
 using System.Web.Http;
 using Box9.Leds.Manager.Api;
+using Box9.Leds.Manager.DataAccess;
+using Box9.Leds.Manager.DataAccess.Actions;
+using Box9.Leds.Manager.DataAccess.Models;
 using Box9.Leds.Manager.Services.DeviceSearch;
 
 namespace Box9.Leds.Manager.Api.Controllers
@@ -8,10 +12,12 @@ namespace Box9.Leds.Manager.Api.Controllers
     public class DevicesController : ApiController
     {
         private readonly IDeviceSearchService deviceSearch;
+        private readonly IDataAccessDispatcher dispatcher;
 
-        public DevicesController(IDeviceSearchService deviceSearch)
+        public DevicesController(IDeviceSearchService deviceSearch, IDataAccessDispatcher dispatcher)
         {
             this.deviceSearch = deviceSearch;
+            this.dispatcher = dispatcher;
         }
 
         [ActionName("StartSearchForDevices")]
@@ -28,6 +34,15 @@ namespace Box9.Leds.Manager.Api.Controllers
         public GlobalJsonResult<DeviceSearchStatus> GetDeviceSearchStatus()
         {
             return GlobalJsonResult<DeviceSearchStatus>.Success(HttpStatusCode.OK, deviceSearch.GetLatest());
+        }
+
+        [ActionName("AddDiscoveredDeviceToProject")]
+        [HttpGet]
+        public GlobalJsonResult<Device> AddDiscoveredDeviceToProject(int projectId, DiscoveredDevice device)
+        {
+            var result = dispatcher.Dispatch(DeviceActions.CreateProjectDevice(projectId, device.Map()));
+
+            return GlobalJsonResult<Device>.Success(HttpStatusCode.OK, result);
         }
     }
 }

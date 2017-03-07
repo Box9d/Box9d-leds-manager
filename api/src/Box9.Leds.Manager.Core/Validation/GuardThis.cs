@@ -11,6 +11,11 @@ namespace Box9.Leds.Manager.Core.Validation
             Obj = obj;
         }
 
+        public GuardThis<T> AgainstDefaultValue(string errorMessage)
+        {
+            return WithRule(val => val.Equals(default(T)), errorMessage);
+        }
+
         public GuardThis<T> WithRule(Func<T, bool> rule, string errorMessage)
         {
             if (!rule(Obj))
