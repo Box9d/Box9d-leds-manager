@@ -17,7 +17,7 @@ namespace Box9.Leds.Manager.DataAccess.Scripts
         {
             get
             {
-                return "ALTER TABLE Device DROP COLUMN projectid; CREATE TABLE IF NOT EXISTS ProjectDevice(id INTEGER PRIMARY KEY, projectid INT NOT NULL, deviceid NOT NULL)";
+                return "CREATE TABLE IF NOT EXISTS ProjectDevice(id INTEGER PRIMARY KEY, projectid INT NOT NULL, deviceid NOT NULL)";
             }
         }
     }

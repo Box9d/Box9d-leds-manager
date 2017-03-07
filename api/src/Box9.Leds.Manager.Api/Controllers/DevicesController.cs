@@ -37,8 +37,8 @@ namespace Box9.Leds.Manager.Api.Controllers
         }
 
         [ActionName("AddDiscoveredDeviceToProject")]
-        [HttpGet]
-        public GlobalJsonResult<Device> AddDiscoveredDeviceToProject(int projectId, DiscoveredDevice device)
+        [HttpPost]
+        public GlobalJsonResult<Device> AddDiscoveredDeviceToProject(int projectId, [FromBody]DiscoveredDevice device)
         {
             var result = dispatcher.Dispatch(DeviceActions.CreateProjectDevice(projectId, device.Map()));
 
