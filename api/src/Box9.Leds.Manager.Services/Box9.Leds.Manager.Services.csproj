@@ -48,8 +48,12 @@
     <Compile Include="DeviceSearch\DeviceSearchService.cs" />
     <Compile Include="DeviceSearch\DiscoveredDevice.cs" />
     <Compile Include="DeviceSearch\AppPreferencesExtensions.cs" />
+    <Compile Include="DeviceSearch\FadeCandyPinger.cs" />
     <Compile Include="DeviceSearch\IDeviceSearchService.cs" />
     <Compile Include="DeviceSearch\DeviceSearchStatus.cs" />
+    <Compile Include="DeviceSearch\IFadeCandyPinger.cs" />
+    <Compile Include="DeviceSearch\IPinger.cs" />
+    <Compile Include="DeviceSearch\Pinger.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
