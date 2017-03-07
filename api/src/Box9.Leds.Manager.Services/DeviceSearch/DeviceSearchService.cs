@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Concurrent;
-using System.Net;
-using System.Net.NetworkInformation;
 using System.Threading;
 using System.Threading.Tasks;
 using Box9.Leds.Manager.Core.Logging;
@@ -14,14 +12,22 @@ namespace Box9.Leds.Manager.Services.DeviceSearch
     {
         private readonly IDataAccessDispatcher dispatcher;
         private readonly ILogger logger;
+        private readonly IPinger pinger;
+        private readonly IFadeCandyPinger fadeCandyPinger;
+
         private ConcurrentQueue<DiscoveredDevice> discoveredDevices;
         private CancellationTokenSource currentSearchTokenSource;
         private bool isSearching;
 
-        public DeviceSearchService(ILogger logger, IDataAccessDispatcher dispatcher)
+        public DeviceSearchService(ILogger logger, 
+            IDataAccessDispatcher dispatcher,
+            IPinger pinger,
+            IFadeCandyPinger fadeCandyPinger)
         {
             this.dispatcher = dispatcher;
             this.logger = logger;
+            this.pinger = pinger;
+            this.fadeCandyPinger = fadeCandyPinger;
 
             discoveredDevices = new ConcurrentQueue<DiscoveredDevice>();
             currentSearchTokenSource = new CancellationTokenSource();
@@ -59,19 +65,10 @@ namespace Box9.Leds.Manager.Services.DeviceSearch
 
                 foreach (var ipAddress in appPreferences.GetIpAddressRange())
                 {
-                    try
+                    if (pinger.IsResponding(ipAddress) && fadeCandyPinger.IsFadecandyDevice(ipAddress))
                     {
-                        var ping = new Ping();
-                        var reply = ping.Send(ipAddress, 250);
-
-                        if (reply.Status == IPStatus.Success)
-                        {
-                            IPHostEntry entry = Dns.GetHostEntry(ipAddress);
-                            discoveredDevices.Enqueue(new DiscoveredDevice(entry.HostName, ipAddress));
-                        }
-                    }
-                    catch
-                    {
+                        var hostName = pinger.GetHostName(ipAddress);
+                        discoveredDevices.Enqueue(new DiscoveredDevice(hostName, ipAddress));
                     }
                 }
             }
