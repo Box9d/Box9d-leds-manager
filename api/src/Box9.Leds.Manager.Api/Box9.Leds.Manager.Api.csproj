@@ -186,6 +186,7 @@
     <Compile Include="Controllers\AppPreferencesController.cs" />
     <Compile Include="Controllers\ProjectDeviceVersionController.cs" />
     <Compile Include="Controllers\DevicesController.cs" />
+    <Compile Include="Controllers\ProjectDeviceMappingController.cs" />
     <Compile Include="Controllers\ProjectsController.cs" />
     <Compile Include="EmptyResult.cs" />
     <Compile Include="Filters\GlobalActionFilter.cs" />

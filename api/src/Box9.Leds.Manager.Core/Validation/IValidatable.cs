@@ -4,4 +4,9 @@
     {
         void Validate();
     }
+
+    public interface IValidatable<T>
+    {
+        void Validate(T validateAgainst);
+    }
 }
