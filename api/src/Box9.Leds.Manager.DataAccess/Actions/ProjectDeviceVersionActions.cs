@@ -14,7 +14,7 @@ namespace Box9.Leds.Manager.DataAccess.Actions
             return new DataAccessAction<ProjectDeviceVersion>((IDbConnection conn) =>
             {
                 return conn
-                    .Query<ProjectDeviceVersion>("SELECT Version FROM ProjectDeviceMappingVersion WHERE projectdeviceid = @projectdeviceid ORDER BY VERSION DEC LIMIT 1",
+                    .Query<ProjectDeviceVersion>("SELECT Version FROM ProjectDeviceVersion WHERE projectdeviceid = @projectdeviceid ORDER BY VERSION DESC LIMIT 1",
                         new { projectDeviceId })
                     .SingleOrDefault();
             });
@@ -26,7 +26,7 @@ namespace Box9.Leds.Manager.DataAccess.Actions
             {
                 projectDeviceMappingVersion.Validate();
 
-                var currentVersion = conn.Query<int>("SELECT Version FROM ProjectDeviceMappingVersion WHERE projectdeviceid = @projectdeviceid ORDER BY Version DESC LIMIT 1", 
+                var currentVersion = conn.Query<int>("SELECT Version FROM ProjectDeviceVersion WHERE projectdeviceid = @projectdeviceid ORDER BY Version DESC LIMIT 1", 
                     new { projectDeviceMappingVersion.ProjectDeviceId })
                     .SingleOrDefault();
 

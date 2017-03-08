@@ -68,7 +68,11 @@ namespace Box9.Leds.Manager.Services.DeviceSearch
                     if (pinger.IsResponding(ipAddress) && fadeCandyPinger.IsFadecandyDevice(ipAddress))
                     {
                         var hostName = pinger.GetHostName(ipAddress);
-                        discoveredDevices.Enqueue(new DiscoveredDevice(hostName, ipAddress));
+                        discoveredDevices.Enqueue(new DiscoveredDevice
+                        {
+                            Name = hostName,
+                            IpAddress = ipAddress
+                        });
                     }
                 }
             }

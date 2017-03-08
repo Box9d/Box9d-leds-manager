@@ -19,6 +19,7 @@ namespace Box9.Leds.Manager.DataAccess.Autofac
                         scr.IncludeScript<_0003_CreateDeviceTable>();
                         scr.IncludeScript<_0004_CreateAppPreferencesTable>();
                         scr.IncludeScript<_0005_CreateProjectDeviceTable>();
+                        scr.IncludeScript<_0006_CreateProjectDeviceVersionTable>();
                     });
                 });
             })
