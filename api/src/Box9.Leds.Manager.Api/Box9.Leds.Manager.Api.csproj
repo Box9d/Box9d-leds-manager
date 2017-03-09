@@ -89,32 +89,32 @@
       <HintPath>..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="NJsonSchema, Version=8.8.6270.12833, Culture=neutral, PublicKeyToken=c2f9c3bdfae56102, processorArchitecture=MSIL">
-      <HintPath>..\packages\NJsonSchema.8.8.6270.12833\lib\net45\NJsonSchema.dll</HintPath>
+    <Reference Include="NJsonSchema, Version=8.9.6275.22295, Culture=neutral, PublicKeyToken=c2f9c3bdfae56102, processorArchitecture=MSIL">
+      <HintPath>..\packages\NJsonSchema.8.9.6275.22295\lib\net45\NJsonSchema.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="NSwag.Annotations, Version=9.7.6271.14410, Culture=neutral, PublicKeyToken=c2d88086e098d109, processorArchitecture=MSIL">
-      <HintPath>..\packages\NSwag.Annotations.9.7.6271.14410\lib\portable45-net45+win8+wp8+wpa81\NSwag.Annotations.dll</HintPath>
+    <Reference Include="NSwag.Annotations, Version=9.9.6275.31888, Culture=neutral, PublicKeyToken=c2d88086e098d109, processorArchitecture=MSIL">
+      <HintPath>..\packages\NSwag.Annotations.9.9.6275.31888\lib\portable45-net45+win8+wp8+wpa81\NSwag.Annotations.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="NSwag.AspNet.Owin, Version=9.7.6271.14411, Culture=neutral, PublicKeyToken=c2d88086e098d109, processorArchitecture=MSIL">
-      <HintPath>..\packages\NSwag.AspNet.Owin.9.7.6271.14411\lib\net45\NSwag.AspNet.Owin.dll</HintPath>
+    <Reference Include="NSwag.AspNet.Owin, Version=9.9.6275.31889, Culture=neutral, PublicKeyToken=c2d88086e098d109, processorArchitecture=MSIL">
+      <HintPath>..\packages\NSwag.AspNet.Owin.9.9.6275.31889\lib\net45\NSwag.AspNet.Owin.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="NSwag.AspNet.WebApi, Version=9.7.6271.14421, Culture=neutral, PublicKeyToken=c2d88086e098d109, processorArchitecture=MSIL">
-      <HintPath>..\packages\NSwag.AspNet.WebApi.9.7.6271.14421\lib\net45\NSwag.AspNet.WebApi.dll</HintPath>
+    <Reference Include="NSwag.AspNet.WebApi, Version=9.9.6275.31899, Culture=neutral, PublicKeyToken=c2d88086e098d109, processorArchitecture=MSIL">
+      <HintPath>..\packages\NSwag.AspNet.WebApi.9.9.6275.31899\lib\net45\NSwag.AspNet.WebApi.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="NSwag.Core, Version=9.7.6271.14409, Culture=neutral, PublicKeyToken=c2d88086e098d109, processorArchitecture=MSIL">
-      <HintPath>..\packages\NSwag.Core.9.7.6271.14409\lib\portable45-net45+win8+wp8+wpa81\NSwag.Core.dll</HintPath>
+    <Reference Include="NSwag.Core, Version=9.9.6275.31887, Culture=neutral, PublicKeyToken=c2d88086e098d109, processorArchitecture=MSIL">
+      <HintPath>..\packages\NSwag.Core.9.9.6275.31887\lib\portable45-net45+win8+wp8+wpa81\NSwag.Core.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="NSwag.SwaggerGeneration, Version=9.7.6271.14411, Culture=neutral, PublicKeyToken=c2d88086e098d109, processorArchitecture=MSIL">
-      <HintPath>..\packages\NSwag.SwaggerGeneration.9.7.6271.14411\lib\portable45-net45+win8+wp8+wpa81\NSwag.SwaggerGeneration.dll</HintPath>
+    <Reference Include="NSwag.SwaggerGeneration, Version=9.9.6275.31889, Culture=neutral, PublicKeyToken=c2d88086e098d109, processorArchitecture=MSIL">
+      <HintPath>..\packages\NSwag.SwaggerGeneration.9.9.6275.31889\lib\portable45-net45+win8+wp8+wpa81\NSwag.SwaggerGeneration.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="NSwag.SwaggerGeneration.WebApi, Version=9.7.6271.14411, Culture=neutral, PublicKeyToken=c2d88086e098d109, processorArchitecture=MSIL">
-      <HintPath>..\packages\NSwag.SwaggerGeneration.WebApi.9.7.6271.14411\lib\portable45-net45+win8+wp8+wpa81\NSwag.SwaggerGeneration.WebApi.dll</HintPath>
+    <Reference Include="NSwag.SwaggerGeneration.WebApi, Version=9.9.6275.31889, Culture=neutral, PublicKeyToken=c2d88086e098d109, processorArchitecture=MSIL">
+      <HintPath>..\packages\NSwag.SwaggerGeneration.WebApi.9.9.6275.31889\lib\portable45-net45+win8+wp8+wpa81\NSwag.SwaggerGeneration.WebApi.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Owin, Version=1.0.0.0, Culture=neutral, PublicKeyToken=f0ebd12fd5e55cc5, processorArchitecture=MSIL">
@@ -184,10 +184,12 @@
   <ItemGroup>
     <Compile Include="Autofac\ApiModule.cs" />
     <Compile Include="Controllers\AppPreferencesController.cs" />
+    <Compile Include="Controllers\ProjectDeviceController.cs" />
     <Compile Include="Controllers\ProjectDeviceVersionController.cs" />
     <Compile Include="Controllers\DevicesController.cs" />
     <Compile Include="Controllers\ProjectDeviceMappingController.cs" />
     <Compile Include="Controllers\ProjectsController.cs" />
+    <Compile Include="Controllers\VideoController.cs" />
     <Compile Include="EmptyResult.cs" />
     <Compile Include="Filters\GlobalActionFilter.cs" />
     <Compile Include="Filters\GlobalExceptionFilter.cs" />
@@ -204,9 +206,7 @@
       <DependentUpon>Web.config</DependentUpon>
     </Content>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="ApiResults\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Content Include="packages.config" />
   </ItemGroup>

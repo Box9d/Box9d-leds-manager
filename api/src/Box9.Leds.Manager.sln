@@ -13,6 +13,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Box9.Leds.Manager.WebHost",
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Box9.Leds.Manager.Services", "Box9.Leds.Manager.Services\Box9.Leds.Manager.Services.csproj", "{B88D81D9-EB78-4B61-A191-1FC4E00DBFAE}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{FE1433E4-D4D0-4D6C-B869-C29B446BF340}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Box9.Leds.Manager.DataAccess.Tests", "Box9.Leds.Manager.DataAccess.Tests\Box9.Leds.Manager.DataAccess.Tests.csproj", "{8B4A83CD-7512-4246-8856-7631B965C48A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,8 +43,15 @@ Global
 		{B88D81D9-EB78-4B61-A191-1FC4E00DBFAE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B88D81D9-EB78-4B61-A191-1FC4E00DBFAE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B88D81D9-EB78-4B61-A191-1FC4E00DBFAE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8B4A83CD-7512-4246-8856-7631B965C48A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8B4A83CD-7512-4246-8856-7631B965C48A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8B4A83CD-7512-4246-8856-7631B965C48A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8B4A83CD-7512-4246-8856-7631B965C48A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{8B4A83CD-7512-4246-8856-7631B965C48A} = {FE1433E4-D4D0-4D6C-B869-C29B446BF340}
 	EndGlobalSection
 EndGlobal

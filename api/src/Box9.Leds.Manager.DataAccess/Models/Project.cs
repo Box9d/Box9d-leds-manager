@@ -8,7 +8,7 @@ namespace Box9.Leds.Manager.DataAccess.Models
     public class Project : IDataModel, IValidatable
     {
         [ExplicitKey]
-        public int Id { get; internal set; }
+        public int Id { get; set; }
 
         public string Name { get; set; }
 

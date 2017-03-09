@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("Box9.Leds.Manager.DataAccess")]
+[assembly: AssemblyTitle("Box9.Leds.Manager.DataAccess.Tests")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("Box9.Leds.Manager.DataAccess")]
+[assembly: AssemblyProduct("Box9.Leds.Manager.DataAccess.Tests")]
 [assembly: AssemblyCopyright("Copyright ©  2017")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -18,10 +18,9 @@ using System.Runtime.InteropServices;
 // to COM components.  If you need to access a type in this assembly from 
 // COM, set the ComVisible attribute to true on that type.
 [assembly: ComVisible(false)]
-[assembly: InternalsVisibleTo("Box9.Leds.Manager.DataAccess.Tests")]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("0f776d21-878c-4c2e-9681-e0816e1c3769")]
+[assembly: Guid("8b4a83cd-7512-4246-8856-7631b965c48a")]
 
 // Version information for an assembly consists of the following four values:
 //

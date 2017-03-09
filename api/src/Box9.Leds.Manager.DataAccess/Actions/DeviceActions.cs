@@ -1,4 +1,5 @@
-﻿using System.Data;
+﻿using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using Box9.Leds.Manager.Core.Validation;
 using Box9.Leds.Manager.DataAccess.Extensions;
@@ -10,7 +11,15 @@ namespace Box9.Leds.Manager.DataAccess.Actions
 {
     public static class DeviceActions
     {
-        public static DataAccessAction<Device> CreateProjectDevice(int projectId, Device device)
+        public static DataAccessAction<IEnumerable<Device>> GetProjectDevices(int projectId)
+        {
+            return new DataAccessAction<IEnumerable<Device>>((IDbConnection conn) =>
+            {
+                return conn.Query<Device>("SELECT Device.* FROM Device INNER JOIN ProjectDevice ON Device.id = ProjectDevice.deviceid WHERE ProjectDevice.projectid = @projectid", new { projectId });
+            });
+        }
+
+        public static DataAccessAction<Device> AddDeviceToProject(int projectId, Device device)
         {
             return new DataAccessAction<Device>((IDbConnection conn) =>
             {
@@ -38,7 +47,10 @@ namespace Box9.Leds.Manager.DataAccess.Actions
                             conn.Insert(device, transaction);
                         }
 
-                        conn.Insert(new ProjectDevice { DeviceId = device.Id, ProjectId = project.Id }, transaction);
+                        var projectDevice = new ProjectDevice { DeviceId = device.Id, ProjectId = project.Id };
+                        projectDevice.Id = conn.GetNextId<ProjectDevice>();
+
+                        conn.Insert(projectDevice, transaction);
                         transaction.Commit();
                     }
                     catch

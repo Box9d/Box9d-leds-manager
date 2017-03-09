@@ -1,5 +1,6 @@
 ﻿using Autofac;
 using Box9.Leds.Manager.DataAccess.Scripts;
+using Box9.Leds.Manager.DataAccess.Scripts.Discovery;
 using InstaSqlite;
 
 namespace Box9.Leds.Manager.DataAccess.Autofac
@@ -8,19 +9,20 @@ namespace Box9.Leds.Manager.DataAccess.Autofac
     {
         protected override void Load(ContainerBuilder builder)
         {
+            builder.RegisterType<ScriptDiscovery>().As<IScriptDiscovery>();
+
             builder.Register(context => 
             {
+                var scriptDiscovery = context.Resolve<IScriptDiscovery>();
+
                 return new DbManager(config =>
                 {
                     config.ConfigureScripts(scr =>
                     {
-                        scr.IncludeScript<_0001_CreateProjectTable>();
-                        scr.IncludeScript<_0002_AddProjectNameColumn>();
-                        scr.IncludeScript<_0003_CreateDeviceTable>();
-                        scr.IncludeScript<_0004_CreateAppPreferencesTable>();
-                        scr.IncludeScript<_0005_CreateProjectDeviceTable>();
-                        scr.IncludeScript<_0006_CreateProjectDeviceVersionTable>();
-                        scr.IncludeScript<_0007_CreateProjectDeviceVersionMappingTable>();
+                        foreach (var script in scriptDiscovery.Discover())
+                        {
+                            scr.IncludeScript(script);
+                        }
                     });
                 });
             })

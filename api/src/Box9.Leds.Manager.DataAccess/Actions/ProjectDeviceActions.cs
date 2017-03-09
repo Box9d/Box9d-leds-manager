@@ -10,6 +10,14 @@ namespace Box9.Leds.Manager.DataAccess.Actions
 {
     public static class ProjectDeviceActions
     {
+        public static DataAccessAction<IEnumerable<ProjectDevice>> GetProjectDevices(int projectId)
+        {
+            return new DataAccessAction<IEnumerable<ProjectDevice>>((IDbConnection conn) =>
+            {
+                return conn.Query<ProjectDevice>("SELECT * FROM ProjectDevice WHERE projectid = @projectid", new { projectId });
+            });
+        }
+
         public static DataAccessAction<ProjectDeviceVersion> GetLatestProjectDeviceVersion(int projectDeviceId)
         {
             return new DataAccessAction<ProjectDeviceVersion>((IDbConnection conn) =>
@@ -21,23 +29,23 @@ namespace Box9.Leds.Manager.DataAccess.Actions
             });
         }
 
-        public static DataAccessAction<ProjectDeviceVersion> SetLatestProjectDeviceVersion(ProjectDeviceVersion projectDeviceMappingVersion)
+        public static DataAccessAction<ProjectDeviceVersion> SetLatestProjectDeviceVersion(ProjectDeviceVersion projectDeviceVersion)
         {
             return new DataAccessAction<ProjectDeviceVersion>((IDbConnection conn) =>
             {
-                projectDeviceMappingVersion.Validate();
+                projectDeviceVersion.Validate();
 
                 var currentVersion = conn.Query<int>("SELECT Version FROM ProjectDeviceVersion WHERE projectdeviceid = @projectdeviceid ORDER BY Version DESC LIMIT 1", 
-                    new { projectDeviceMappingVersion.ProjectDeviceId })
+                    new { projectDeviceVersion.ProjectDeviceId })
                     .SingleOrDefault();
 
                 var id = conn.GetNextId<ProjectDeviceVersion>();
 
-                projectDeviceMappingVersion.Id = id;
-                projectDeviceMappingVersion.Version = currentVersion == 0 ? 1 : currentVersion + 1;
+                projectDeviceVersion.Id = id;
+                projectDeviceVersion.Version = currentVersion == 0 ? 1 : currentVersion + 1;
 
-                conn.Insert(projectDeviceMappingVersion);
-                return projectDeviceMappingVersion;
+                conn.Insert(projectDeviceVersion);
+                return projectDeviceVersion;
             });
         }
 
