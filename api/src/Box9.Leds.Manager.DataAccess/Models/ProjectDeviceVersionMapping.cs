@@ -1,10 +1,13 @@
 ﻿using Box9.Leds.Manager.Core.Validation;
 using Box9.Leds.Manager.DataModels;
+using Dapper.Contrib.Extensions;
 
 namespace Box9.Leds.Manager.DataAccess.Models
 {
+    [Table("ProjectDeviceVersionMapping")]
     public class ProjectDeviceVersionMapping : IDataModel, IValidatable<ProjectDeviceVersion>
     {
+        [ExplicitKey]
         public int Id { get; set; }
 
         public int ProjectDeviceVersionId { get; set; }

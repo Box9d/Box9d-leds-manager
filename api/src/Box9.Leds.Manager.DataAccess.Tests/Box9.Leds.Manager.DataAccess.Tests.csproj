@@ -102,16 +102,23 @@
     <Otherwise />
   </Choose>
   <ItemGroup>
-    <Compile Include="DeviceActionsTests.cs" />
-    <Compile Include="ProjectActionsTests.cs" />
+    <Compile Include="Integration\AppPreferencesActionsTests.cs" />
+    <Compile Include="Integration\DeviceActionsTests.cs" />
+    <Compile Include="Integration\ProjectActionsTests.cs" />
+    <Compile Include="Integration\ProjectDeviceVersionActionsTests.cs" />
+    <Compile Include="Integration\VideoActionsTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TestDbConnectionFactory.cs" />
+    <Compile Include="Integration\TestDbConnectionFactory.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Box9.Leds.Manager.Core\Box9.Leds.Manager.Core.csproj">
+      <Project>{9EC478A1-28A1-4D7F-AE59-2DA56BE36D98}</Project>
+      <Name>Box9.Leds.Manager.Core</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Box9.Leds.Manager.DataAccess\Box9.Leds.Manager.DataAccess.csproj">
       <Project>{0F776D21-878C-4C2E-9681-E0816E1C3769}</Project>
       <Name>Box9.Leds.Manager.DataAccess</Name>

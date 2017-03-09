@@ -15,11 +15,20 @@ namespace Box9.Leds.Manager.Api.Controllers
             this.dispatcher = dispatcher;
         }
 
-        [HttpPost]
-        [ActionName("UpdateProjectDeviceMappings")]
-        public GlobalJsonResult<ProjectDeviceVersion> UpdateProjectDeviceMappings(int projectDeviceId, IEnumerable<ProjectDeviceVersionMapping> mappings)
+        [HttpGet]
+        [ActionName("GetProjectDeviceMappings")]
+        public GlobalJsonResult<IEnumerable<ProjectDeviceVersionMapping>> GetProjectDeviceMappings(int projectDeviceVersionId)
         {
-            var result = dispatcher.Dispatch(ProjectDeviceActions.SetProjectDeviceMappings(projectDeviceId, mappings));
+            var result = dispatcher.Dispatch(ProjectDeviceActions.GetProjectDeviceMappings(projectDeviceVersionId));
+
+            return GlobalJsonResult<IEnumerable<ProjectDeviceVersionMapping>>.Success(System.Net.HttpStatusCode.OK, result);
+        }
+
+        [HttpPost]
+        [ActionName("SetProjectDeviceMappings")]
+        public GlobalJsonResult<ProjectDeviceVersion> SetProjectDeviceMappings(int projectDeviceVersionId, IEnumerable<ProjectDeviceVersionMapping> mappings)
+        {
+            var result = dispatcher.Dispatch(ProjectDeviceActions.SetProjectDeviceMappings(projectDeviceVersionId, mappings));
 
             return GlobalJsonResult<ProjectDeviceVersion>.Success(System.Net.HttpStatusCode.Created, result);
         }

@@ -3,7 +3,7 @@ using Box9.Leds.Manager.DataAccess.Actions;
 using Box9.Leds.Manager.DataAccess.Models;
 using Xunit;
 
-namespace Box9.Leds.Manager.DataAccess.Tests
+namespace Box9.Leds.Manager.DataAccess.Tests.Integration
 {
     public class ProjectActionsTests
     {

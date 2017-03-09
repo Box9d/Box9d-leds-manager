@@ -38,11 +38,11 @@ namespace Box9.Leds.Manager.Api.Controllers
 
         [ActionName("AddDiscoveredDeviceToProject")]
         [HttpPost]
-        public GlobalJsonResult<Device> AddDiscoveredDeviceToProject(int projectId, [FromBody]DiscoveredDevice device)
+        public GlobalJsonResult<ProjectDevice> AddDiscoveredDeviceToProject(int projectId, [FromBody]DiscoveredDevice device)
         {
             var result = dispatcher.Dispatch(DeviceActions.AddDeviceToProject(projectId, device.Map()));
 
-            return GlobalJsonResult<Device>.Success(HttpStatusCode.OK, result);
+            return GlobalJsonResult<ProjectDevice>.Success(HttpStatusCode.OK, result);
         }
     }
 }

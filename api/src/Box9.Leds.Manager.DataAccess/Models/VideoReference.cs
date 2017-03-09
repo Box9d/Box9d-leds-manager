@@ -19,7 +19,8 @@ namespace Box9.Leds.Manager.DataAccess.Models
                 .AgainstNullOrEmpty(FilePath);
 
             Guard.This(FilePath)
-                .WithRule(p => File.Exists(p), string.Format("File '{0}' does not exist", FilePath));
+                .WithRule(p => File.Exists(p), string.Format("File '{0}' does not exist", FilePath))
+                .WithRule(p => p.EndsWith(".mp4"), string.Format("File '{0}' must be an mp4 video file", FilePath));
         }
 
         public bool DoesFilePathExist()

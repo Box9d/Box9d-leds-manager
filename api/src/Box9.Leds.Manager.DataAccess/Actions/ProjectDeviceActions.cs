@@ -18,6 +18,14 @@ namespace Box9.Leds.Manager.DataAccess.Actions
             });
         }
 
+        public static DataAccessAction<ProjectDeviceVersion> GetProjectDeviceVersion(int projectDeviceVersionId)
+        {
+            return new DataAccessAction<ProjectDeviceVersion>((IDbConnection conn) =>
+            {
+                return conn.Get<ProjectDeviceVersion>(projectDeviceVersionId);
+            });
+        }
+
         public static DataAccessAction<ProjectDeviceVersion> GetLatestProjectDeviceVersion(int projectDeviceId)
         {
             return new DataAccessAction<ProjectDeviceVersion>((IDbConnection conn) =>
@@ -59,7 +67,10 @@ namespace Box9.Leds.Manager.DataAccess.Actions
 
                 if (currentVersion != null)
                 {
-                    var versionMappings = conn.Query<ProjectDeviceVersionMapping>("SELECT * FROM ProjectDeviceVersionMapping WHERE projectdeviceversionid = @projectdeviceversionid");
+                    var versionMappings = conn.Query<ProjectDeviceVersionMapping>(
+                            @"SELECT * FROM ProjectDeviceVersionMapping " +
+                            @"WHERE projectdeviceversionid = @projectdeviceversionid",
+                            new { ProjectDeviceVersionId = currentVersion.Id });
 
                     using (var transaction = conn.BeginTransaction())
                     {
@@ -70,7 +81,9 @@ namespace Box9.Leds.Manager.DataAccess.Actions
                                 conn.Delete(mapping, transaction);
                             }
 
-                            conn.Delete(currentVersion);
+                            conn.Delete(currentVersion, transaction);
+
+                            transaction.Commit();
                         }
                         catch
                         {
@@ -88,33 +101,54 @@ namespace Box9.Leds.Manager.DataAccess.Actions
             });
         }
 
-        public static DataAccessAction<ProjectDeviceVersion> SetProjectDeviceMappings(int projectDeviceId, IEnumerable<ProjectDeviceVersionMapping> mappings)
+        public static DataAccessAction<IEnumerable<ProjectDeviceVersionMapping>> GetProjectDeviceMappings(int projectDeviceVersionId)
+        {
+            return new DataAccessAction<IEnumerable<ProjectDeviceVersionMapping>>((IDbConnection conn) =>
+            {
+                return conn.Query<ProjectDeviceVersionMapping>("SELECT * FROM ProjectDeviceVersionMapping WHERE projectdeviceversionid = @projectdeviceversionid", new { projectDeviceVersionId });
+            });
+        }
+
+        public static DataAccessAction<ProjectDeviceVersion> SetProjectDeviceMappings(int projectDeviceVersionId, IEnumerable<ProjectDeviceVersionMapping> mappings)
         {
             return new DataAccessAction<ProjectDeviceVersion>((IDbConnection conn) =>
             {
                 // Update to new version of project device before setting mappings
-                var latestDeviceVersion = GetLatestProjectDeviceVersion(projectDeviceId).Function(conn);
-                latestDeviceVersion = SetLatestProjectDeviceVersion(latestDeviceVersion).Function(conn);
+                var deviceVersion = GetProjectDeviceVersion(projectDeviceVersionId).Function(conn);
 
                 using (var transaction = conn.BeginTransaction())
                 {
                     try
                     {
+                        var currentMappings = GetProjectDeviceMappings(projectDeviceVersionId).Function(conn);
+
+                        foreach (var mapping in currentMappings)
+                        {
+                            conn.Delete(mapping, transaction);
+                        }
+
+                        var nextId = conn.GetNextId<ProjectDeviceVersionMapping>();
+
                         foreach (var mapping in mappings)
                         {
-                            mapping.Validate(latestDeviceVersion);
-                            conn.Insert(mapping);
+                            mapping.Validate(deviceVersion);
+                            mapping.Id = nextId;
+                            mapping.ProjectDeviceVersionId = projectDeviceVersionId;
+                            conn.Insert(mapping, transaction);
+
+                            nextId++;
                         }
+
+                        transaction.Commit();
                     }
                     catch
                     {
                         transaction.Rollback();
-                        UndoLatestProjectDeviceVersion(projectDeviceId).Function(conn);
                         throw;
                     }
                 }
 
-                return latestDeviceVersion;
+                return deviceVersion;
             });
         }
     }

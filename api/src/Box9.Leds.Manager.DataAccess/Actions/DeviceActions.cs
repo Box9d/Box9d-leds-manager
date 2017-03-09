@@ -19,9 +19,9 @@ namespace Box9.Leds.Manager.DataAccess.Actions
             });
         }
 
-        public static DataAccessAction<Device> AddDeviceToProject(int projectId, Device device)
+        public static DataAccessAction<ProjectDevice> AddDeviceToProject(int projectId, Device device)
         {
-            return new DataAccessAction<Device>((IDbConnection conn) =>
+            return new DataAccessAction<ProjectDevice>((IDbConnection conn) =>
             {
                 device.Validate();
 
@@ -52,6 +52,8 @@ namespace Box9.Leds.Manager.DataAccess.Actions
 
                         conn.Insert(projectDevice, transaction);
                         transaction.Commit();
+
+                        return projectDevice;
                     }
                     catch
                     {
@@ -59,8 +61,6 @@ namespace Box9.Leds.Manager.DataAccess.Actions
                         throw;
                     }
                 }
-
-                return device;
             });
         }
     }

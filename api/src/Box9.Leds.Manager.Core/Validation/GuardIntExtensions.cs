@@ -14,7 +14,7 @@
 
         public static GuardThis<int> AgainstOutsideOfRange(this GuardThis<int> guard, int minValue, int maxValue, string errorMessage)
         {
-            return guard.WithRule(val => val > maxValue || val < minValue, errorMessage);
+            return guard.WithRule(val => val <= maxValue || val >= minValue, errorMessage);
         }
     }
 }

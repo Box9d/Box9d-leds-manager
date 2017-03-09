@@ -4,7 +4,7 @@ using System.IO;
 using Box9.Leds.Manager.DataAccess.Scripts.Discovery;
 using InstaSqlite;
 
-namespace Box9.Leds.Manager.DataAccess.Tests
+namespace Box9.Leds.Manager.DataAccess.Tests.Integration
 {
     public class TestDbConnectionFactory : IDisposable
     {

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Box9.Leds.Manager.Core.Validation;
 using Box9.Leds.Manager.DataModels;
 using Dapper.Contrib.Extensions;
@@ -29,10 +30,6 @@ namespace Box9.Leds.Manager.DataAccess.Models
 
         public void Validate()
         {
-            Guard.This(Version)
-                .AgainstNegative("Version cannot be negative")
-                .AgainstZero("Version cannot be 0");
-
             Guard.This(ProjectDeviceId)
                 .AgainstNegative("Project device id cannot be negative")
                 .AgainstZero("Project device id cannot be 0");

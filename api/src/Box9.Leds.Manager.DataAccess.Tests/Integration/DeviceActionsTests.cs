@@ -3,7 +3,7 @@ using Box9.Leds.Manager.DataAccess.Actions;
 using Box9.Leds.Manager.DataAccess.Models;
 using Xunit;
 
-namespace Box9.Leds.Manager.DataAccess.Tests
+namespace Box9.Leds.Manager.DataAccess.Tests.Integration
 {
     public class DeviceActionsTests
     {
@@ -31,7 +31,7 @@ namespace Box9.Leds.Manager.DataAccess.Tests
                 var device = new Device { IpAddress = "192.168.1.1", Name = "MyTestDevice" };
 
                 project = ProjectActions.CreateProject(project).Function(conn);
-                device = DeviceActions.AddDeviceToProject(project.Id, device).Function(conn);
+                var projectDevice = DeviceActions.AddDeviceToProject(project.Id, device).Function(conn);
 
                 var devices = DeviceActions.GetProjectDevices(project.Id).Function(conn);
 
@@ -52,13 +52,13 @@ namespace Box9.Leds.Manager.DataAccess.Tests
             {
                 var project = new Project { Name = "Test" };
                 var anotherProject = new Project { Name = "Test2" };
-                var projectDevice = new Device { IpAddress = "192.168.1.1", Name = "MyTestDevice" };
-                var anotherProjectDevice = new Device { IpAddress = "192.168.1.2", Name = "MyOtherTestDevice" };
+                var device = new Device { IpAddress = "192.168.1.1", Name = "MyTestDevice" };
+                var anotherDevice = new Device { IpAddress = "192.168.1.2", Name = "MyOtherTestDevice" };
 
                 project = ProjectActions.CreateProject(project).Function(conn);
                 anotherProject = ProjectActions.CreateProject(anotherProject).Function(conn);
-                projectDevice = DeviceActions.AddDeviceToProject(project.Id, projectDevice).Function(conn);
-                anotherProjectDevice = DeviceActions.AddDeviceToProject(anotherProject.Id, anotherProjectDevice).Function(conn);
+                var projectDevice = DeviceActions.AddDeviceToProject(project.Id, device).Function(conn);
+                var anotherProjectDevice = DeviceActions.AddDeviceToProject(anotherProject.Id, anotherDevice).Function(conn);
 
                 var devices = DeviceActions.GetProjectDevices(project.Id).Function(conn);
 
@@ -66,8 +66,8 @@ namespace Box9.Leds.Manager.DataAccess.Tests
 
                 var retrievedDevice = devices.Single();
 
-                Assert.Equal(projectDevice.IpAddress, retrievedDevice.IpAddress);
-                Assert.Equal(projectDevice.Name, retrievedDevice.Name);
+                Assert.Equal(device.IpAddress, retrievedDevice.IpAddress);
+                Assert.Equal(device.Name, retrievedDevice.Name);
             }
         }
     }
