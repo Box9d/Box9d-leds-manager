@@ -6,6 +6,8 @@ using Autofac.Integration.WebApi;
 using Box9.Leds.Manager.Api;
 using Box9.Leds.Manager.Api.Autofac;
 using Box9.Leds.Manager.Api.Filters;
+using Box9.Leds.Manager.DataAccess.Hangfire;
+using Hangfire;
 using Microsoft.Owin;
 using NSwag.AspNet.Owin;
 using Owin;
@@ -43,6 +45,11 @@ namespace Box9.Leds.Manager.Api
                 DefaultUrlTemplate = "api/{controller}/{action}",
                 IsAspNetCore = false
             });
+
+            GlobalConfiguration.Configuration.UseSQLiteStorage();
+
+            app.UseHangfireServer();
+            app.UseHangfireDashboard();
 
             app.UseAutofacMiddleware(container);
             app.UseAutofacWebApi(config);

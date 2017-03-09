@@ -8,7 +8,6 @@ namespace Box9.Leds.Manager.DataAccess.Tests.Integration
 {
     public class VideoActionsTests
     {
-
         [Fact]
         public void CanCreateVideoReference()
         {
