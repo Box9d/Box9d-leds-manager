@@ -1,6 +1,4 @@
-﻿using System;
-using System.IO;
-using System.Linq;
+﻿using System.Linq;
 using Box9.Leds.Manager.Core.Equality;
 using Box9.Leds.Manager.DataAccess.Actions;
 using Box9.Leds.Manager.DataAccess.Models;
@@ -8,18 +6,8 @@ using Xunit;
 
 namespace Box9.Leds.Manager.DataAccess.Tests.Integration
 {
-    public class VideoActionsTests : IDisposable
+    public class VideoActionsTests
     {
-        private readonly string firstTestFilePath;
-        private readonly string secondTestFilePath;
-
-        public VideoActionsTests()
-        {
-            firstTestFilePath = Path.Combine(Environment.CurrentDirectory, string.Format("testfile-{0}.mp4", Guid.NewGuid()));
-            File.Create(firstTestFilePath);
-            secondTestFilePath = Path.Combine(Environment.CurrentDirectory, string.Format("testfile-{0}.mp4", Guid.NewGuid()));
-            File.Create(secondTestFilePath);
-        }
 
         [Fact]
         public void CanCreateVideoReference()
@@ -27,7 +15,7 @@ namespace Box9.Leds.Manager.DataAccess.Tests.Integration
             using (var dbFactory = new TestDbConnectionFactory())
             using (var conn = dbFactory.Database())
             {
-                VideoActions.CreateVideoReference(new VideoReference { FilePath = firstTestFilePath }).Function(conn);
+                VideoActions.CreateVideoReference(new VideoReference { FilePath = "test.mp4" }).Function(conn);
             }
         }
 
@@ -37,13 +25,13 @@ namespace Box9.Leds.Manager.DataAccess.Tests.Integration
             using (var dbFactory = new TestDbConnectionFactory())
             using (var conn = dbFactory.Database())
             {
-                var videoReference = new VideoReference { FilePath = firstTestFilePath };
+                var videoReference = new VideoReference { FilePath = "test.mp4" };
                 videoReference = VideoActions.CreateVideoReference(videoReference).Function(conn);
 
                 var update = new VideoReference
                 {
                     Id = videoReference.Id,
-                    FilePath = secondTestFilePath
+                    FilePath = "test2.mp4"
                 };
 
                 var retrievedUpdate = VideoActions.UpdateVideoReference(update).Function(conn);
@@ -60,24 +48,11 @@ namespace Box9.Leds.Manager.DataAccess.Tests.Integration
             using (var dbFactory = new TestDbConnectionFactory())
             using (var conn = dbFactory.Database())
             {
-                VideoActions.CreateVideoReference(new VideoReference { FilePath = firstTestFilePath }).Function(conn);
+                VideoActions.CreateVideoReference(new VideoReference { FilePath = "test.mp4" }).Function(conn);
 
                 var videos = VideoActions.GetVideoReferences().Function(conn);
 
                 Assert.Equal(1, videos.Count());
-            }
-        }
-
-        public void Dispose()
-        {
-            if (File.Exists(firstTestFilePath))
-            {
-                File.Delete(firstTestFilePath);
-            }
-
-            if (File.Exists(secondTestFilePath))
-            {
-                File.Delete(secondTestFilePath);
             }
         }
     }
