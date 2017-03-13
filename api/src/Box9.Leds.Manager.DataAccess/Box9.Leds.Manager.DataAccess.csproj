@@ -140,6 +140,7 @@
     <Compile Include="Scripts\0008_CreateVideoReferenceTable.cs" />
     <Compile Include="Scripts\0010_CreateProjectVideoTable.cs" />
     <Compile Include="Scripts\0011_CreatePiSyncJobTable.cs" />
+    <Compile Include="Scripts\0012_CreateBackgroundJobTable.cs" />
     <Compile Include="Scripts\Discovery\IScriptDiscovery.cs" />
     <Compile Include="Scripts\Discovery\ScriptDiscovery.cs" />
   </ItemGroup>

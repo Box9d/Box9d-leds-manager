@@ -262,8 +262,8 @@
     <Compile Include="Queueing\IBackgroundProcessor.cs" />
     <Compile Include="Queueing\IBackgroundJobLogger.cs" />
     <Compile Include="Queueing\IPiSyncJobProcessor.cs" />
-    <Compile Include="Queueing\Job.cs" />
     <Compile Include="Queueing\BackgroundJobLogger.cs" />
+    <Compile Include="Queueing\Job.cs" />
     <Compile Include="Queueing\PiSyncJobProcessor.cs" />
     <Compile Include="VideoProcessing\BitmapToBinaryProcessor.cs" />
     <Compile Include="VideoProcessing\IBitmapToBinaryProcessor.cs" />

@@ -21,23 +21,26 @@ namespace Box9.Leds.Manager.Services.Queueing
             retryDelaySeconds = 60;
         }
 
-        public void AppendJob(Job job)
+        public void AppendJob(Action jobAction, string description)
         {
-            jobs.Add(job);
-
-            lock(jobLogger)
+            lock (jobLogger)
             {
-                jobLogger.NewJobAdded(job);
-            }
+                var job = jobLogger.NewJobAdded(jobAction, description);
+                jobs.Add(job);
+            }           
         }
 
         public async Task StartProcessingJobsAsync()
         {
-            if (taskConsumerToken == null)
+            lock (taskConsumerToken)
             {
-                taskConsumerToken = new CancellationTokenSource();
-                await Task.Run(() => StartProcessingJobs(), taskConsumerToken.Token);
+                if (taskConsumerToken == null)
+                {
+                    taskConsumerToken = new CancellationTokenSource();
+                }
             }
+
+            await Task.Run(() => StartProcessingJobs(), taskConsumerToken.Token);
         }
 
         private void StartProcessingJobs()
@@ -74,9 +77,12 @@ namespace Box9.Leds.Manager.Services.Queueing
 
         public void Dispose()
         {
-            if (taskConsumerToken != null)
+            lock (taskConsumerToken)
             {
-                taskConsumerToken.Cancel();
+                if (taskConsumerToken != null)
+                {
+                    taskConsumerToken.Cancel();
+                }
             }
         }
     }

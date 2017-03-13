@@ -14,7 +14,10 @@ namespace Box9.Leds.Manager.PiApiClient
 
         internal PiApiClient(Uri baseUri)
         {
-            client.BaseAddress = baseUri;
+            client = new HttpClient()
+            {
+                BaseAddress = baseUri
+            };
             client.DefaultRequestHeaders.Accept.Clear();
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
         }

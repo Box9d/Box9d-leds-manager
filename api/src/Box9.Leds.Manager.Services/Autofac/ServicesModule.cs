@@ -27,6 +27,7 @@ namespace Box9.Leds.Manager.Services.Autofac
             builder.RegisterType<BitmapToBinaryProcessor>().As<IBitmapToBinaryProcessor>();
             builder.RegisterType<DeviceStatusService>().As<IDeviceStatusService>();
             builder.RegisterType<PiSyncJobProcessor>().As<IPiSyncJobProcessor>();
+            builder.RegisterType<BackgroundJobLogger>().As<IBackgroundJobLogger>();
 
             builder.RegisterModule<DataAccessModule>();
             builder.RegisterModule<PiApiClientModule>();

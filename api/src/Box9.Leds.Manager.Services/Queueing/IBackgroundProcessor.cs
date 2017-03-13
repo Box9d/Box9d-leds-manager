@@ -5,7 +5,7 @@ namespace Box9.Leds.Manager.Services.Queueing
 {
     public interface IBackgroundProcessor : IDisposable
     {
-        void AppendJob(Job job);
+        void AppendJob(Action jobAction, string description);
 
         Task StartProcessingJobsAsync();
     }

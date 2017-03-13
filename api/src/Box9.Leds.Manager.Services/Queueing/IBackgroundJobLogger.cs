@@ -4,7 +4,7 @@ namespace Box9.Leds.Manager.Services.Queueing
 {
     public interface IBackgroundJobLogger
     {
-        void NewJobAdded(Job job);
+        Job NewJobAdded(Action job, string description);
 
         void JobHasErrored(Job job, Exception ex);
 

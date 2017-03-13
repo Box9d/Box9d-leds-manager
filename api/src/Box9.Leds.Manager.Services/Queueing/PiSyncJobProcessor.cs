@@ -23,6 +23,7 @@ namespace Box9.Leds.Manager.Services.Queueing
             this.videoProcessor = videoProcessor;
             this.piClientFactory = piClientFactory;
             this.deviceStatusService = deviceStatusService;
+            this.backgroundProcessor = backgroundProcessor;
         }
 
         public void ProcessJobs()
@@ -33,7 +34,7 @@ namespace Box9.Leds.Manager.Services.Queueing
                 dispatcher.Dispatch(PiSyncJobActions.FlagAsStartedProcessing(queueItem.Id));
 
                 backgroundProcessor.StartProcessingJobsAsync();
-                backgroundProcessor.AppendJob(new Job(() => ProcessAndSendToPi(queueItem), "Syncing video alterations to Pi"));
+                backgroundProcessor.AppendJob(() => ProcessAndSendToPi(queueItem), "Syncing video alterations to Pi");
             }
         }
 

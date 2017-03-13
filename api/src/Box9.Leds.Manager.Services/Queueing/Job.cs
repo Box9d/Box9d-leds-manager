@@ -1,17 +1,20 @@
-﻿using System;
+﻿using Box9.Leds.Manager.DataAccess.Models;
+using SimpleMapping;
+using System;
 
 namespace Box9.Leds.Manager.Services.Queueing
 {
     public class Job
     {
-        internal Action JobAction { get; }
+        public int Id { get; }
 
-        internal string Description { get; }
+        public Action JobAction { get; }
 
-        internal Job(Action jobAction, string description)
+
+        internal Job(int id, Action jobAction)
         {
+            Id = id;
             JobAction = jobAction;
-            Description = description;
         }
     }
 }
