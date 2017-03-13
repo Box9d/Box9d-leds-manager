@@ -12,7 +12,5 @@ namespace Box9.Leds.Manager.DataAccess.Models
         public int ProjectId { get; set; }
 
         public int DeviceId { get; set; }
-
-        public int ReadyForPlayback { get; set; }
     }
 }

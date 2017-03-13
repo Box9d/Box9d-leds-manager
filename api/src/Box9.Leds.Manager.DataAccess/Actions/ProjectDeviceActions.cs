@@ -28,24 +28,6 @@ namespace Box9.Leds.Manager.DataAccess.Actions
             });
         }
 
-        public static DataAccessAction SetProjectDevicePlaybackStatus(int projectId, int deviceId, bool readyForPlayback)
-        {
-            return new DataAccessAction((IDbConnection conn) =>
-            {
-                var projectDevice = conn.Query<ProjectDevice>("SELECT * FROM ProjectDevice WHERE deviceid = @deviceid AND projectid = @projectid", new { deviceId, projectId })
-                    .SingleOrDefault();
-
-                if (projectDevice == null)
-                {
-                    throw new ArgumentException(string.Format("No project device found for project with Id '{0}' and Device with Id '{1}'", projectId, deviceId));
-                }
-
-                projectDevice.ReadyForPlayback = readyForPlayback ? 1 : 0;
-
-                conn.Update(projectDevice);
-            });
-        }
-
         public static DataAccessAction<ProjectDeviceVersion> GetProjectDeviceVersion(int projectDeviceVersionId)
         {
             return new DataAccessAction<ProjectDeviceVersion>((IDbConnection conn) =>
