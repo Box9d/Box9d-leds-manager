@@ -1,5 +1,4 @@
 ﻿using Autofac;
-using Box9.Leds.Manager.DataAccess.Scripts;
 using Box9.Leds.Manager.DataAccess.Scripts.Discovery;
 using InstaSqlite;
 

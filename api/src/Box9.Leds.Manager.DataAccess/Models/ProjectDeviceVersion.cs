@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using Box9.Leds.Manager.Core.Validation;
+﻿using Box9.Leds.Manager.Core.Validation;
 using Box9.Leds.Manager.DataModels;
 using Dapper.Contrib.Extensions;
 

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using Box9.Leds.Manager.DataAccess.Extensions;
@@ -10,11 +11,38 @@ namespace Box9.Leds.Manager.DataAccess.Actions
 {
     public static class ProjectDeviceActions
     {
+        public static DataAccessAction<Project> GetProjectFromProjectDeviceId(int projectDeviceId)
+        {
+            return new DataAccessAction<Project>((IDbConnection conn) =>
+            {
+                return conn.Query<Project>("SELECT Project.* FROM ProjectDevice INNER JOIN Project ON ProjectDevice.projectid = Project.id WHERE ProjectDevice.id = @projectdeviceid", new { projectDeviceId })
+                    .SingleOrDefault();
+            });
+        }
+
         public static DataAccessAction<IEnumerable<ProjectDevice>> GetProjectDevices(int projectId)
         {
             return new DataAccessAction<IEnumerable<ProjectDevice>>((IDbConnection conn) =>
             {
                 return conn.Query<ProjectDevice>("SELECT * FROM ProjectDevice WHERE projectid = @projectid", new { projectId });
+            });
+        }
+
+        public static DataAccessAction SetProjectDevicePlaybackStatus(int projectId, int deviceId, bool readyForPlayback)
+        {
+            return new DataAccessAction((IDbConnection conn) =>
+            {
+                var projectDevice = conn.Query<ProjectDevice>("SELECT * FROM ProjectDevice WHERE deviceid = @deviceid AND projectid = @projectid", new { deviceId, projectId })
+                    .SingleOrDefault();
+
+                if (projectDevice == null)
+                {
+                    throw new ArgumentException(string.Format("No project device found for project with Id '{0}' and Device with Id '{1}'", projectId, deviceId));
+                }
+
+                projectDevice.ReadyForPlayback = readyForPlayback ? 1 : 0;
+
+                conn.Update(projectDevice);
             });
         }
 

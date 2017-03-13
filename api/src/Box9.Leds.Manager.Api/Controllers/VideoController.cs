@@ -30,16 +30,26 @@ namespace Box9.Leds.Manager.Api.Controllers
         {
             var result = dispatcher.Dispatch(VideoActions.CreateVideoReference(video));
 
-            return GlobalJsonResult<VideoReference>.Success(System.Net.HttpStatusCode.OK, video);
+            return GlobalJsonResult<VideoReference>.Success(System.Net.HttpStatusCode.OK, result);
+        }
+
+        [HttpGet]
+        [ActionName("GetProjectVideo")]
+        public GlobalJsonResult<VideoReference> GetProjectVideo(int projectId)
+        {
+            var result = dispatcher.Dispatch(VideoActions.GetVideoForProject(projectId));
+
+            return GlobalJsonResult<VideoReference>.Success(System.Net.HttpStatusCode.OK, result);
         }
 
         [HttpPost]
-        [ActionName("UpdateVideoReference")]
-        public GlobalJsonResult<VideoReference> UpdateVideoReference(VideoReference video)
+        [ActionName("AddVideoToProject")]
+        public GlobalJsonResult<ProjectVideo> AddVideoToProject(int projectId, int videoReferenceId)
         {
-            var result = dispatcher.Dispatch(VideoActions.UpdateVideoReference(video));
+            var result = dispatcher.Dispatch(VideoActions.SetVideoForProject(projectId, videoReferenceId));
+            var video = dispatcher.Dispatch(VideoActions.GetVideoForProject(projectId));
 
-            return GlobalJsonResult<VideoReference>.Success(System.Net.HttpStatusCode.OK, video);
+            return GlobalJsonResult<ProjectVideo>.Success(System.Net.HttpStatusCode.Created, result);
         }
     }
 }

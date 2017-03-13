@@ -19,29 +19,6 @@ namespace Box9.Leds.Manager.DataAccess.Tests.Integration
         }
 
         [Fact]
-        public void CanUpdateVideoReference()
-        {
-            using (var dbFactory = new TestDbConnectionFactory())
-            using (var conn = dbFactory.Database())
-            {
-                var videoReference = new VideoReference { FilePath = "test.mp4" };
-                videoReference = VideoActions.CreateVideoReference(videoReference).Function(conn);
-
-                var update = new VideoReference
-                {
-                    Id = videoReference.Id,
-                    FilePath = "test2.mp4"
-                };
-
-                var retrievedUpdate = VideoActions.UpdateVideoReference(update).Function(conn);
-
-                var propertiesAreEqual = update.PropertiesAreEqual(retrievedUpdate);
-
-                Assert.True(propertiesAreEqual);
-            }
-        }
-
-        [Fact]
         public void CanGetVideoReferences()
         {
             using (var dbFactory = new TestDbConnectionFactory())

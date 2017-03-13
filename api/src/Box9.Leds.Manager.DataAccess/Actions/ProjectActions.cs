@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Data;
+using Box9.Leds.Manager.Core.Validation;
 using Box9.Leds.Manager.DataAccess.Extensions;
 using Box9.Leds.Manager.DataAccess.Models;
 using Dapper.Contrib.Extensions;
@@ -21,6 +22,17 @@ namespace Box9.Leds.Manager.DataAccess.Actions
             return new DataAccessAction<Project>((IDbConnection conn) =>
             {
                 return conn.Get<Project>(id);
+            });
+        }
+
+        public static DataAccessAction<Project> GetProjectFromProjectDevice(int projectDeviceId)
+        {
+            return new DataAccessAction<Project>((IDbConnection conn) =>
+            {
+                var projectDevice = conn.Get<ProjectDevice>(projectDeviceId);
+                Guard.This(projectDevice).AgainstDefaultValue(string.Format("No project device could be found with id of '{0}'", projectDeviceId));
+
+                return conn.Get<Project>(projectDevice.ProjectId);
             });
         }
 

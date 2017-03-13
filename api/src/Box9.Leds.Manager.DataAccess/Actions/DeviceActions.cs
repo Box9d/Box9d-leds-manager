@@ -11,11 +11,28 @@ namespace Box9.Leds.Manager.DataAccess.Actions
 {
     public static class DeviceActions
     {
+        public static DataAccessAction<IEnumerable<Device>> GetAllDevices()
+        {
+            return new DataAccessAction<IEnumerable<Device>>((IDbConnection conn) =>
+            {
+                return conn.GetAll<Device>();
+            });
+        }
+
         public static DataAccessAction<IEnumerable<Device>> GetProjectDevices(int projectId)
         {
             return new DataAccessAction<IEnumerable<Device>>((IDbConnection conn) =>
             {
                 return conn.Query<Device>("SELECT Device.* FROM Device INNER JOIN ProjectDevice ON Device.id = ProjectDevice.deviceid WHERE ProjectDevice.projectid = @projectid", new { projectId });
+            });
+        }
+
+        public static DataAccessAction<Device> GetProjectDevice(int projectDeviceId)
+        {
+            return new DataAccessAction<Device>((IDbConnection conn) =>
+            {
+                return conn.Query<Device>("SELECT Device.* FROM Device INNER JOIN ProjectDevice ON Device.id = ProjectDevice.deviceid WHERE ProjectDevice.id = @projectdeviceid", new { projectDeviceId })
+                    .SingleOrDefault();
             });
         }
 
