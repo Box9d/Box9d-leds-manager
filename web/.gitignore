@@ -5,6 +5,7 @@ node_modules/
 typings/
 
 # VSCode
+.vs/**/*
 .vscode/**/*.*
 
 # Npm debug

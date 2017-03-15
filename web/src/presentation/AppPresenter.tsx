@@ -1,8 +1,12 @@
 import * as React from "react";
+import { Menu } from "semantic-ui-react";
+import Nav from "../containers/NavContainer";
 
 export class AppPresenter extends React.Component<IAppProps, undefined> {
     public render() {
-        return <div>Up and running</div>;
+        return <div>
+            <Nav/>
+         </div>;
     }
 }
 
