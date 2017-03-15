@@ -9,12 +9,9 @@ after_build:
 - ps: >-
     $dir = "c:\projects\box9d-leds-manager"
 
-
     Set-Location "$($dir)\web"
     
     npm install
-    
-    & "$($dir)\web\copyfiles.ps1"
 
     & "$($dir)\GenerateArtifacts.ps1"
 artifacts:

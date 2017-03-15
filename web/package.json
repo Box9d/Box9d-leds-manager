@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "postinstall": "webpack",
+    "postinstall": "webpack && copyfiles.bat",
     "start": "webpack-dev-server --progress --colors --watch --content-base dist/"
   },
   "dependencies": {
@@ -29,8 +29,7 @@
     "typescript": "^2.2.1",
     "typings": "^1.4.0",
     "webpack": "^2.2.1",
-    "webpack-dev-server": "^2.3.0",
-    "yarn": "^0.21.3"
+    "webpack-dev-server": "^2.3.0"
   },
   "repository": {
     "type": "git",
