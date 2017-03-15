@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "postinstall": "webpack && copyfiles.bat",
+    "prestart": "start \"\" \"../api/src/Box9.Leds.Manager.WebHost/bin/x86/Box9.Leds.Manager.WebHost.exe\" -q",
     "start": "webpack-dev-server --progress --colors --watch --content-base dist/"
   },
   "dependencies": {
