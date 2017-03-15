@@ -9,3 +9,5 @@ nuget:
   project_feed: true
 before_build:
 - cmd: cd .\api\src && nuget restore
+after build:
+- ps: build.ps1
