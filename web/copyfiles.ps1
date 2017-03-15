@@ -5,6 +5,7 @@ $reactSourceDir = "$($PSScriptRoot)\node_modules\react\dist"
 $reactTargetDir = "$($distDir)\lib\react\dist"
 $reactDomSourceDir = "$($PSScriptRoot)\node_modules\react-dom\dist"
 $reactDomTargetDir = "$($distDir)\lib\react-dom\dist"
+$htmlFileSource = "$($PSScriptRoot)\src\index.html"
 
 If (Test-Path $distDir)
 {
@@ -17,3 +18,4 @@ New-Item $reactDomTargetDir -type directory
 Copy-Item $assetsSourceDir $assetsTargetDir -Recurse
 Copy-Item "$($reactSourceDir)\react.js" $reactTargetDir
 Copy-Item "$($reactDomSourceDir)\react-dom.js" $reactDomTargetDir
+Copy-Item "$($htmlFileSource)" $distDir
