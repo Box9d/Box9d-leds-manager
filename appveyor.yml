@@ -12,9 +12,9 @@ after_build:
 
     Set-Location "$($dir)\web"
 
-    npm install
-
     & "$($dir)\web\copyfiles.ps1"
+    
+    npm install
 
     & "$($dir)\GenerateArtifacts.ps1"
 artifacts:
