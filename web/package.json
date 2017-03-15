@@ -4,8 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "prestart": "npm run-script lint",
-    "lint": "tslint -c tslint.json src/**/*.tsx --noUnusedParameters --noUnusedLocals",
+    "prestart": "copyfiles.bat",
     "start": "webpack-dev-server --progress --colors --watch --content-base dist/"
   },
   "dependencies": {
@@ -22,11 +21,16 @@
     "semantic-ui-react": "^0.64.7"
   },
   "devDependencies": {
+    "awesome-typescript-loader": "^3.1.2",
+    "browser-sync": "^2.17.5",
+    "browser-sync-webpack-plugin": "^1.1.4",
+    "source-map-loader": "^0.2.0",
     "tslint": "^4.4.2",
-    "typescript": "^2.1.5",
+    "typescript": "^2.2.1",
     "typings": "^1.4.0",
     "webpack": "^2.2.1",
-    "webpack-dev-server": "^2.3.0"
+    "webpack-dev-server": "^2.3.0",
+    "yarn": "^0.21.3"
   },
   "repository": {
     "type": "git",
