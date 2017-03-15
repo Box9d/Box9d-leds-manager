@@ -17,3 +17,5 @@ after_build:
     & "$($dir)\web\copyfiles.ps1"
 
     & "$($dir)\GenerateArtifacts.ps1"
+artifacts:
+- path: build
