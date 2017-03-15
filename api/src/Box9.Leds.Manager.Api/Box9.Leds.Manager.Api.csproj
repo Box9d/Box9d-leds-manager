@@ -189,6 +189,7 @@
     <Compile Include="Autofac\ApiModule.cs" />
     <Compile Include="Controllers\AppPreferencesController.cs" />
     <Compile Include="Controllers\DeviceController.cs" />
+    <Compile Include="Controllers\Metadata.cs" />
     <Compile Include="Controllers\ProjectDeviceVersionController.cs" />
     <Compile Include="Controllers\DeviceDiscoveryController.cs" />
     <Compile Include="Controllers\ProjectDeviceMappingController.cs" />
