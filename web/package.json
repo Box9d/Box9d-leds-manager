@@ -1,0 +1,41 @@
+{
+  "name": "box9d-leds-manager",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "prestart": "npm run-script lint",
+    "lint": "tslint -c tslint.json src/**/*.tsx --noUnusedParameters --noUnusedLocals",
+    "start": "webpack-dev-server --progress --colors --watch --content-base dist/"
+  },
+  "dependencies": {
+    "@types/es6-promise": "^0.0.32",
+    "@types/react": "^15.0.0",
+    "@types/react-redux": "^4.4.36",
+    "@types/react-dom": "^0.14.20",
+    "es6-promise": "^4.0.5",
+    "es6-promise-polyfill": "^1.2.0",
+    "react": "^15.4.2",
+    "react-dom": "^15.4.2",
+    "reflect-metadata": "^0.1.9",
+    "react-redux": "^5.0.2",
+    "semantic-ui-react": "^0.64.7"
+  },
+  "devDependencies": {
+    "tslint": "^4.4.2",
+    "typescript": "^2.1.5",
+    "typings": "^1.4.0",
+    "webpack": "^2.2.1",
+    "webpack-dev-server": "^2.3.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/box9d/box9d-leds-manager.git"
+  },
+  "author": "Box 9 Drumline",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/box9d/box9d-leds-manager/issues"
+  },
+  "homepage": "https://github.com/box9d/box9d-leds-manager#readme"
+}
