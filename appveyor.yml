@@ -1,18 +1,19 @@
 version: 1.0.{build}
-assembly_info:
-  patch: true
-  file: '**\AssemblyInfo.*'
-  assembly_version: '{version}'
-  assembly_file_version: '{version}'
-  assembly_informational_version: '{version}'
-nuget:
-  project_feed: true
+configuration: Debug
+platform: x86
 before_build:
 - cmd: cd .\api\src && nuget restore
+build:
+  verbosity: minimal
 after_build:
 - ps: >-
-    cd .\web && npm install
+    $dir = "c:\projects\box9d-leds-manager"
 
-    cd .\web && copyfiles.ps1
 
-    .\GenerateArtifacts.ps1
+    Set-Location "$($dir)\web"
+
+    npm install
+
+    & "$($dir)\web\copyfiles.ps1"
+
+    & "$($dir)\GenerateArtifacts.ps1"
