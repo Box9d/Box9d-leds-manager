@@ -10,4 +10,9 @@ nuget:
 before_build:
 - cmd: cd .\api\src && nuget restore
 after build:
-- ps: build.ps1
+- ps: >-
+    cd .\web && npm install
+
+    cd .\web && copyfiles.ps1
+
+    .\GenerateArtifacts.ps1

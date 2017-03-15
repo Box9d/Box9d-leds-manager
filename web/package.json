@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "prestart": "copyfiles.bat",
+    "postinstall": "webpack",
     "start": "webpack-dev-server --progress --colors --watch --content-base dist/"
   },
   "dependencies": {
