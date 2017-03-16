@@ -14,15 +14,12 @@ export class AppState implements IAppState {
     public NavState: NavState.INavState;
     public NewProjectFormState: NewProjectFormState.INewProjectFormState;
     public MessageState: MessageState.IMessagingState;
+    public BackgroundJobsState: BackgroundJobsState.IBackgroundJobsState;
 
     constructor() {
         this.NavState = new NavState.NavState();
         this.NewProjectFormState = new NewProjectFormState.NewProjectFormState();
         this.MessageState = new MessageState.MessagingState();
-    }
-    public BackgroundJobsState: BackgroundJobsState.IBackgroundJobsState;
-
-    constructor() {
         this.BackgroundJobsState = new BackgroundJobsState.BackgroundJobsState();
     }
 }

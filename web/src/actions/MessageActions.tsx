@@ -26,6 +26,6 @@ export const SetMessage = (message: string): IAction => {
 export const SetMessageType = (type: MessageType): IAction => {
     return {
         type: Actions.SetMessageType,
-        value: type
+        value: type,
     };
 };
