@@ -1,11 +1,11 @@
 import { connect } from "react-redux";
 import * as NavActions from "../actions/NavActions";
 import * as NavPresenter from "../presentation/NavPresenter";
-import { INavState } from "../state/NavState";
+import { IAppState } from "../state/AppState";
 
-const mapStateToProps = (state: INavState): NavPresenter.INavProps => {
+const mapStateToProps = (state: IAppState): NavPresenter.INavProps => {
     return {
-        selectedNavItem: state.SelectedNavItem,
+        selectedNavItem: state.NavState.SelectedNavItem,
     };
 };
 

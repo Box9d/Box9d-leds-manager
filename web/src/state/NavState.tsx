@@ -2,7 +2,7 @@ export interface INavState {
     SelectedNavItem: string;
 }
 
-export class DefaultNavState implements INavState {
+export class NavState implements INavState {
     public SelectedNavItem: string;
 
     constructor() {
