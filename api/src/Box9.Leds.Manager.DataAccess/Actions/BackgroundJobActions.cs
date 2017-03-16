@@ -2,12 +2,23 @@
 using Box9.Leds.Manager.DataAccess.Extensions;
 using Box9.Leds.Manager.DataAccess.Models;
 using Dapper.Contrib.Extensions;
+using System.Collections.Generic;
 using System.Data;
+using System.Linq;
 
 namespace Box9.Leds.Manager.DataAccess.Actions
 {
     public static class BackgroundJobActions
-    { 
+    {
+        public static DataAccessAction<IEnumerable<BackgroundJob>> GetAllJobs(bool includeCompleted = false)
+        {
+            return new DataAccessAction<IEnumerable<BackgroundJob>>((IDbConnection conn) =>
+            {
+                return conn.GetAll<BackgroundJob>()
+                    .Where(j => includeCompleted || j.Status != Core.Jobs.JobStatus.Complete);
+            });
+        }
+         
         public static DataAccessAction<BackgroundJob> CreateJob(string description)
         {
             return new DataAccessAction<BackgroundJob>((IDbConnection conn) =>
