@@ -3,6 +3,9 @@
   "rules": {
     "max-line-length": [
       false
+    ],
+    "max-classes-per-file": [
+      false
     ]
   }
 }
