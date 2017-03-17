@@ -3,16 +3,19 @@ using System.Web.Http;
 using Box9.Leds.Manager.DataAccess;
 using Box9.Leds.Manager.DataAccess.Actions;
 using Box9.Leds.Manager.DataAccess.Models;
+using Box9.Leds.Manager.Services.Store;
 
 namespace Box9.Leds.Manager.Api.Controllers
 {
     public class ProjectsController : ApiController
     {
         private readonly IDataAccessDispatcher dispatcher;
+        private readonly IStore store;
 
-        public ProjectsController(IDataAccessDispatcher dispatcher)
+        public ProjectsController(IDataAccessDispatcher dispatcher, IStore store)
         {
             this.dispatcher = dispatcher;
+            this.store = store;
         }
 
         [ActionName("GetAll")]
@@ -56,6 +59,24 @@ namespace Box9.Leds.Manager.Api.Controllers
         public GlobalJsonResult<EmptyResult> Delete(int id)
         {
             dispatcher.Dispatch(ProjectActions.DeleteProject(id));
+
+            return GlobalJsonResult<EmptyResult>.Success(System.Net.HttpStatusCode.NoContent);
+        }
+
+        [ActionName("SetWorkingProject")]
+        [HttpPost]
+        public GlobalJsonResult<EmptyResult> SetWorkingProject(int projectId)
+        {
+            store.SetCurrentProject(projectId);
+
+            return GlobalJsonResult<EmptyResult>.Success(System.Net.HttpStatusCode.Created);
+        }
+
+        [ActionName("ClearWorkingProject")]
+        [HttpDelete]
+        public GlobalJsonResult<EmptyResult> ClearWorkingProject()
+        {
+            store.ClearCurrentProject();
 
             return GlobalJsonResult<EmptyResult>.Success(System.Net.HttpStatusCode.NoContent);
         }

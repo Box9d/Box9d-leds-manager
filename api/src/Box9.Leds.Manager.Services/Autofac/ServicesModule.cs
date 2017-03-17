@@ -4,6 +4,7 @@ using Box9.Leds.Manager.PiApiClient.Autofac;
 using Box9.Leds.Manager.Services.DeviceSearch;
 using Box9.Leds.Manager.Services.DeviceStatus;
 using Box9.Leds.Manager.Services.Queueing;
+using Box9.Leds.Manager.Services.Store;
 using Box9.Leds.Manager.Services.VideoProcessing;
 
 namespace Box9.Leds.Manager.Services.Autofac
@@ -18,6 +19,10 @@ namespace Box9.Leds.Manager.Services.Autofac
 
             builder.RegisterType<BackgroundProcessor>()
                 .As<IBackgroundProcessor>()
+                .SingleInstance();
+
+            builder.RegisterType<InMemoryStore>()
+                .As<IStore>()
                 .SingleInstance();
 
             builder.RegisterType<Pinger>().As<IPinger>();
