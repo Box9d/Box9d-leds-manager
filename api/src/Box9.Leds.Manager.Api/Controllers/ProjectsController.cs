@@ -55,7 +55,7 @@ namespace Box9.Leds.Manager.Api.Controllers
         }
 
         [ActionName("Delete")]
-        [HttpDelete]
+        [HttpPost]
         public GlobalJsonResult<EmptyResult> Delete(int id)
         {
             dispatcher.Dispatch(ProjectActions.DeleteProject(id));
@@ -93,12 +93,12 @@ namespace Box9.Leds.Manager.Api.Controllers
         }
 
         [ActionName("ClearWorkingProject")]
-        [HttpDelete]
+        [HttpPost]
         public GlobalJsonResult<EmptyResult> ClearWorkingProject()
         {
             store.ClearCurrentProject();
 
-            return GlobalJsonResult<EmptyResult>.Success(System.Net.HttpStatusCode.NoContent);
+            return GlobalJsonResult<EmptyResult>.Success(System.Net.HttpStatusCode.OK);
         }
     }
 }
