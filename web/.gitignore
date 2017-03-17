@@ -36,3 +36,4 @@ yarn.lock
 index.js.map
 src/**/*.js
 dist/**/*
+*.sqlite

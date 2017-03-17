@@ -18,8 +18,8 @@ export class MessagePresenter extends React.Component<IMessageProps, IMessageSta
 
         return <div style={messagingDivStyling}>
             {!this.state.dismissed && this.props.state.Message != null && this.props.state.Message !== "" && this.props.state.Type === MessageType.Loading &&
-                <Message icon onDismiss={this.handleDismiss} color={this.getMessageColourFromType(this.props.state.Type) as any}>
-                    <Icon name="circle notched" loading />
+                <Message size="small" icon onDismiss={this.handleDismiss} color={this.getMessageColourFromType(this.props.state.Type) as any}>
+                    <Icon name="circle notched" size="small" loading />
                     <Message.Content>
                         <Message.Header>{this.props.state.Message}</Message.Header>
                     </Message.Content>
@@ -27,7 +27,7 @@ export class MessagePresenter extends React.Component<IMessageProps, IMessageSta
             }
 
             {!this.state.dismissed && this.props.state.Message != null && this.props.state.Message !== "" && this.props.state.Type !== MessageType.Loading &&
-                <Message onDismiss={this.handleDismiss} color={this.getMessageColourFromType(this.props.state.Type) as any} header={this.props.state.Message}/>
+                <Message size="small" onDismiss={this.handleDismiss} color={this.getMessageColourFromType(this.props.state.Type) as any} header={this.props.state.Message}/>
             }
         </div>;
     }

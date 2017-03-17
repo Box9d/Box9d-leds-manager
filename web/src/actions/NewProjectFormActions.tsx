@@ -1,3 +1,5 @@
+import * as ApiClient from "../../../api/build/ApiClient";
+import config from "../Config";
 import { INewProjectFormProps } from "../presentation/NewProjectFormPresenter";
 import { MessageType } from "../state/MessagingState";
 import { NewProjectFormValidator } from "../validation/NewProjectFormValidator";
@@ -27,7 +29,18 @@ export const CreateProject = (dispatch: any, props: INewProjectFormProps): IActi
         dispatch(ResetSubmissionAttempts());
         dispatch(MessageActions.SetMessageAndMessageType(dispatch, "Creating project...", MessageType.Loading));
 
-        // todo: submit to API
+        let project = new ApiClient.Project();
+        project.name = props.name;
+
+        let apiClient = new ApiClient.ProjectsClient(config.apiUrl);
+        apiClient.create(project).then((response: ApiClient.GlobalJsonResultOfProject) => {
+            if (response.successful) {
+                dispatch(ChangeNewProjectName(""));
+                dispatch(MessageActions.SetMessageAndMessageType(dispatch, "Project creation successful!", MessageType.Info));
+            } else {
+                dispatch(MessageActions.SetMessageAndMessageType(dispatch, "Project creation unsuccessful", MessageType.Error));
+            }
+        });
     }
 
     return {

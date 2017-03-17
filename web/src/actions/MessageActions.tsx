@@ -16,6 +16,13 @@ export const SetMessageAndMessageType = (dispatch: any, message: string, type: M
     };
 };
 
+export const ClearMessage = (): IAction => {
+    return {
+        type: Actions.SetMessage,
+        value: "",
+    };
+};
+
 export const SetMessage = (message: string): IAction => {
     return {
         type: Actions.SetMessage,
