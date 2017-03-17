@@ -1,5 +1,6 @@
 import { IAction } from "../actions/IAction";
 import { MessageReducer } from "../reducers/MessageReducer";
+import { ProjectReducer } from "../reducers/ProjectReducer";
 import { AppState } from "../state/AppState";
 import { IAppState } from "../state/AppState";
 import { BackgroundJobsReducer } from "./BackgroundJobsReducer";
@@ -13,9 +14,10 @@ export const appReducer = (state: IAppState = new AppState(), action: IAction): 
     newState.NavState = NavReducer(newState.NavState, action);
     newState = BackgroundJobsReducer(newState, action);
     newState.NewProjectFormState = NewProjectFormReducer(newState.NewProjectFormState, action);
-    newState.MessageState = MessageReducer(state.MessageState, action);
-    newState.OpenProjectState = OpenProjectReducer(state.OpenProjectState, action);
-    newState.WorkingProjectState = WorkingProjectReducer(state.WorkingProjectState, action);
+    newState.MessageState = MessageReducer(newState.MessageState, action);
+    newState.OpenProjectState = OpenProjectReducer(newState.OpenProjectState, action);
+    newState.WorkingProjectState = WorkingProjectReducer(newState.WorkingProjectState, action);
+    newState.ProjectState = ProjectReducer(newState.ProjectState, action);
 
     return (Object as any).assign({}, state, {}, { newState });
 };

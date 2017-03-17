@@ -1,13 +1,19 @@
 import * as ApiClient from "../../../api/build/ApiClient";
 
 export interface IVideoState {
-    Video: ApiClient.VideoReference;
+    ShouldFetchVideo: boolean;
+    VideoReference: ApiClient.VideoReference;
+    VideoMetadata: ApiClient.VideoMetadataResponse;
 }
 
 export class VideoState implements IVideoState {
-    public Video: ApiClient.VideoReference;
+    public VideoReference: ApiClient.VideoReference;
+    public ShouldFetchVideo: boolean;
+    public VideoMetadata: ApiClient.VideoMetadataResponse;
 
     constructor() {
-        this.Video = null;
+        this.VideoReference = null;
+        this.VideoMetadata = null;
+        this.ShouldFetchVideo = true;
     }
 }

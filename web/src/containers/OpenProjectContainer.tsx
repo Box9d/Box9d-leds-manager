@@ -5,7 +5,6 @@ import { IAppState } from "../state/AppState";
 
 const mapStateToProps = (state: IAppState): OpenProjectPresenter.IOpenProjectProps => {
     return {
-        modalIsOpen: state.OpenProjectState.ModalIsOpen,
     };
 };
 

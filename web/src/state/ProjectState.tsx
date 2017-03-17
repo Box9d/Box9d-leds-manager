@@ -1,13 +1,13 @@
 import * as VideoState from "./VideoState";
 
 export interface IProjectState {
-    VideoSelectionState?: VideoState.IVideoState;
+    VideoState?: VideoState.IVideoState;
 };
 
 export class ProjectState implements IProjectState {
-    public VideoSelectionState?: VideoState.IVideoState;
+    public VideoState?: VideoState.IVideoState;
 
     constructor() {
-        this.VideoSelectionState = new VideoState.VideoState();
+        this.VideoState = new VideoState.VideoState();
     }
 }

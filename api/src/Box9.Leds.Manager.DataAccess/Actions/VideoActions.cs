@@ -40,7 +40,7 @@ namespace Box9.Leds.Manager.DataAccess.Actions
                 Guard.This(conn.Get<Project>(projectId)).AgainstDefaultValue(string.Format("Project with id '{0}' does not exist", projectId));
                 Guard.This(conn.Get<VideoReference>(videoReferenceId)).AgainstDefaultValue(string.Format("Video reference with id '{0}' does not exist", videoReferenceId));
 
-                var existingProjectVideos = conn.Query<ProjectVideo>("SELECT * FROM ProjectVideo WHERE projectid = @projectid AND videoreferenceid = @videoid", new { projectId, videoReferenceId });
+                var existingProjectVideos = conn.Query<ProjectVideo>("SELECT * FROM ProjectVideo WHERE projectid = @projectid", new { projectId });
 
                 using (var transaction = conn.BeginTransaction())
                 {
@@ -57,6 +57,7 @@ namespace Box9.Leds.Manager.DataAccess.Actions
                         projectVideo.VideoReferenceId = videoReferenceId;
 
                         conn.Insert(projectVideo, transaction);
+                        transaction.Commit();
 
                         return projectVideo;
                     }

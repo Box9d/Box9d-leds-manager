@@ -20,6 +20,9 @@ namespace Box9.Leds.Manager.DataAccess.Models
 
             Guard.This(FilePath)
                 .WithRule(p => p.EndsWith(".mp4"), string.Format("File '{0}' must be an mp4 video file", FilePath));
+
+            Guard.This(FilePath)
+                .WithRule(p => File.Exists(FilePath), string.Format("File '{0}' does not exist", FilePath));
         }
 
         public bool DoesFilePathExist()

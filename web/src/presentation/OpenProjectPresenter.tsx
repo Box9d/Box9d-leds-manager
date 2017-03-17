@@ -15,6 +15,5 @@ export class OpenProjectPresenter extends React.Component<IOpenProjectProps, und
 }
 
 export interface IOpenProjectProps {
-    modalIsOpen?: boolean;
     onModalOpened?: () => void;
 }
