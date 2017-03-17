@@ -3,6 +3,7 @@ import * as MessageState from "./MessagingState";
 import * as NavState from "./NavState";
 import * as NewProjectFormState from "./NewProjectFormState";
 import * as OpenProjectState from "./OpenProjectState";
+import * as ProjectState from "./ProjectState";
 import * as WorkingProjectState from "./WorkingProjectState";
 
 export interface IAppState {
@@ -11,7 +12,8 @@ export interface IAppState {
     OpenProjectState?: OpenProjectState.IOpenProjectState;
     NewProjectFormState?: NewProjectFormState.INewProjectFormState;
     MessageState?: MessageState.IMessagingState;
-    WorkingProjectState?: WorkingProjectState.WorkingProjectState;
+    WorkingProjectState?: WorkingProjectState.IWorkingProjectState;
+    ProjectState?: ProjectState.IProjectState;
 }
 
 export class AppState implements IAppState {
@@ -21,6 +23,7 @@ export class AppState implements IAppState {
     public BackgroundJobsState: BackgroundJobsState.IBackgroundJobsState;
     public OpenProjectState: OpenProjectState.IOpenProjectState;
     public WorkingProjectState: WorkingProjectState.WorkingProjectState;
+    public ProjectState: ProjectState.ProjectState;
 
     constructor() {
         this.NavState = new NavState.NavState();
@@ -29,5 +32,6 @@ export class AppState implements IAppState {
         this.BackgroundJobsState = new BackgroundJobsState.BackgroundJobsState();
         this.OpenProjectState = new OpenProjectState.OpenProjectState();
         this.WorkingProjectState = new WorkingProjectState.WorkingProjectState();
+        this.ProjectState = new ProjectState.ProjectState();
     }
 }

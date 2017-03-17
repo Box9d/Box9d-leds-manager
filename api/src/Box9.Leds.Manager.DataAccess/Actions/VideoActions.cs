@@ -75,7 +75,7 @@ namespace Box9.Leds.Manager.DataAccess.Actions
             {
                 Guard.This(conn.Get<Project>(projectId)).AgainstDefaultValue(string.Format("Project with id '{0}' does not exist", projectId));
 
-                return conn.Query<VideoReference>("SELECT VideoReference.* FROM ProjectVideo INNER JOIN VideoReference ON ProjectVideo.videoreferenceid = VideoReference.id WHERE ProjectVideo.projectid = @projectid")
+                return conn.Query<VideoReference>("SELECT VideoReference.* FROM ProjectVideo INNER JOIN VideoReference ON ProjectVideo.videoreferenceid = VideoReference.id WHERE ProjectVideo.projectid = @projectid", new { projectId })
                     .SingleOrDefault();
             });
         }

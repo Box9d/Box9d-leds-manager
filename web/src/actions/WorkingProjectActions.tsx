@@ -89,9 +89,7 @@ export const ClearWorkingProject = (dispatch: any): IAction => {
     apiClient.clearWorkingProject().then((response: ApiClient.GlobalJsonResultOfEmptyResult) => {
         if (response.successful) {
             dispatch(MessageActions.ClearMessage());
-            return {
-                type: Actions.ClearWorkingProject,
-            };
+            dispatch({type: Actions.ClearWorkingProject});
         } else {
             dispatch(MessageActions.SetMessageAndMessageType(dispatch, "Could not clear the working project: " + response.errorMessage, MessageType.Error));
         }

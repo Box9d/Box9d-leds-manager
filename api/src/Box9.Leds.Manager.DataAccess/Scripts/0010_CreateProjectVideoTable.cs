@@ -16,7 +16,7 @@ namespace Box9.Leds.Manager.DataAccess.Scripts
         {
             get
             {
-                return "CREATE TABLE IF NOT EXISTS ProjectVideo(id INTEGER PRIMARY KEY, projectid INTEGER NOT NULL, videoid INTEGER NOT NULL)";
+                return "CREATE TABLE IF NOT EXISTS ProjectVideo(id INTEGER PRIMARY KEY, projectid INTEGER NOT NULL, videoreferenceid INTEGER NOT NULL)";
             }
         }
     }
