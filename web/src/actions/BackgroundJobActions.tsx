@@ -1,5 +1,8 @@
 import * as ApiClient from "../../../api/build/ApiClient";
+import config from "../Config";
+import { MessageType } from "../state/MessagingState";
 import { IAction } from "./IAction";
+import * as MessageActions from "./MessageActions";
 
 export class Actions {
     public static SetBackgroundJobs = "SET_BACKGROUND_JOBS";
@@ -9,14 +12,15 @@ export const FetchBackgroundJobs = (dispatch: any): IAction => {
 
     // todo: fetch using API and set message
 
-    // temp
-    let temporaryJobs = new Array<ApiClient.BackgroundJob>();
-    let temporaryJob = new ApiClient.BackgroundJob();
-    temporaryJob.description = "Doing something...";
-    temporaryJob.status = ApiClient.JobStatus.Processing;
-    temporaryJobs.push(temporaryJob);
-
-    dispatch(SetBackgroundJobs(temporaryJobs));
+    let apiClient = new ApiClient.BackgroundJobsClient(config.apiUrl);
+    apiClient.getAllJobs(false).then((response: ApiClient.GlobalJsonResultOfIEnumerableOfBackgroundJob) => {
+        if (response.successful) {
+            dispatch(MessageActions.ClearMessage());
+            dispatch(SetBackgroundJobs(response.result));
+        } else {
+            dispatch(MessageActions.SetMessageAndMessageType(dispatch, "Error whilst trying to retrieve background jobs", MessageType.Error));
+        }
+    });
 
     return {
         type: "DO_NOTHING",

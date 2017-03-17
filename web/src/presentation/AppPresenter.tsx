@@ -13,10 +13,8 @@ export class AppPresenter extends React.Component<IAppProps, undefined> {
                     <Messaging/>
                     <br/>
                     <Home/>
+                    <BackgroundJobs/>
                 </Container>
-            <Container>
-                <BackgroundJobs/>
-            </Container>
          </div>;
     }
 }
