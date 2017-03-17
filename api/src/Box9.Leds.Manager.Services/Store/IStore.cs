@@ -2,7 +2,7 @@
 {
     public interface IStore
     {
-        int GetCurrentProjectId();
+        int GetWorkingProjectId();
 
         void SetCurrentProject(int projectId);
 

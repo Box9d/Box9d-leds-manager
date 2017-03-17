@@ -16,7 +16,7 @@ namespace Box9.Leds.Manager.Services.Store
             currentProjectId = null;
         }
 
-        public int GetCurrentProjectId()
+        public int GetWorkingProjectId()
         {
             Guard.This(currentProjectId).AgainstDefaultValue("Current project has not been set");
 

@@ -72,6 +72,17 @@ namespace Box9.Leds.Manager.Api.Controllers
             return GlobalJsonResult<bool>.Success(System.Net.HttpStatusCode.OK, result);
         }
 
+
+        [ActionName("GetWorkingProject")]
+        [HttpGet]
+        public GlobalJsonResult<Project> GetWorkingProject()
+        {
+            var projectId = store.GetWorkingProjectId();
+            var result = dispatcher.Dispatch(ProjectActions.GetProject(projectId));
+
+            return GlobalJsonResult<Project>.Success(System.Net.HttpStatusCode.OK, result);
+        }
+
         [ActionName("SetWorkingProject")]
         [HttpPost]
         public GlobalJsonResult<EmptyResult> SetWorkingProject(int projectId)
