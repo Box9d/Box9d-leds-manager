@@ -5,6 +5,7 @@ import { MessageType } from "../state/MessagingState";
 import { NewProjectFormValidator } from "../validation/NewProjectFormValidator";
 import { IAction } from "./IAction";
 import * as MessageActions from "./MessageActions";
+import * as WorkingProjectActions from "./WorkingProjectActions";
 
 export class Actions {
     public static AddToSubmissionAttempts = "SET_SUBMISSION_ATTEMPTS";
@@ -37,6 +38,7 @@ export const CreateProject = (dispatch: any, props: INewProjectFormProps): IActi
             if (response.successful) {
                 dispatch(ChangeNewProjectName(""));
                 dispatch(MessageActions.SetMessageAndMessageType(dispatch, "Project creation successful!", MessageType.Info));
+                dispatch(WorkingProjectActions.SetWorkingProject(dispatch, response.result.id));
             } else {
                 dispatch(MessageActions.SetMessageAndMessageType(dispatch, "Project creation unsuccessful", MessageType.Error));
             }

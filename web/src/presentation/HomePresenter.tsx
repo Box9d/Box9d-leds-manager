@@ -2,6 +2,7 @@ import * as React from "react";
 import { Button, Container, Divider, Form, Grid, Header, Rail, Segment } from "semantic-ui-react";
 import NewProjectForm from "../containers/NewProjectFormContainer";
 import OpenProject from "../containers/OpenProjectContainer";
+import ProjectOverview from "../containers/ProjectOverviewContainer";
 
 export class HomePresenter extends React.Component<IHomeProps, undefined> {
     public render() {
@@ -15,7 +16,7 @@ export class HomePresenter extends React.Component<IHomeProps, undefined> {
         }
 
         if (this.props.hasCheckedForWorkingProject && this.props.hasWorkingProject) {
-            return <div>Project is set innit</div>;
+            return <ProjectOverview/>;
         }
 
         return <div>

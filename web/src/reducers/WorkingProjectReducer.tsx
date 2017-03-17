@@ -8,10 +8,10 @@ export const WorkingProjectReducer = (state: IWorkingProjectState, action: IActi
     switch (action.type) {
         case Actions.SetWorkingProject:
             newState.IsSet = true;
-            newState.ProjectId = action.value;
+            newState.Project = action.value;
             break;
         case Actions.ClearWorkingProject:
-            newState.ProjectId = 0;
+            newState.Project = null;
             newState.IsSet = false;
             break;
         case Actions.HasCheckedProjectIsSet:
