@@ -1,5 +1,4 @@
 ﻿using Box9.Leds.Manager.Core.Validation;
-using System;
 
 namespace Box9.Leds.Manager.Services.Store
 {
@@ -22,6 +21,11 @@ namespace Box9.Leds.Manager.Services.Store
             Guard.This(currentProjectId).AgainstDefaultValue("Current project has not been set");
 
             return currentProjectId.Value;
+        }
+
+        public bool HasWorkingProject()
+        {
+            return currentProjectId.HasValue;
         }
 
         public void SetCurrentProject(int projectId)

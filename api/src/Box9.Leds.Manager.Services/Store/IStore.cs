@@ -7,5 +7,7 @@
         void SetCurrentProject(int projectId);
 
         void ClearCurrentProject();
+
+        bool HasWorkingProject();
     }
 }

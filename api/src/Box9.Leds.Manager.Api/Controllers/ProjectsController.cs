@@ -63,6 +63,15 @@ namespace Box9.Leds.Manager.Api.Controllers
             return GlobalJsonResult<EmptyResult>.Success(System.Net.HttpStatusCode.NoContent);
         }
 
+        [ActionName("HasWorkingProject")]
+        [HttpGet]
+        public GlobalJsonResult<bool> HasWorkingProject()
+        {
+            var result = store.HasWorkingProject();
+
+            return GlobalJsonResult<bool>.Success(System.Net.HttpStatusCode.OK, result);
+        }
+
         [ActionName("SetWorkingProject")]
         [HttpPost]
         public GlobalJsonResult<EmptyResult> SetWorkingProject(int projectId)
