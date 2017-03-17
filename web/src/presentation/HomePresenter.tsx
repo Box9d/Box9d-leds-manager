@@ -9,6 +9,15 @@ export class HomePresenter extends React.Component<IHomeProps, undefined> {
             return <div></div>;
         }
 
+        if (!this.props.hasCheckedForWorkingProject) {
+            this.props.checkForWorkingProject();
+            return <div></div>;
+        }
+
+        if (this.props.hasCheckedForWorkingProject && this.props.hasWorkingProject) {
+            return <div>Project is set innit</div>;
+        }
+
         return <div>
             <Header as="h3" dividing textAlign="center">
                 Box 9D LED Configuration Manager
@@ -32,6 +41,8 @@ export class HomePresenter extends React.Component<IHomeProps, undefined> {
 }
 
 export interface IHomeProps {
+    hasWorkingProject?: boolean;
+    hasCheckedForWorkingProject?: boolean;
+    checkForWorkingProject?: () => void;
     selectedNavItem?: string;
-    openProjectProjectOnClick?: () => void;
 }
