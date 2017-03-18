@@ -1,6 +1,6 @@
 import * as React from "react";
 import { Header } from "semantic-ui-react";
-import './styles/SettingsPresenter.scss';
+import '../styles/SettingsPresenter.scss';
 
 export class SettingsPresenter extends React.Component<ISettingsProps, undefined> {
     public render() {
