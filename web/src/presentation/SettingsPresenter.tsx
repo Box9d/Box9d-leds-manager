@@ -8,9 +8,11 @@ export class SettingsPresenter extends React.Component<ISettingsProps, undefined
             return <div></div>;
         }
 
-        return <div className="test">
+        return <div>
             <Header as="h1">Settings</Header>
-            Test
+            <div className="test">
+                Test
+            </div>    
         </div>;
     }
 }
