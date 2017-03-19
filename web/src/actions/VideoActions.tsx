@@ -58,7 +58,7 @@ export const SetProjectVideo = (dispatch: any, projectId: number, fileUploadForm
                             dispatch(MessageActions.SetMessageAndMessageType(dispatch, "Could not set project video reference: " + response.errorMessage, MessageType.Error));
                         } else {
                             dispatch(MessageActions.SetMessageAndMessageType(dispatch, "Video upload successful", MessageType.Info));
-                            dispatch({type: Actions.SetShouldFetchVideo, value: false});
+                            dispatch({type: Actions.SetShouldFetchVideo, value: true});
                         }
                     });
                 }
