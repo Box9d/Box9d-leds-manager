@@ -8,6 +8,7 @@ using System.Diagnostics;
 using System.Threading;
 using Box9.Leds.Manager.DataAccess;
 using Box9.Leds.Manager.DataAccess.Actions;
+using System.Linq;
 
 namespace Box9.Leds.Manager.Services.VideoUpload
 {
@@ -45,10 +46,12 @@ namespace Box9.Leds.Manager.Services.VideoUpload
 
             var filePath = Path.Combine(UploadDirectory(), fileName);
 
-            using (var requestStream = request.Content.ReadAsStreamAsync().Result)
-            using (var fileStream = File.Create(filePath))
+            var provider = request.Content.ReadAsMultipartAsync().Result;
+            var fileContent = provider.Contents.SingleOrDefault();
+            Guard.This(fileContent).AgainstDefaultValue("Upload was found not to contain any file");
+            using (var fileStream = File.OpenWrite(filePath))
             {
-                requestStream.CopyToAsync(fileStream).Wait();
+                fileContent.CopyToAsync(fileStream).Wait();
             }
 
             isUploading = false;
