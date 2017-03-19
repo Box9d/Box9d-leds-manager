@@ -4,6 +4,7 @@ import { Provider } from "react-redux";
 import { createStore } from "redux";
 import App from "./containers/AppContainer";
 import { appReducer } from "./reducers/AppReducer";
+import 'semantic-ui-css/semantic.min.css';
 
 ReactDOM.render(
     <Provider store={createStore(appReducer)}>
