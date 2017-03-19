@@ -16,12 +16,12 @@ namespace Box9.Leds.Manager.Api.Autofac
             builder.RegisterModule<ServicesModule>();
             builder.RegisterModule<CoreModule>();
 
-            builder.RegisterType<HangfireActionFilter>().AsWebApiActionFilterFor<DeviceController>();
-            builder.RegisterType<HangfireActionFilter>().AsWebApiActionFilterFor<DeviceDiscoveryController>();
-            builder.RegisterType<HangfireActionFilter>().AsWebApiActionFilterFor<ProjectDeviceMappingController>();
-            builder.RegisterType<HangfireActionFilter>().AsWebApiActionFilterFor<ProjectDeviceVersionController>();
-            builder.RegisterType<HangfireActionFilter>().AsWebApiActionFilterFor<ProjectsController>();
-            builder.RegisterType<HangfireActionFilter>().AsWebApiActionFilterFor<VideoController>();
+            //builder.RegisterType<HangfireActionFilter>().AsWebApiActionFilterFor<DeviceController>();
+            //builder.RegisterType<HangfireActionFilter>().AsWebApiActionFilterFor<DeviceDiscoveryController>();
+            //builder.RegisterType<HangfireActionFilter>().AsWebApiActionFilterFor<ProjectDeviceMappingController>();
+            //builder.RegisterType<HangfireActionFilter>().AsWebApiActionFilterFor<ProjectDeviceVersionController>();
+            //builder.RegisterType<HangfireActionFilter>().AsWebApiActionFilterFor<ProjectsController>();
+            //builder.RegisterType<HangfireActionFilter>().AsWebApiActionFilterFor<VideoController>();
         }
     }
 }

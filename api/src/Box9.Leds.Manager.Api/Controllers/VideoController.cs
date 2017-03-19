@@ -7,6 +7,11 @@ using Box9.Leds.Manager.Api.Responses;
 using Box9.Leds.Manager.Core.Validation;
 using Box9.Leds.Manager.Services.VideoProcessing;
 using System.IO;
+using System.Net.Http;
+using System.Linq;
+using Box9.Leds.Manager.Services.Store;
+using System;
+using Box9.Leds.Manager.Services.VideoUpload;
 
 namespace Box9.Leds.Manager.Api.Controllers
 {
@@ -14,11 +19,13 @@ namespace Box9.Leds.Manager.Api.Controllers
     {
         private readonly IDataAccessDispatcher dispatcher;
         private readonly IVideoFileReader videoFileReader;
+        private readonly IVideoUploader videoUploader;
 
-        public VideoController(IDataAccessDispatcher dispatcher, IVideoFileReader videoFileReader)
+        public VideoController(IDataAccessDispatcher dispatcher, IVideoFileReader videoFileReader, IVideoUploader videoUploader)
         {
             this.dispatcher = dispatcher;
             this.videoFileReader = videoFileReader;
+            this.videoUploader = videoUploader;
         }
 
         [HttpGet]
@@ -31,10 +38,26 @@ namespace Box9.Leds.Manager.Api.Controllers
         }
 
         [HttpPost]
-        [ActionName("CreateVideoReference")]
-        public GlobalJsonResult<VideoReference> CreateVideoReference(VideoReference video)
+        [ActionName("PreUploadVideo")]
+        public GlobalJsonResult<EmptyResult> PreUploadVideo(string fileName)
         {
-            var result = dispatcher.Dispatch(VideoActions.CreateVideoReference(video));
+            videoUploader.PreUpload(fileName);
+
+            return GlobalJsonResult<EmptyResult>.Success(System.Net.HttpStatusCode.OK);
+        }
+
+        [HttpPost]
+        [ActionName("StartVideoUpload")]
+        public void StartVideoUpload()
+        {
+            videoUploader.Upload(this.Request);
+        }
+
+        [HttpGet]
+        [ActionName("FinishVideoUpload")]
+        public GlobalJsonResult<VideoReference> FinishVideoUpload()
+        {
+            var result = videoUploader.ConsumeAndFinishUpload();
 
             return GlobalJsonResult<VideoReference>.Success(System.Net.HttpStatusCode.OK, result);
         }
@@ -64,11 +87,10 @@ namespace Box9.Leds.Manager.Api.Controllers
         }
 
         [HttpPost]
-        [ActionName("AddVideoToProject")]
-        public GlobalJsonResult<ProjectVideo> AddVideoToProject(int projectId, int videoReferenceId)
-        {
+        [ActionName("AddMostRecentVideoUploadToProject")]
+        public GlobalJsonResult<ProjectVideo> AddMostRecentVideoUploadToProject(int projectId, int videoReferenceId)
+        {           
             var result = dispatcher.Dispatch(VideoActions.SetVideoForProject(projectId, videoReferenceId));
-            var video = dispatcher.Dispatch(VideoActions.GetVideoForProject(projectId));
 
             return GlobalJsonResult<ProjectVideo>.Success(System.Net.HttpStatusCode.Created, result);
         }

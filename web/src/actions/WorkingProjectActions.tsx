@@ -3,6 +3,7 @@ import config from "../Config";
 import { MessageType } from "../state/MessagingState";
 import { IAction } from "./IAction";
 import * as MessageActions from "./MessageActions";
+import * as VideoActions from "./VideoActions";
 
 export class Actions {
     public static SetWorkingProject = "SET_WORKING_PROJECT";
@@ -90,6 +91,7 @@ export const ClearWorkingProject = (dispatch: any): IAction => {
         if (response.successful) {
             dispatch(MessageActions.ClearMessage());
             dispatch({type: Actions.ClearWorkingProject});
+            dispatch({type: VideoActions.Actions.SetShouldFetchVideo, value: true});
         } else {
             dispatch(MessageActions.SetMessageAndMessageType(dispatch, "Could not clear the working project: " + response.errorMessage, MessageType.Error));
         }

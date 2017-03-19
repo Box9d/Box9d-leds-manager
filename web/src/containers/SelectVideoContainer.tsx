@@ -18,7 +18,7 @@ const mapStateToProps = (state: IAppState): SelectVideoPresenter.ISelectVideoPro
 const mapDispatchToProps = (dispatch: any): SelectVideoPresenter.ISelectVideoProps => {
     return {
         fetchVideo: (projectId: number) => dispatch(VideoActions.FetchProjectVideo(dispatch, projectId)),
-        onFileSelect: (projectId: number, filePath: string) => dispatch(VideoActions.SetProjectVideo(dispatch, projectId, filePath)),
+        onFileSelect: (fileName: string, fileUploadForm: any, projectId: number) => dispatch(VideoActions.SetProjectVideo(dispatch, projectId, fileUploadForm, fileName)),
     };
 };
 

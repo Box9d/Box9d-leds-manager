@@ -1,4 +1,6 @@
-﻿using Box9.Leds.Manager.Core.Validation;
+﻿using System;
+using Box9.Leds.Manager.Core.Validation;
+using Box9.Leds.Manager.DataAccess.Models;
 
 namespace Box9.Leds.Manager.Services.Store
 {

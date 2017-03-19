@@ -11,7 +11,6 @@ export class HomePresenter extends React.Component<IHomeProps, undefined> {
         }
 
         if (!this.props.hasCheckedForWorkingProject) {
-            this.props.checkForWorkingProject();
             return <div></div>;
         }
 
@@ -38,6 +37,12 @@ export class HomePresenter extends React.Component<IHomeProps, undefined> {
                 </Grid.Column>
             </Grid>   
         </div>;
+    }
+
+    public componentDidMount(): void {
+        if (!this.props.hasCheckedForWorkingProject) {
+            this.props.checkForWorkingProject();
+        }
     }
 }
 

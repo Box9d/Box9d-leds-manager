@@ -7,6 +7,7 @@ import OpenProjectModal from "../containers/OpenProjectModalContainer";
 export class SelectVideoPresenter extends React.Component<ISelectVideoProps, undefined> {
 
     private fileBrowser: any;
+    private form: any;
 
     constructor(props: ISelectVideoProps) {
         super(props);
@@ -55,7 +56,9 @@ export class SelectVideoPresenter extends React.Component<ISelectVideoProps, und
             {
                 this.props.hasCheckedVideoState &&
                 <div>
-                <input id="fileinput" type="file" style={fileInputStyle} ref={(input: any) => { this.fileBrowser = input; }} onChange={this.submitFile}/>
+                <form ref={(form: any) => {this.form = form; }} action={config.apiUrl + "/api/Video/StartVideoUpload"} method="post" encType="multipart/form-data">
+                    <input id="fileinput" type="file" name="fileInput" style={fileInputStyle} ref={(input: any) => { this.fileBrowser = input; }} onChange={this.submitFile}/>
+                </form>
                     <Button id="fileInputButton" primary onClick={this.openFileBrowser}>Browse for video...</Button>
                 </div>
             }
@@ -67,7 +70,12 @@ export class SelectVideoPresenter extends React.Component<ISelectVideoProps, und
     }
 
     public submitFile = () => {
-        this.props.onFileSelect(this.props.projectId, this.fileBrowser.value);
+
+        let fileName = this.fileBrowser.value
+            .replace("c:\\fakepath\\", "")
+            .replace("C:\\fakepath\\", "");
+
+        this.props.onFileSelect(fileName, this.form, this.props.projectId);
     }
 }
 
@@ -78,5 +86,5 @@ export interface ISelectVideoProps {
     hasVideo?: boolean;
     videoMetadata?: ApiClient.VideoMetadataResponse;
     videoFilePath?: string;
-    onFileSelect?: (projectId: number, filePath: string) => void;
+    onFileSelect?: (fileName: string, fileUploadForm: any, projectId: number) => void;
 }

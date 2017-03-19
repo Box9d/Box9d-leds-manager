@@ -1,4 +1,7 @@
-﻿namespace Box9.Leds.Manager.Services.Store
+﻿using Box9.Leds.Manager.DataAccess.Models;
+using System;
+
+namespace Box9.Leds.Manager.Services.Store
 {
     public interface IStore
     {

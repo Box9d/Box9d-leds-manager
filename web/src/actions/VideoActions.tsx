@@ -39,21 +39,28 @@ export const FetchProjectVideo = (dispatch: any, projectId: number): IAction => 
     };
 };
 
-export const SetProjectVideo = (dispatch: any, projectId: number, videoFilePath: string): IAction => {
+export const SetProjectVideo = (dispatch: any, projectId: number, fileUploadForm: any, fileName: string): IAction => {
+
+    dispatch(MessageActions.SetMessageAndMessageType(dispatch, "Uploading video...", MessageType.Loading));
+
     let apiClient = new ApiClient.VideoClient(config.apiUrl);
-
-    let projectVideo = new ApiClient.VideoReference();
-    projectVideo.filePath = videoFilePath;
-
-    apiClient.createVideoReference(projectVideo).then((response: ApiClient.GlobalJsonResultOfVideoReference) => {
-        if (!response.successful) {
-            dispatch(MessageActions.SetMessageAndMessageType(dispatch, "Could not set project video reference: " + response.errorMessage, MessageType.Error));
+    apiClient.preUploadVideo(fileName).then((preUploadResponse: ApiClient.GlobalJsonResultOfEmptyResult) => {
+        if (!preUploadResponse.successful) {
+                dispatch(MessageActions.SetMessageAndMessageType(dispatch, "Could not set start video upload: " + preUploadResponse.errorMessage, MessageType.Error));
         } else {
-            apiClient.addVideoToProject(projectId, response.result.id).then((createProjectVideoResponse: ApiClient.GlobalJsonResultOfProjectVideo) => {
-                if (!createProjectVideoResponse.successful) {
-                    dispatch(MessageActions.SetMessageAndMessageType(dispatch, "Could not set project video reference: " + response.errorMessage, MessageType.Error));
+            fileUploadForm.submit();
+            apiClient.finishVideoUpload().then((finishUploadResponse: ApiClient.GlobalJsonResultOfVideoReference) => {
+                if (!finishUploadResponse.successful) {
+                    dispatch(MessageActions.SetMessageAndMessageType(dispatch, "An unknown error occurred whilst upload the video", MessageType.Error));
                 } else {
-                    dispatch({type: Actions.SetShouldFetchVideo, value: true});
+                    apiClient.addMostRecentVideoUploadToProject(projectId, finishUploadResponse.result.id).then((response: ApiClient.GlobalJsonResultOfProjectVideo) => {
+                        if (!response.successful) {
+                            dispatch(MessageActions.SetMessageAndMessageType(dispatch, "Could not set project video reference: " + response.errorMessage, MessageType.Error));
+                        } else {
+                            dispatch(MessageActions.SetMessageAndMessageType(dispatch, "Video upload successful", MessageType.Info));
+                            dispatch({type: Actions.SetShouldFetchVideo, value: false});
+                        }
+                    });
                 }
             });
         }

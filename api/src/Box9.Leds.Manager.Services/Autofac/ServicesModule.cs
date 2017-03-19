@@ -1,4 +1,5 @@
 ﻿using Autofac;
+using Box9.Leds.Manager.Core.Autofac;
 using Box9.Leds.Manager.DataAccess.Autofac;
 using Box9.Leds.Manager.PiApiClient.Autofac;
 using Box9.Leds.Manager.Services.DeviceSearch;
@@ -6,6 +7,7 @@ using Box9.Leds.Manager.Services.DeviceStatus;
 using Box9.Leds.Manager.Services.Queueing;
 using Box9.Leds.Manager.Services.Store;
 using Box9.Leds.Manager.Services.VideoProcessing;
+using Box9.Leds.Manager.Services.VideoUpload;
 
 namespace Box9.Leds.Manager.Services.Autofac
 {
@@ -25,6 +27,10 @@ namespace Box9.Leds.Manager.Services.Autofac
                 .As<IStore>()
                 .SingleInstance();
 
+            builder.RegisterType<VideoUploader>()
+                .As<IVideoUploader>()
+                .SingleInstance();
+
             builder.RegisterType<Pinger>().As<IPinger>();
             builder.RegisterType<FadeCandyPinger>().As<IFadeCandyPinger>();
             builder.RegisterType<VideoFileReaderWrapper>().As<IVideoFileReader>();
@@ -34,6 +40,7 @@ namespace Box9.Leds.Manager.Services.Autofac
             builder.RegisterType<PiSyncJobProcessor>().As<IPiSyncJobProcessor>();
             builder.RegisterType<BackgroundJobLogger>().As<IBackgroundJobLogger>();
 
+            builder.RegisterModule<CoreModule>();
             builder.RegisterModule<DataAccessModule>();
             builder.RegisterModule<PiApiClientModule>();
         }
