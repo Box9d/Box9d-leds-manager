@@ -29,6 +29,15 @@ namespace Box9.Leds.Manager.Api.Controllers
             return GlobalJsonResult<EmptyResult>.Success(HttpStatusCode.OK);
         }
 
+        [ActionName("CancelSearchForDevices")]
+        [HttpPost]
+        public GlobalJsonResult<EmptyResult> CancelSearchForDevices()
+        {
+            deviceSearch.CancelSearch();
+
+            return GlobalJsonResult<EmptyResult>.Success(HttpStatusCode.OK);
+        }
+
         [ActionName("GetDeviceSearchStatus")]
         [HttpGet]
         public GlobalJsonResult<DeviceSearchStatus> GetDeviceSearchStatus()
