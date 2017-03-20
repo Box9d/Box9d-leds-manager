@@ -1,5 +1,6 @@
 import * as React from "react";
 import { Container, Icon, Menu } from "semantic-ui-react";
+import '../styles/NavStyles.scss';
 
 export class NavPresenter extends React.Component<INavProps, undefined> {
     public render() {
