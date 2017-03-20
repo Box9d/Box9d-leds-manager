@@ -55,10 +55,14 @@ namespace Box9.Leds.Manager.Services.DeviceSearch
         {
             currentSearchTokenSource.Cancel();
             currentSearchTokenSource.Dispose();
+
+            isSearching = false;
         }
 
         private void Search()
         {
+            currentSearchTokenSource = new CancellationTokenSource();
+
             try
             {
                 var appPreferences = dispatcher.Dispatch(AppPreferencesActions.GetAppPreferences());
