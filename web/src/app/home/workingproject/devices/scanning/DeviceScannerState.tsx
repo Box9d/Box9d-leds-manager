@@ -2,7 +2,7 @@ import * as ApiClient from "../../../../../../../api/build/ApiClient";
 
 export interface IDeviceScannerState {
     IsScanning: boolean;
-    Devices: ApiClient.DiscoveredDevice[]
+    Devices: ApiClient.DiscoveredDevice[];
 };
 
 export class DeviceScannerState implements IDeviceScannerState {

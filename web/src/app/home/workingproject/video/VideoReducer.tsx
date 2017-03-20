@@ -15,7 +15,7 @@ export const VideoReducer = (state: IVideoState, action: IAction): IVideoState =
         case Actions.SetVideoReference:
             newState.VideoReference = action.value;
             break;
-        default: return state;
+        default: break;
     }
 
     return (Object as any).assign({}, state, {}, { newState });

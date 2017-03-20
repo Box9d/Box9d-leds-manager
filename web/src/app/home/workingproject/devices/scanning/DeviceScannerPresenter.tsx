@@ -17,7 +17,7 @@ export class DeviceScannerPresenter extends React.Component<IDeviceScannerProps,
            <Button primary loading={this.props.isScanning} onClick={this.props.scan}>Scan</Button>
            <Button onClick={this.props.cancelScan}>Cancel</Button>
            {
-               this.props.isScanning &&
+               (this.props.isScanning || this.props.devices.length) > 0 &&
                <Table>
                     <Table.Header>
                         <Table.Row>
@@ -29,10 +29,10 @@ export class DeviceScannerPresenter extends React.Component<IDeviceScannerProps,
                     <Table.Body>
                             {
                                 this.props.devices.map((d: ApiClient.DiscoveredDevice) => {
-                                return <Table.Row>
+                                return <Table.Row key={d.ipAddress}>
                                         <Table.Cell>{d.name}</Table.Cell>
                                         <Table.Cell>{d.ipAddress}</Table.Cell>
-                                        <Table.Cell><Button icon><Icon name="add" /></Button></Table.Cell>
+                                        <Table.Cell><Button icon onClick={(e: any) => this.props.addDeviceToProject(d, this.props.projectId)}><Icon name="add" /></Button></Table.Cell>
                                     </Table.Row>;
                             })}
                     </Table.Body>

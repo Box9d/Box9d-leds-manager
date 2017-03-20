@@ -10,8 +10,8 @@ export const DeviceScannerReducer = (state: IDeviceScannerState, action: IAction
         case Actions.SetScanningStatus:
             newState.IsScanning = action.value;
             break;
-        case Actions.AddDiscoveredDevice:
-            newState.Devices.push(action.value);
+        case Actions.SetDiscoveredDevices:
+            newState.Devices = action.value;
             break;
         default: newState = state;
     }

@@ -1,5 +1,6 @@
 import { connect } from "react-redux";
 import * as ApiClient from "../../../../../../../api/build/ApiClient";
+import config from "../../../../../Config";
 import { IAppState } from "../../../../AppState";
 import * as DeviceScannerActions from "./DeviceScannerActions";
 import * as DeviceScannerPresenter from "./DeviceScannerPresenter";
@@ -16,7 +17,7 @@ const mapDispatchToProps = (dispatch: any): DeviceScannerPresenter.IDeviceScanne
     return {
         addDeviceToProject: (device: ApiClient.DiscoveredDevice, projectId: number) => DeviceScannerActions.AddDeviceToProject(dispatch, device, projectId),
         cancelScan: () => DeviceScannerActions.CancelScanningForDevices(dispatch),
-        scan: () => DeviceScannerActions.ScanForDevices(dispatch),
+        scan: () => DeviceScannerActions.ScanForDevices(dispatch, config.deviceScanPollPeriodInMilliseconds),
     };
 };
 
