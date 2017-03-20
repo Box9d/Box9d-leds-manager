@@ -1,6 +1,7 @@
 import * as React from "react";
 import { Button, Container, Divider, Grid, Header, Label, Menu, Modal, Segment } from "semantic-ui-react";
 import * as ApiClient from "../../../../../api/build/ApiClient";
+import DevicesOverview from "./devices/DevicesOverviewContainer";
 import SelectVideo from "./video/SelectVideoContainer";
 import VideoConfigurationStatus from "./video/VideoConfigurationStatusContainer";
 
@@ -47,6 +48,12 @@ export class ProjectOverviewPresenter extends React.Component<IProjectOverviewPr
                         this.state.selectedNavigationItem === "video" &&
                         <Segment>
                             <SelectVideo/>
+                        </Segment>
+                    }
+                    {
+                        this.state.selectedNavigationItem === "devices" &&
+                        <Segment>
+                            <DevicesOverview/>
                         </Segment>
                     }
                 </Grid.Column>         
