@@ -1,0 +1,27 @@
+@import 'global';
+
+.ui.inverted.menu {
+    a.item {
+        color: #ddd;
+        @include transition(all 0.1s);
+        &.active {
+            background: #444;
+            color: #eee;
+            &:hover {            
+                background: #555;
+                color: #fff;
+            }
+        }
+        &:hover {            
+            background: #555;
+            color: #fff;
+        }
+        &:before {
+            background: none;
+        }
+        &>i.icon {         
+            margin: 0;
+            font-size: 25px;
+        }
+    }
+}
