@@ -17,10 +17,15 @@ namespace Box9.Leds.Manager.Services.DeviceSearch
                 .Take(3)
                 .Aggregate((prev, curr) => prev += "." + curr);
 
+            var ips = new List<string>();
             for (int i = start; i <= end; i++)
             {
-                yield return ipAddressPrefix + "." + i;
+                ips.Add(ipAddressPrefix + "." + i);
             }
+
+            ips.Add("127.0.0.1"); // Always search on the loopback IP as well
+
+            return ips;
         }
     }
 }
