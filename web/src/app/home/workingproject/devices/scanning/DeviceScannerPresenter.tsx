@@ -14,8 +14,8 @@ export class DeviceScannerPresenter extends React.Component<IDeviceScannerProps,
        return <div>
            <p>Click scan to begin scanning for devices</p>
            <br/>
-           <Button primary loading={this.props.isScanning}>Scan</Button>
-           <Button>Cancel</Button>
+           <Button primary loading={this.props.isScanning} onClick={this.props.scan}>Scan</Button>
+           <Button onClick={this.props.cancelScan}>Cancel</Button>
            {
                this.props.isScanning &&
                <Table>
@@ -44,7 +44,10 @@ export class DeviceScannerPresenter extends React.Component<IDeviceScannerProps,
 }
 
 export interface IDeviceScannerProps {
+    projectId?: number;
     isScanning?: boolean;
     devices?: ApiClient.DiscoveredDevice[];
-    addDeviceToProject?: (device: ApiClient.DiscoveredDevice) => void;
+    scan?: () => void;
+    cancelScan?: () => void;
+    addDeviceToProject?: (device: ApiClient.DiscoveredDevice, projectId: number) => void;
 }

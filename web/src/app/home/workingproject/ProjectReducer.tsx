@@ -1,16 +1,12 @@
 import { IAction } from "../../../actions/IAction";
+import { DevicesOverviewReducer } from "./devices/DevicesOverviewReducer";
 import { IProjectState } from "./ProjectState";
 import { VideoReducer } from "./video/VideoReducer";
 
 export const ProjectReducer = (state: IProjectState, action: IAction): IProjectState => {
     let newState: IProjectState = state;
     newState.VideoState = VideoReducer(newState.VideoState, action);
+    newState.DevicesOverviewState = DevicesOverviewReducer(newState.DevicesOverviewState, action);
 
-    switch (action.type) {
-        // todo:
-
-        default: return state;
-    }
-
-    // return (Object as any).assign({}, state, {}, { newState });
+    return (Object as any).assign({}, state, {}, { newState });
 };
