@@ -9,24 +9,24 @@ import Settings from "./settings/SettingsContainer";
 export class AppPresenter extends React.Component<IAppProps, undefined> {
     public render() {
         return <div>
-                <Nav/>
-                <Container>
-                    <Messaging/>
-                    <br/>
-                    {
-                        this.props.selectedNavItem === "home" &&
-                        <Home/>
-                    }
-                    {
-                        this.props.selectedNavItem === "backgroundjobs" &&
-                        <BackgroundJobs/>
-                    }
-                    {
-                        this.props.selectedNavItem === "settings" &&
-                        <Settings/>
-                    }
-                </Container>
-         </div>;
+            <Nav />
+            <Container>
+                <Messaging />
+                <br />
+                {
+                    this.props.selectedNavItem === "home" &&
+                    <Home />
+                }
+                {
+                    this.props.selectedNavItem === "backgroundjobs" &&
+                    <BackgroundJobs />
+                }
+                {
+                    this.props.selectedNavItem === "settings" &&
+                    <Settings />
+                }
+            </Container>
+        </div>;
     }
 }
 
