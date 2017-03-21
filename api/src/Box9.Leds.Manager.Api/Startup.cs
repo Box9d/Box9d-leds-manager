@@ -20,7 +20,6 @@ namespace Box9.Leds.Manager.Api
         {
             var config = new HttpConfiguration();
 
-            config.Routes.MapHttpRoute(name: "Html", routeTemplate: "{controller}/Index");
             config.Routes.MapHttpRoute(name: "ControllerOnly", routeTemplate: "api/{controller}");
             config.Routes.MapHttpRoute(name: "ControllerAndAction", routeTemplate: "api/{controller}/{action}");
             config.Routes.MapHttpRoute(name: "ControllerActionAndId", routeTemplate: "api/{controller}/{action}/{id}");
