@@ -4,7 +4,6 @@ import * as ApiClient from "../../../../../../api/build/ApiClient";
 import config from "../../../../Config";
 import OpenProjectModal from "../../existingproject/OpenProjectModalContainer";
 
-// Use local state for fetching configuration status - ensures that the status is updated every time the component is rendered
 export class VideoConfigurationStatusPresenter extends React.Component<IVideoConfigurationStatusProps, undefined> {
 
     constructor(props: IVideoConfigurationStatusProps) {

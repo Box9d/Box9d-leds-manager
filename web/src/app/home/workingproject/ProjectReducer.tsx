@@ -1,6 +1,5 @@
 import { IAction } from "../../../actions/IAction";
 import { DevicesOverviewReducer } from "./devices/DevicesOverviewReducer";
-import { Actions } from "./ProjectActions";
 import { IProjectState, ProjectState } from "./ProjectState";
 import { VideoReducer } from "./video/VideoReducer";
 
