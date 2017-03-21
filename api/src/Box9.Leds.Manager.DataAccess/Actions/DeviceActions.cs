@@ -64,6 +64,14 @@ namespace Box9.Leds.Manager.DataAccess.Actions
                             conn.Insert(device, transaction);
                         }
 
+                        var existingProjectDevices = conn
+                            .Query<ProjectDevice>("SELECT * FROM ProjectDevice WHERE deviceid=@deviceid AND projectid=@projectid", new { deviceId = device.Id, projectId });
+
+                        foreach (var existingProjectDevice in existingProjectDevices)
+                        {
+                            conn.Delete(existingProjectDevice, transaction);
+                        }
+
                         var projectDevice = new ProjectDevice { DeviceId = device.Id, ProjectId = project.Id };
                         projectDevice.Id = conn.GetNextId<ProjectDevice>();
 
