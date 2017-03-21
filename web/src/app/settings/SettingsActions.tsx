@@ -21,6 +21,25 @@ export const FetchAppPreferences = (dispatch: any): IAction => {
     };
 };
 
+export const SaveAppPreferences = (dispatch: any, startIp: string, finishIp: string): IAction => {
+
+    let appPrefs = new ApiClient.AppPreferences();
+    appPrefs.deviceSearchStartIp = startIp;
+    appPrefs.deviceSearchEndIp = finishIp;
+    
+    let apiClient = new ApiClient.AppPreferencesClient(config.apiUrl);
+    apiClient.updatePreferences(appPrefs).then((response: ApiClient.GlobalJsonResultOfAppPreferences) => {
+        if (response.successful) {
+            dispatch(SetAppPreferences(response.result));
+        }
+    });
+
+    return {
+        type: "DO_NOTHING",
+        value: null,
+    };
+};
+
 export const SetAppPreferences = (appPrefs: ApiClient.AppPreferences) => {
     return {
         type: SettingsActions.SetAppPreferences,

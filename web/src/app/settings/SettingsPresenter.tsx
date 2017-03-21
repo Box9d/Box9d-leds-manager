@@ -7,7 +7,7 @@ export class SettingsPresenter extends React.Component<ISettingsProps, ISettings
     constructor(props: ISettingsProps) {
         super(props);
 
-        this.state = {editIpStart: this.props.ipAddressStart, editIpEnd: this.props.ipAddressEnd };
+        this.state = { editIpStart: this.props.ipAddressStart, editIpEnd: this.props.ipAddressEnd };
     }
 
     public render() {
