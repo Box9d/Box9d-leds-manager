@@ -197,6 +197,7 @@
     <Compile Include="Controllers\ProjectsController.cs" />
     <Compile Include="Controllers\VideoController.cs" />
     <Compile Include="EmptyResult.cs" />
+    <Compile Include="FileServer.cs" />
     <Compile Include="Filters\GlobalActionFilter.cs" />
     <Compile Include="Filters\GlobalExceptionFilter.cs" />
     <Compile Include="Filters\HangfireActionFilter.cs" />
