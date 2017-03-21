@@ -1,4 +1,6 @@
 var BrowserSyncPlugin = require('browser-sync-webpack-plugin');
+var FaviconsWebpackPlugin = require('favicons-webpack-plugin')
+var HtmlWebpackPlugin = require('html-webpack-plugin');
 var webpack = require('webpack');
 
 module.exports = {
@@ -6,7 +8,7 @@ module.exports = {
     output: {
         filename: "bundle.js",
         path: __dirname + "/dist",
-        publicPath: "http://localhost:8080/"
+        publicPath: ""
     },
 
     // Enable sourcemaps for debugging webpack's output.
@@ -24,8 +26,8 @@ module.exports = {
             { test: /\.js$/, loader: "source-map-loader" },
             { test: /\.scss$/, loaders: ["style-loader", "css-loader", "sass-loader"] },
             { test: /\.css$/, loaders: ["style-loader", "css-loader"] },
-            { test: /\.(eot|svg|ttf|woff|woff2)$/, loader: "file-loader?name=public/fonts/[name].[ext]"},
-            { test: /\.(png)$/, loader: "file-loader?name=public/img/[name].[ext]"}
+            { test: /\.(eot|svg|ttf|woff|woff2)$/, loader: "file-loader?name=public/fonts/[name].[ext]" },
+            { test: /\.(png)$/, loader: "file-loader?name=public/img/[name].[ext]" }
         ]
     },
 
@@ -36,17 +38,17 @@ module.exports = {
             port: 8000,
             proxy: 'http://localhost:8080/'
         },
-        {
-            reload: true
+            {
+                reload: true
+            }),
+        new FaviconsWebpackPlugin('./src/assets/favicon.png'),
+        new HtmlWebpackPlugin({
+            template: './src/index.template.ejs',
+            inject: 'body',
+        }),
+        new webpack.ProvidePlugin({
+            'React': 'react',            
+            'ReactDOM': 'react-dom',
         })
-    ],
-
-    // When importing a module whose path matches one of the following, just
-    // assume a corresponding global variable exists and use that instead.
-    // This is important because it allows us to avoid bundling all of our
-    // dependencies, which allows browsers to cache those libraries between builds.
-    externals: {
-        "react": "React",
-        "react-dom": "ReactDOM"
-    },
+    ]
 };
