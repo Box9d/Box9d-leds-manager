@@ -26,6 +26,6 @@
     font-style: italic;
 }
 
-html {
+html *:not(.icon) {
     font-family: 'PT Sans', sans-serif !important;
 }
