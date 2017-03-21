@@ -13,6 +13,7 @@ const mapStateToProps = (state: IAppState): DevicesOverviewPresenter.IDevicesOve
 const mapDispatchToProps = (dispatch: any): DevicesOverviewPresenter.IDevicesOverviewProps => {
     return {
         fetchDevices: (projectId: number) => dispatch(DevicesOverviewActions.FetchProjectDevices(dispatch, projectId)),
+        removeDeviceFromProject: (deviceId: number, projectId: number) => dispatch(DevicesOverviewActions.RemoveDeviceFromProject(dispatch, deviceId, projectId)),
     };
 };
 

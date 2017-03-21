@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Button, Header, Loader, Modal, Segment, Table } from "semantic-ui-react";
+import { Button, Header, Icon, Loader, Modal, Segment, Table } from "semantic-ui-react";
 import * as ApiClient from "../../../../../../api/build/ApiClient";
 import config from "../../../../Config";
 import DeviceScanner from "./scanning/DeviceScannerContainer";
@@ -31,7 +31,7 @@ export class DevicesOverviewPresenter extends React.Component<IDevicesOverviewPr
                             return <Table.Row key={d.id}>
                                 <Table.Cell>{d.name}</Table.Cell>
                                 <Table.Cell>{d.ipAddress}</Table.Cell>
-                                <Table.Cell></Table.Cell>
+                                <Table.Cell><Button icon onClick={(e: any) => this.props.removeDeviceFromProject(d.id, this.props.projectId)}><Icon name="delete" /></Button></Table.Cell>
                             </Table.Row>;
                         })}
                     </Table.Body>
@@ -53,6 +53,7 @@ export class DevicesOverviewPresenter extends React.Component<IDevicesOverviewPr
 }
 
 export interface IDevicesOverviewProps {
+    removeDeviceFromProject?: (deviceId: number, projectId: number) => void;
     projectId?: number;
     devices?: ApiClient.Device[];
     fetchDevices?: (projectId: number) => void;

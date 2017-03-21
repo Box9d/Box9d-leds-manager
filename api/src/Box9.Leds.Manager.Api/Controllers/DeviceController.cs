@@ -41,5 +41,14 @@ namespace Box9.Leds.Manager.Api.Controllers
 
             return GlobalJsonResult<ProjectDevice>.Success(System.Net.HttpStatusCode.Created, result);
         }
+
+        [HttpPost]
+        [ActionName("RemoveDeviceFromProject")]
+        public GlobalJsonResult<EmptyResult> RemoveDeviceFromProject(int deviceId, int projectId)
+        {
+            dataAccessDispatcher.Dispatch(DeviceActions.RemoveDeviceFromProject(deviceId, projectId));
+
+            return GlobalJsonResult<ProjectDevice>.Success(System.Net.HttpStatusCode.OK);
+        }
     }
 }

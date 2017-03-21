@@ -88,5 +88,32 @@ namespace Box9.Leds.Manager.DataAccess.Actions
                 }
             });
         }
+
+        public static DataAccessAction RemoveDeviceFromProject(int deviceId, int projectId)
+        {
+            return new DataAccessAction((IDbConnection conn) =>
+            {
+                var existingProjectDevices = conn
+                            .Query<ProjectDevice>("SELECT * FROM ProjectDevice WHERE deviceid=@deviceid AND projectid=@projectid", new { deviceId, projectId });
+
+                using (var transaction = conn.BeginTransaction())
+                {
+                    try
+                    {
+                        foreach (var existingProjectDevice in existingProjectDevices)
+                        {
+                            conn.Delete(existingProjectDevice, transaction);
+                        }
+
+                        transaction.Commit();
+                    }
+                    catch
+                    {
+                        transaction.Rollback();
+                        throw;
+                    }
+                }
+            });
+        }
     }
 }

@@ -23,3 +23,19 @@ export const FetchProjectDevices = (dispatch: any, projectId: number): IAction =
         type: "DO_NOTHING",
     };
 };
+
+export const RemoveDeviceFromProject = (dispatch: any, deviceId: number, projectId: number): IAction => {
+    let apiClient = new ApiClient.DeviceClient(config.apiUrl);
+    apiClient.removeDeviceFromProject(deviceId, projectId).then((response: ApiClient.GlobalJsonResultOfEmptyResult) => {
+        if (!response.successful) {
+            dispatch(MessageActions.SetMessageAndMessageType(dispatch, "Could not remove device from project: " + response.errorMessage, MessageType.Error));
+        } else {
+            dispatch(MessageActions.SetMessageAndMessageType(dispatch, "Project device removed", MessageType.Info));
+            dispatch(FetchProjectDevices(dispatch, projectId));
+        }
+    });
+
+    return {
+        type: "DO_NOTHING",
+    };
+};
