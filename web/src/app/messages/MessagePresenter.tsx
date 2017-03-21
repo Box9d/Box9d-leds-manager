@@ -32,6 +32,10 @@ export class MessagePresenter extends React.Component<IMessageProps, IMessageSta
         </div>;
     }
 
+    public componentWillReceiveProps(nextProps: IMessageProps) {
+        this.setState({dismissed: false});
+    }
+
     private getMessageColourFromType(messageType: MessageType): string {
         switch (messageType) {
             case MessageType.Error:

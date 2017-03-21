@@ -2,19 +2,16 @@ import * as ApiClient from "../../../../../../api/build/ApiClient";
 import * as DeviceScannerState from "./scanning/DeviceScannerState";
 
 export interface IDevicesOverviewState {
-    ShouldFetchProjectDevices: boolean;
-    ProjectDevices: ApiClient.ProjectDevice[];
+    ProjectDevices: ApiClient.Device[];
     DeviceScannerState: DeviceScannerState.IDeviceScannerState;
 };
 
 export class DevicesOverviewState implements IDevicesOverviewState {
-    public ShouldFetchProjectDevices: boolean;
-    public ProjectDevices: ApiClient.ProjectDevice[];
+    public ProjectDevices: ApiClient.Device[];
     public DeviceScannerState: DeviceScannerState.IDeviceScannerState;
 
     constructor() {
-        this.ShouldFetchProjectDevices = true;
-        this.ProjectDevices = new Array<ApiClient.ProjectDevice>();
         this.DeviceScannerState = new DeviceScannerState.DeviceScannerState();
+        this.ProjectDevices = new Array<ApiClient.Device>();
     }
 }

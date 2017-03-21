@@ -38,6 +38,7 @@ namespace Box9.Leds.Manager.Api
 
             config.DependencyResolver = new AutofacWebApiDependencyResolver(container);
 
+            app.UseCustomFileServer();
             app.UseSwaggerUi(typeof(Startup).GetTypeInfo().Assembly, new SwaggerUiOwinSettings
             {
                 DefaultUrlTemplate = "api/{controller}/{action}",

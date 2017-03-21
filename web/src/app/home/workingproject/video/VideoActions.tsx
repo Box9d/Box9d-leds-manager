@@ -7,7 +7,6 @@ import { MessageType } from "../../../messages/MessagingState";
 export class Actions {
     public static SetVideoMetadata: string = "SET_VIDEO_METADATA";
     public static SetVideoReference: string = "SET_VIDEO_REFERENCE";
-    public static SetShouldFetchVideo: string = "SET_SHOULD_FETCH_VIDEO";
 }
 
 export const FetchProjectVideo = (dispatch: any, projectId: number): IAction => {
@@ -21,13 +20,10 @@ export const FetchProjectVideo = (dispatch: any, projectId: number): IAction => 
                 apiClient.getProjectVideoMetadata(projectId).then((videoMetadataResponse: ApiClient.GlobalJsonResultOfVideoMetadataResponse) => {
                     if (videoMetadataResponse.successful) {
                         dispatch({ type: Actions.SetVideoMetadata, value: videoMetadataResponse.result});
-                        dispatch({ type: Actions.SetShouldFetchVideo, value: false});
                     } else {
                         dispatch(MessageActions.SetMessageAndMessageType(dispatch, "Could not fetch video metadata: " + videoMetadataResponse.errorMessage, MessageType.Error));
                     }
                 });
-            } else {
-                dispatch({ type: Actions.SetShouldFetchVideo, value: false});
             }
         } else {
             dispatch(MessageActions.SetMessageAndMessageType(dispatch, "Could not fetch video reference: " + response.errorMessage, MessageType.Error));
@@ -58,7 +54,7 @@ export const SetProjectVideo = (dispatch: any, projectId: number, fileUploadForm
                             dispatch(MessageActions.SetMessageAndMessageType(dispatch, "Could not set project video reference: " + response.errorMessage, MessageType.Error));
                         } else {
                             dispatch(MessageActions.SetMessageAndMessageType(dispatch, "Video upload successful", MessageType.Info));
-                            dispatch({type: Actions.SetShouldFetchVideo, value: true});
+                            dispatch(FetchProjectVideo(dispatch, projectId));
                         }
                     });
                 }

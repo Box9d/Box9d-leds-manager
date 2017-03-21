@@ -8,8 +8,8 @@ export const DevicesOverviewReducer = (state: IDevicesOverviewState, action: IAc
     newState.DeviceScannerState = DeviceScannerReducer(state.DeviceScannerState, action);
 
     switch (action.type) {
-        case Actions.SetShouldFetchProjectDevices:
-            newState.ShouldFetchProjectDevices = action.value;
+        case Actions.SetProjectDevices:
+            newState.ProjectDevices = action.value;
             break;
 
         default: break;

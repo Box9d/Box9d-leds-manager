@@ -15,26 +15,17 @@ export class SelectVideoPresenter extends React.Component<ISelectVideoProps, und
 
     public render() {
 
-        if (!this.props.hasCheckedVideoState) {
-            this.props.fetchVideo(this.props.projectId);
-        }
-
         let fileInputStyle = {
             display: "none",
         };
 
         return <div>
             {
-                !this.props.hasCheckedVideoState &&
-                <Loader inline="centered"/>
-            }
-            {
-                this.props.hasCheckedVideoState && !this.props.hasVideo &&
+                !this.props.hasVideo &&
                 <p><em>No video selected</em></p>
             }
             {
-                this.props.hasCheckedVideoState && this.props.hasVideo &&
-                // todo: display table
+                this.props.hasVideo &&
                 <Table>
                     <Table.Header>
                         <Table.Row>
@@ -48,21 +39,22 @@ export class SelectVideoPresenter extends React.Component<ISelectVideoProps, und
                             <Table.Cell>{this.props.videoFilePath}</Table.Cell>
                             <Table.Cell>{this.props.videoMetadata.frameRate.toFixed(2)}</Table.Cell>
                             <Table.Cell>{this.props.videoMetadata.frameCount}</Table.Cell>
-                            <Table.Cell></Table.Cell>
                         </Table.Row>
                     </Table.Body>
                 </Table>
             }
-            {
-                this.props.hasCheckedVideoState &&
-                <div>
-                <form ref={(form: any) => {this.form = form; }} action={config.apiUrl + "/api/Video/StartVideoUpload"} method="post" encType="multipart/form-data">
-                    <input id="fileinput" type="file" name="fileInput" style={fileInputStyle} ref={(input: any) => { this.fileBrowser = input; }} onChange={this.submitFile}/>
-                </form>
-                    <Button id="fileInputButton" primary onClick={this.openFileBrowser}>Browse for video...</Button>
-                </div>
-            }
+
+            <div>
+            <form ref={(form: any) => {this.form = form; }} action={config.apiUrl + "/api/Video/StartVideoUpload"} method="post" encType="multipart/form-data">
+                <input id="fileinput" type="file" name="fileInput" style={fileInputStyle} ref={(input: any) => { this.fileBrowser = input; }} onChange={this.submitFile}/>
+            </form>
+                <Button id="fileInputButton" primary onClick={this.openFileBrowser}>Browse for video...</Button>
+            </div>
         </div>;
+    }
+
+    public componentDidMount() {
+        this.props.fetchVideo(this.props.projectId);
     }
 
     public openFileBrowser = () => {
@@ -81,7 +73,6 @@ export class SelectVideoPresenter extends React.Component<ISelectVideoProps, und
 
 export interface ISelectVideoProps {
     projectId?: number;
-    hasCheckedVideoState?: boolean;
     fetchVideo?: (projectId: number) => void;
     hasVideo?: boolean;
     videoMetadata?: ApiClient.VideoMetadataResponse;

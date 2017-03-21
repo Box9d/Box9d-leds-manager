@@ -5,7 +5,6 @@ import * as VideoConfigurationStatusPresenter from "./VideoConfigurationStatusPr
 
 const mapStateToProps = (state: IAppState): VideoConfigurationStatusPresenter.IVideoConfigurationStatusProps => {
     return {
-        hasCheckedVideoConfigurationStatus: !state.ProjectState.VideoState.ShouldFetchVideo,
         projectId: state.WorkingProjectState.Project.id,
         videoIsConfigured: state.ProjectState.VideoState.VideoReference != null,
     };

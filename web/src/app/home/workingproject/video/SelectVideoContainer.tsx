@@ -5,7 +5,6 @@ import * as VideoActions from "./VideoActions";
 
 const mapStateToProps = (state: IAppState): SelectVideoPresenter.ISelectVideoProps => {
     return {
-        hasCheckedVideoState: !state.ProjectState.VideoState.ShouldFetchVideo,
         hasVideo: state.ProjectState.VideoState.VideoReference != null && state.ProjectState.VideoState.VideoMetadata != null,
         projectId: state.WorkingProjectState.Project.id,
         videoFilePath: state.ProjectState.VideoState.VideoReference != null
