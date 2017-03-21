@@ -41,7 +41,7 @@ namespace Box9.Leds.Manager.Services.DeviceSearch
 
         public async Task SearchAsync()
         {
-            CancelSearch();
+            isSearching = true;
 
             currentSearchTokenSource = new CancellationTokenSource();
             discoveredDevices = new ConcurrentQueue<DiscoveredDevice>();

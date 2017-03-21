@@ -91,7 +91,6 @@ export const ClearWorkingProject = (dispatch: any): IAction => {
         if (response.successful) {
             dispatch(MessageActions.ClearMessage());
             dispatch({type: Actions.ClearWorkingProject});
-            dispatch({type: VideoActions.Actions.SetShouldFetchVideo, value: true});
         } else {
             dispatch(MessageActions.SetMessageAndMessageType(dispatch, "Could not clear the working project: " + response.errorMessage, MessageType.Error));
         }

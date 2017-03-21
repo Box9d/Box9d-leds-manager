@@ -13,13 +13,23 @@ export class AppPresenter extends React.Component<IAppProps, undefined> {
             <Container>
                 <Messaging />
                 <br />
-                <Home />
-                <BackgroundJobs />
-                <Settings />
+                {
+                    this.props.selectedNavItem === "home" &&
+                    <Home />
+                }
+                {
+                    this.props.selectedNavItem === "backgroundjobs" &&
+                    <BackgroundJobs />
+                }
+                {
+                    this.props.selectedNavItem === "settings" &&
+                    <Settings />
+                }
             </Container>
         </div>;
     }
 }
 
 export interface IAppProps {
+    selectedNavItem?: string;
 }

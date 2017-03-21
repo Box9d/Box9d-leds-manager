@@ -4,6 +4,7 @@ import { IAppState } from "./AppState";
 
 const mapStateToProps = (state: IAppState): AppPresenter.IAppProps => {
     return {
+        selectedNavItem: state.NavState.SelectedNavItem,
     };
 };
 
