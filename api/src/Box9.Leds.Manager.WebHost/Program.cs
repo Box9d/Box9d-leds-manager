@@ -25,13 +25,5 @@ namespace Box9.Leds.Manager.WebHost
                 Console.ReadKey();
             }
         }
-
-        static string CurrentDirectory()
-        {
-            string codeBase = Assembly.GetExecutingAssembly().CodeBase;
-            UriBuilder uri = new UriBuilder(codeBase);
-            string path = Uri.UnescapeDataString(uri.Path);
-            return Path.GetDirectoryName(path);
-        }
     }
 }
