@@ -7,8 +7,8 @@ import App from "./app/AppContainer";
 import { appReducer } from "./app/AppReducer";
 
 ReactDOM.render(
-    <Provider store={createStore(appReducer)}>
-        <App/>
+    <Provider store={createStore(appReducer)} >
+        <App />
     </Provider>,
     document.getElementById("root"),
 );
