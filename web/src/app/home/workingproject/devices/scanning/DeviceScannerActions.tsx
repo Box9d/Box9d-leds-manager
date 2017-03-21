@@ -65,7 +65,7 @@ export const AddDeviceToProject = (dispatch: any, device: ApiClient.DiscoveredDe
             dispatch(MessageActions.SetMessageAndMessageType(dispatch, "Could not add device to project: " + response.errorMessage, MessageType.Error));
         } else {
             dispatch(MessageActions.SetMessageAndMessageType(dispatch, "Device added sucessfully", MessageType.Info));
-            dispatch({ type: DevicesOverviewActions.Actions.SetShouldFetchProjectDevices, value: true });
+            dispatch(DevicesOverviewActions.FetchProjectDevices(dispatch, projectId));
         }
     });
 

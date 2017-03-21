@@ -6,10 +6,6 @@ import ProjectOverview from "./workingproject/ProjectOverviewContainer";
 
 export class HomePresenter extends React.Component<IHomeProps, undefined> {
     public render() {
-        if (this.props.selectedNavItem !== "home") {
-            return <div></div>;
-        }
-
         if (!this.props.hasCheckedForWorkingProject) {
             return <div></div>;
         }

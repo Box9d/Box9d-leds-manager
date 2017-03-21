@@ -12,7 +12,7 @@ export class VideoConfigurationStatusPresenter extends React.Component<IVideoCon
     }
 
     public render() {
-        if (!this.props.hasCheckedVideoConfigurationStatus) {
+        if (!this.props.videoIsConfigured == null) {
             return <Label color="grey">...</Label>;
         } else {
             if (this.props.videoIsConfigured) {
@@ -24,9 +24,7 @@ export class VideoConfigurationStatusPresenter extends React.Component<IVideoCon
     }
 
     public componentDidMount() {
-        if (!this.props.hasCheckedVideoConfigurationStatus) {
-            this.props.checkVideoConfigurationStatus(this.props.projectId);
-        }
+        this.props.checkVideoConfigurationStatus(this.props.projectId);
     }
 }
 
@@ -34,5 +32,4 @@ export interface IVideoConfigurationStatusProps {
     projectId?: number;
     videoIsConfigured?: boolean;
     checkVideoConfigurationStatus?: (projectId: number) => void;
-    hasCheckedVideoConfigurationStatus?: boolean;
 }
