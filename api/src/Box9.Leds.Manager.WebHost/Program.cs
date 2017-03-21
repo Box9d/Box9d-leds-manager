@@ -18,14 +18,7 @@ namespace Box9.Leds.Manager.WebHost
 
                 if (!(args.Length == 1 && args[0] == "-q")) // Do not use a startup page if this parameter is specified
                 {
-                    var filePath = Path.Combine(CurrentDirectory(), ConfigurationManager.AppSettings["HtmlFilePath"]);
-
-                    if (!File.Exists(filePath))
-                    {
-                        File.WriteAllText(filePath, "<html><head></head><body>No web interface found</body></html>");
-                    }
-
-                    System.Diagnostics.Process.Start(filePath);
+                    System.Diagnostics.Process.Start("http://localhost:8001");
                 }
 
                 Console.WriteLine("Press any key to stop");
