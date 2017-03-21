@@ -39,7 +39,6 @@ export class SelectVideoPresenter extends React.Component<ISelectVideoProps, und
                             <Table.Cell>{this.props.videoFilePath}</Table.Cell>
                             <Table.Cell>{this.props.videoMetadata.frameRate.toFixed(2)}</Table.Cell>
                             <Table.Cell>{this.props.videoMetadata.frameCount}</Table.Cell>
-                            <Table.Cell></Table.Cell>
                         </Table.Row>
                     </Table.Body>
                 </Table>
