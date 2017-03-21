@@ -7,6 +7,7 @@ import { ProjectReducer } from "./home/workingproject/ProjectReducer";
 import { WorkingProjectReducer } from "./home/workingproject/WorkingProjectReducer";
 import { MessageReducer } from "./messages/MessageReducer";
 import { NavReducer } from "./nav/NavReducer";
+import { SettingsReducer } from "./settings/SettingsReducer";
 
 export const appReducer = (state: IAppState = new AppState(), action: IAction): IAppState => {
     let newState: IAppState = state;
@@ -16,7 +17,7 @@ export const appReducer = (state: IAppState = new AppState(), action: IAction): 
     newState.MessageState = MessageReducer(newState.MessageState, action);
     newState.OpenProjectState = OpenProjectReducer(newState.OpenProjectState, action);
     newState.WorkingProjectState = WorkingProjectReducer(newState.WorkingProjectState, action);
-    newState.ProjectState = ProjectReducer(newState.ProjectState, action);
+    newState.SettingsState = SettingsReducer(newState.SettingsState, action);
 
     return (Object as any).assign({}, state, {}, { newState });
 };

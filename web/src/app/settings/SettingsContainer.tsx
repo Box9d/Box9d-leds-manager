@@ -1,5 +1,6 @@
 import { connect } from "react-redux";
 import { IAppState } from "../AppState";
+import * as SettingsActions from "./SettingsActions";
 import * as SettingsPresenter from "./SettingsPresenter";
 
 const mapStateToProps = (state: IAppState): SettingsPresenter.ISettingsProps => {
@@ -10,6 +11,7 @@ const mapStateToProps = (state: IAppState): SettingsPresenter.ISettingsProps => 
 
 const mapDispatchToProps = (dispatch: any): SettingsPresenter.ISettingsProps => {
     return {
+        fetchSettings: () => dispatch(SettingsActions.FetchAppPreferences(dispatch)),
     };
 };
 

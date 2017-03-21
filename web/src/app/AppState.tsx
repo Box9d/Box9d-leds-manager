@@ -26,7 +26,7 @@ export class AppState implements IAppState {
     public OpenProjectState: OpenProjectState.IOpenProjectState;
     public WorkingProjectState: WorkingProjectState.WorkingProjectState;
     public ProjectState: ProjectState.ProjectState;
-    public SettingsState: SettingsState.SettingsState;
+    public SettingsState: SettingsState.ISettingsState;
 
     constructor() {
         this.NavState = new NavState.NavState();
