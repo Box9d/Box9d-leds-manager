@@ -1,0 +1,20 @@
+@import 'src/styles/global';
+
+fieldset {
+    border: 1px solid #ddd;
+    @include border-radius(5px);
+    background: #f9fafb;
+}
+
+.ui.form {
+    .field {
+        input[type=text] {
+            @include transition(all 0.2s);
+        }
+        &.input-unsaved {
+            input[type=text] {
+                background: #e0fff5;
+            }
+        }
+    }
+}
