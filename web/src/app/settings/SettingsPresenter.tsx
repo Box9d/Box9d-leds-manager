@@ -1,38 +1,44 @@
+import * as ApiClient from "../../../../api/build/ApiClient";
 import * as React from "react";
-import { Button, Divider, Form, Header, Input, Label } from "semantic-ui-react";
+import { Button, Divider, Form, Header, Input, Label, Message } from "semantic-ui-react";
 import { ISettingsState } from "src/app/settings/SettingsState";
 import { ValidationResult } from "src/validation/ValidationResult";
 import { SettingsValidator } from "./SettingsValidator"
+import "./SettingsStyles.scss";
 
-export class SettingsPresenter extends React.Component<ISettingsProps, ISettingsState> {
+export class SettingsPresenter extends React.Component<ISettingsProps, ISettingsLocalState> {
 
     constructor(props: ISettingsProps) {
         super(props);
 
-        this.state = { editIpStart: this.props.ipAddressStart, editIpEnd: this.props.ipAddressEnd };
+        this.state = {
+            editIpStart: this.props.appPreferences.deviceSearchStartIp,
+            editIpEnd: this.props.appPreferences.deviceSearchEndIp,
+        };
     }
 
     public render() {
-        let validator = new SettingsValidator();
+        let validator = new SettingsValidator(this.state);
         return <div>
             <Header as="h1">Settings</Header>
-            <Form>
+            <Form error={!validator.validateState().isValid}>
                 <fieldset>
                     <Divider horizontal>IP addresses</Divider>
-                    <Form.Group widths="equal">        
-                        <Form.Field error={!validator.validateIp(this.state.editIpStart).isValid}>
-                            <Form.Input label="IP start" placeholder="IP start" value={this.state.editIpStart} onChange={(e: any) => this.setState({ editIpStart: e.target.value })}/>
-                            {!validator.validateIp(this.state.editIpStart).isValid && <Label basic color="red" pointing>{validator.validateIp(this.state.editIpStart).errorMessage}</Label>}     
+                    <Form.Group widths="equal">
+                        <Form.Field>
+                            <Form.Input label="IP start" placeholder="IP start" value={this.state.editIpStart} onChange={(e: any) => this.setState({ editIpStart: e.target.value })} />
+                            {!validator.validateStartIp().isValid && <Label basic color="red" pointing>{validator.validateStartIp().errorMessage}</Label>}
                         </Form.Field>
-                        <Form.Field error={!validator.validateIp(this.state.editIpEnd).isValid}>
-                            <Form.Input label="IP end" placeholder="IP end" value={this.state.editIpEnd} onChange={(e: any) => this.setState({ editIpEnd: e.target.value })} />   
-                            {!validator.validateIp(this.state.editIpEnd).isValid && <Label basic color="red" pointing>{validator.validateIp(this.state.editIpEnd).errorMessage}</Label>}               
+                        <Form.Field error={!validator.validateEndIp().isValid}>
+                            <Form.Input label="IP end" placeholder="IP end" value={this.state.editIpEnd} onChange={(e: any) => this.setState({ editIpEnd: e.target.value })} />
+                            {!validator.validateEndIp().isValid && <Label basic color="red" pointing>{validator.validateEndIp().errorMessage}</Label>}
                         </Form.Field>
                     </Form.Group>
                     <Divider horizontal>Other stuff</Divider>
                     <Form.Input label="More stuff" placeholder="More stuff" />
-                    <Button color="green" onClick={(e: any) => { e.preventDefault(); this.props.saveSettings(this.state.editIpStart, this.state.editIpEnd); }}>Save</Button>
-                </fieldset>    
+                    <Button disabled={!validator.validateStartIp().isValid} color="green" onClick={(e: any) => { e.preventDefault(); this.props.saveSettings(this.state.editIpStart, this.state.editIpEnd); }}>Save</Button>
+                    <Message error >Can't save until the form is fixed!</Message>
+                </fieldset>
             </Form>
         </div>;
     }
@@ -42,7 +48,7 @@ export class SettingsPresenter extends React.Component<ISettingsProps, ISettings
     }
 
     public componentWillReceiveProps(nextProps: ISettingsProps) {
-        this.setState({editIpStart: nextProps.ipAddressStart, editIpEnd: nextProps.ipAddressEnd });
+        this.setState({ editIpStart: nextProps.appPreferences.deviceSearchStartIp, editIpEnd: nextProps.appPreferences.deviceSearchEndIp });
     }
 }
 
@@ -50,6 +56,10 @@ export interface ISettingsProps {
     selectedNavItem?: string;
     fetchSettings?: () => void;
     saveSettings?: (ipStart: string, ipFinish: string) => void;
-    ipAddressStart?: string;
-    ipAddressEnd?: string;
+    appPreferences?: ApiClient.AppPreferences;
+}
+
+export interface ISettingsLocalState {
+    editIpStart?: string;
+    editIpEnd?: string;
 }

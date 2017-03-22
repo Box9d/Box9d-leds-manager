@@ -1,9 +1,13 @@
+import * as ApiClient from "../../../../api/build/ApiClient";
+
 export interface ISettingsState {
-    editIpStart?: string;
-    editIpEnd?: string;
+    appPreferences?: ApiClient.AppPreferences;
 }
 
-export class SettingsState implements ISettingsState {    
-    public editIpStart: string;
-    public editIpEnd: string;
+export class SettingsState implements ISettingsState {
+    appPreferences: ApiClient.AppPreferences;
+
+    constructor() {
+        this.appPreferences = new ApiClient.AppPreferences();
+    }
 }

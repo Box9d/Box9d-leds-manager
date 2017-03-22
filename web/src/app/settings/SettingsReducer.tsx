@@ -7,8 +7,7 @@ export const SettingsReducer = (state: ISettingsState, action: IAction): ISettin
 
     switch (action.type) {
         case SettingsActions.SetAppPreferences:
-            newState.editIpStart = action.value.deviceSearchStartIp;
-            newState.editIpEnd = action.value.deviceSearchEndIp;
+            newState.appPreferences = action.value;
             break;
         default: return state;
     }
