@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Icon, Menu, Table } from "semantic-ui-react";
+import { Icon, Menu, Table, Header } from "semantic-ui-react";
 import * as ApiClient from "../../../../api/build/ApiClient";
 import BackgroundJobs from "./BackgroundJobsContainer";
 
@@ -26,25 +26,28 @@ export class BackgroundJobsPresenter extends React.Component<IBackgroundJobsProp
 
         this.refreshJobsInXSeconds(5); // Should refresh job list every 5 seconds
 
-        return  <div><Table celled>
-            <Table.Header>
-                <Table.Row>
-                <Table.HeaderCell>Job Description</Table.HeaderCell>
-                <Table.HeaderCell>Status</Table.HeaderCell>
-                <Table.HeaderCell>Latest Error</Table.HeaderCell>
-                </Table.Row>
-            </Table.Header>
-            <Table.Body>
-                {this.props.backgroundJobs.map((job: ApiClient.BackgroundJob) => {
-                    return <Table.Row key={job.id} error={job.status === ApiClient.JobStatus.Failed}>
-                        <Table.Cell>{job.description}</Table.Cell>
-                        <Table.Cell>{ApiClient.JobStatus[job.status]}</Table.Cell>
-                        <Table.Cell>{job.latestError}</Table.Cell>
-                    </Table.Row>;
-                })}
-            </Table.Body>
+        return <div className="page-content">
+            <Header as="h1">Background jobs</Header>
+            <Table celled>
+                <Table.Header>
+                    <Table.Row>
+                        <Table.HeaderCell>Job Description</Table.HeaderCell>
+                        <Table.HeaderCell>Status</Table.HeaderCell>
+                        <Table.HeaderCell>Latest Error</Table.HeaderCell>
+                    </Table.Row>
+                </Table.Header>
+                <Table.Body>
+                    {this.props.backgroundJobs.map((job: ApiClient.BackgroundJob) => {
+                        return <Table.Row key={job.id} error={job.status === ApiClient.JobStatus.Failed}>
+                            <Table.Cell>{job.description}</Table.Cell>
+                            <Table.Cell>{ApiClient.JobStatus[job.status]}</Table.Cell>
+                            <Table.Cell>{job.latestError}</Table.Cell>
+                        </Table.Row>;
+                    })}
+                    {!this.props.backgroundJobs.length && <Table.Row><Table.Cell colSpan="3"><em>Currently no jobs running</em></Table.Cell></Table.Row>}
+                </Table.Body>
             </Table>
-            </div>;
+        </div>;
     }
 }
 

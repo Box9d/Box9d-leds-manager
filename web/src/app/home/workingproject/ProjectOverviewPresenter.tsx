@@ -1,10 +1,11 @@
 import * as React from "react";
-import { Button, Container, Divider, Grid, Header, Label, Menu, Modal, Segment } from "semantic-ui-react";
+import { Button, Container, Divider, Grid, Header, Label, Menu, Modal, Segment, Input } from "semantic-ui-react";
 import * as ApiClient from "../../../../../api/build/ApiClient";
 import DevicesConfigurationStatus from "./devices/DevicesConfigurationStatusContainer";
 import DevicesOverview from "./devices/DevicesOverviewContainer";
 import SelectVideo from "./video/SelectVideoContainer";
 import VideoConfigurationStatus from "./video/VideoConfigurationStatusContainer";
+import "./ProjectOverviewStyles.scss";
 
 export class ProjectOverviewPresenter extends React.Component<IProjectOverviewProps, IProjectOverviewState> {
 
@@ -15,25 +16,16 @@ export class ProjectOverviewPresenter extends React.Component<IProjectOverviewPr
     }
 
     public render() {
-        return <div>
-            <Grid columns={3}>
-                <Grid.Column></Grid.Column>
-                <Grid.Column>
-                    <Header as="h3" textAlign="center">
-                        {this.props.project.name}
-                    </Header>
-                </Grid.Column>
-                <Grid.Column>
-                    <Button floated="right" circular icon="close" onClick={this.props.closeProject} />
-                </Grid.Column>
-            </Grid>
-            <br/>
-            <br/>
-            <br/>
+        return <div className="page-content relative" >
+            <Header as="h1" textAlign="center">
+                {this.props.project.name}
+            </Header>
+            <Label as="a" className="close-project" corner="right" icon="close" onClick={this.props.closeProject} />
+            <Divider />
             <Container>
             <Grid>
                 <Grid.Column width={4}>
-                    <Menu fluid vertical tabular>
+                    <Menu fluid vertical>
                         <Menu.Item name="Video" active={this.state.selectedNavigationItem === "video"} onClick={(e: any) => this.selectNavigationItem("video")}>
                             Video
                             <VideoConfigurationStatus/>

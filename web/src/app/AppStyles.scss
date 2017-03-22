@@ -1,0 +1,17 @@
+@import 'src/styles/global';
+.page-content {
+    border: 1px solid #ddd;
+    @include border-radius(5px);
+    background: #f9fafb;
+    padding: 25px;
+    box-shadow: 0 0 5px 0 rgba(34, 36, 38, .15);
+    &.relative {
+        position: relative;
+    }
+}
+
+.ui.modal>.header {
+    background-color: $theme-color;
+    border-bottom: darken($theme-color, 15%);
+    color: white;
+}

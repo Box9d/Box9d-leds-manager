@@ -5,14 +5,13 @@ import Home from "./home/HomeContainer";
 import Messaging from "./messages/MessagingContainer";
 import Nav from "./nav/NavContainer";
 import Settings from "./settings/SettingsContainer";
+import "./AppStyles.scss"
 
 export class AppPresenter extends React.Component<IAppProps, undefined> {
     public render() {
         return <div>
             <Nav />
             <Container>
-                <Messaging />
-                <br />
                 {
                     this.props.selectedNavItem === "home" &&
                     <Home />
@@ -26,6 +25,7 @@ export class AppPresenter extends React.Component<IAppProps, undefined> {
                     <Settings />
                 }
             </Container>
+            <Messaging />
         </div>;
     }
 }

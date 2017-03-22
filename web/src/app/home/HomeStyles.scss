@@ -1,0 +1,11 @@
+.ui.grid>.column+.divider, .ui.grid>.row>.column+.divider {
+    left: 50%;
+}
+
+.ui.grid {
+    position: relative;
+}
+
+.ui.grid>.column:not(.row).home-column {
+    padding: 10px 40px 30px 40px;
+}

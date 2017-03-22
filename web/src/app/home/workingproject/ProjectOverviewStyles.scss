@@ -1,0 +1,15 @@
+@import 'src/styles/global';
+.ui.corner.label.close-project {
+    color: white;
+    border-color: $theme-color;
+    top: -1px;
+    right: -1px;
+    @include border-radius(0 5px 0 0);
+    overflow: hidden;
+    &:hover {
+        border-color: darken($theme-color, 10%);
+    }
+    .close.icon {
+        opacity: 1;
+    }
+}

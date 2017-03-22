@@ -6,11 +6,6 @@ export interface IMessagingState {
 export class MessagingState implements IMessagingState {
     public Type: MessageType;
     public Message: string;
-
-    constructor() {
-        this.Type = MessageType.Info;
-        this.Message = null;
-    }
 }
 
 export enum MessageType {

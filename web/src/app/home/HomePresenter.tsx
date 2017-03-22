@@ -3,6 +3,7 @@ import { Button, Container, Divider, Form, Grid, Header, Rail, Segment } from "s
 import OpenProject from "./existingproject/OpenProjectContainer";
 import NewProjectForm from "./newproject/NewProjectFormContainer";
 import ProjectOverview from "./workingproject/ProjectOverviewContainer";
+import "./HomeStyles.scss"
 
 export class HomePresenter extends React.Component<IHomeProps, undefined> {
     public render() {
@@ -14,21 +15,19 @@ export class HomePresenter extends React.Component<IHomeProps, undefined> {
             return <ProjectOverview/>;
         }
 
-        return <div>
-            <Header as="h3" dividing textAlign="center">
-                Box 9D LED Configuration Manager
-            </Header>
+        return <div className="page-content">
+            <Header as="h1">Box 9D LED configuration manager</Header>
+            <Divider />
             <br/>
             <br/>
-            <Grid columns={3}>
-                <Grid.Column> 
-                    <Header as="h4">Create a new project</Header>
+            <Grid columns={2}>
+                <Grid.Column className="home-column"> 
+                    <Header as="h3" textAlign="center">Create a new project</Header>
+                        <Divider />
                     <NewProjectForm/>
                 </Grid.Column>
-                <Grid.Column>
-                    <Divider vertical clearing>Or</Divider>
-                </Grid.Column>
-                <Grid.Column>   
+                <Divider vertical>Or</Divider>
+                <Grid.Column className="home-column">   
                     <OpenProject/>
                 </Grid.Column>
             </Grid>   
