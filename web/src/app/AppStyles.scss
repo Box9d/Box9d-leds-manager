@@ -1,5 +1,4 @@
 @import 'src/styles/global';
-
 .page-content {
     border: 1px solid #ddd;
     @include border-radius(5px);
@@ -7,5 +6,16 @@
     padding: 25px;
     &.relative {
         position: relative;
+    }
+}
+
+.ui.celled.table tr {
+    th {
+        background: $theme-color;
+        border: 1px solid darken($theme-color, 5%);
+        color: white;
+        &:first-child {
+            border-left: 1px solid darken($theme-color, 5%);
+        }
     }
 }

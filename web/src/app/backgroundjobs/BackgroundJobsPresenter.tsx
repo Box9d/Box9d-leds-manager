@@ -2,7 +2,6 @@ import * as React from "react";
 import { Icon, Menu, Table, Header } from "semantic-ui-react";
 import * as ApiClient from "../../../../api/build/ApiClient";
 import BackgroundJobs from "./BackgroundJobsContainer";
-import "./BackgroundJobStyles.scss"
 
 export class BackgroundJobsPresenter extends React.Component<IBackgroundJobsProps, undefined> {
 
