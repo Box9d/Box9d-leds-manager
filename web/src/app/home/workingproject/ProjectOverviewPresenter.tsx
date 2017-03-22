@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Button, Container, Divider, Grid, Header, Label, Menu, Modal, Segment } from "semantic-ui-react";
+import { Button, Container, Divider, Grid, Header, Label, Menu, Modal, Segment, Input } from "semantic-ui-react";
 import * as ApiClient from "../../../../../api/build/ApiClient";
 import DevicesConfigurationStatus from "./devices/DevicesConfigurationStatusContainer";
 import DevicesOverview from "./devices/DevicesOverviewContainer";
@@ -15,21 +15,12 @@ export class ProjectOverviewPresenter extends React.Component<IProjectOverviewPr
     }
 
     public render() {
-        return <div>
-            <Grid columns={3}>
-                <Grid.Column></Grid.Column>
-                <Grid.Column>
-                    <Header as="h3" textAlign="center">
-                        {this.props.project.name}
-                    </Header>
-                </Grid.Column>
-                <Grid.Column>
-                    <Button floated="right" circular icon="close" onClick={this.props.closeProject} />
-                </Grid.Column>
-            </Grid>
-            <br/>
-            <br/>
-            <br/>
+        return <div className="page-content relative" >
+            <Label as='a' color='red' corner='right' icon='close' onClick={this.props.closeProject} />
+            <Header as="h1" textAlign="center">
+                {this.props.project.name}
+            </Header>
+            <Divider />
             <Container>
             <Grid>
                 <Grid.Column width={4}>

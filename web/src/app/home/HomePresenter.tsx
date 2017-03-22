@@ -14,21 +14,21 @@ export class HomePresenter extends React.Component<IHomeProps, undefined> {
             return <ProjectOverview/>;
         }
 
-        return <div>
-            <Header as="h3" dividing textAlign="center">
-                Box 9D LED Configuration Manager
-            </Header>
+        return <div className="page-content">
+            <Header as="h1">Box 9D LED configuration manager</Header>
+            <Divider />
             <br/>
             <br/>
             <Grid columns={3}>
-                <Grid.Column> 
-                    <Header as="h4">Create a new project</Header>
+                <Grid.Column width={7}> 
+                    <Header as="h3" textAlign="center">Create a new project</Header>
+                        <Divider />
                     <NewProjectForm/>
                 </Grid.Column>
-                <Grid.Column>
+                <Grid.Column width={2}>
                     <Divider vertical clearing>Or</Divider>
                 </Grid.Column>
-                <Grid.Column>   
+                <Grid.Column width={7}>   
                     <OpenProject/>
                 </Grid.Column>
             </Grid>   

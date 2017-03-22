@@ -1,19 +1,22 @@
-@import 'global';
+@import 'src/styles/global';
 
-.ui.inverted.menu {
+.ui.menu {
+    background: #3787fc;
+    @include border-radius(0);
+    border: none;
     a.item {
         color: #ddd;
         @include transition(all 0.1s);
         &.active {
-            background: #444;
+            background: #333;
             color: #eee;
             &:hover {            
-                background: #555;
+                background: #444;
                 color: #fff;
             }
         }
         &:hover {            
-            background: #555;
+            background: #444;
             color: #fff;
         }
         &:before {

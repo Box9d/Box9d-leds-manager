@@ -7,7 +7,7 @@ export class SettingsPresenter extends React.Component<ISettingsProps, undefined
             return <div></div>;
         }
 
-        return <div>
+        return <div className="page-content">
             <Header as="h1">Settings</Header>
             <Form>
                 <Divider horizontal>IP addresses</Divider>

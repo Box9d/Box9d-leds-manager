@@ -1,0 +1,11 @@
+@import 'src/styles/global';
+
+.page-content {
+    border: 1px solid #ddd;
+    @include border-radius(5px);
+    background: #f9fafb;
+    padding: 25px;
+    &.relative {
+        position: relative;
+    }
+}
