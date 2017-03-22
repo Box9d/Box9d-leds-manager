@@ -10,13 +10,8 @@
     }
 }
 
-.ui.celled.table tr {
-    th {
-        background: $theme-color;
-        border: 1px solid darken($theme-color, 5%);
-        color: white;
-        &:first-child {
-            border-left: 1px solid darken($theme-color, 5%);
-        }
-    }
+.ui.modal>.header {
+    background-color: $theme-color;
+    border-bottom: darken($theme-color, 15%);
+    color: white;
 }

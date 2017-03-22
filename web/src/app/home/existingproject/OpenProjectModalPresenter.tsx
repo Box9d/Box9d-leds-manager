@@ -10,7 +10,7 @@ export class OpenProjectModalPresenter extends React.Component<IOpenProjectModal
         }
 
         return <div>
-            <Modal defaultOpen onClose={this.props.onModalClose}>
+            <Modal defaultOpen onClose={this.props.onModalClose} closeIcon="close" dimmer="blurring">
                 <Modal.Header>Open project</Modal.Header>
                 <Modal.Content>
                     <Modal.Description>

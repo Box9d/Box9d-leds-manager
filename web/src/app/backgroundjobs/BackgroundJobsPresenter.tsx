@@ -44,7 +44,7 @@ export class BackgroundJobsPresenter extends React.Component<IBackgroundJobsProp
                             <Table.Cell>{job.latestError}</Table.Cell>
                         </Table.Row>;
                     })}
-                    {!this.props.backgroundJobs.length && <Table.Row><Table.Cell><em>Currently no jobs running</em></Table.Cell></Table.Row>}
+                    {!this.props.backgroundJobs.length && <Table.Row><Table.Cell colSpan="3"><em>Currently no jobs running</em></Table.Cell></Table.Row>}
                 </Table.Body>
             </Table>
         </div>;
