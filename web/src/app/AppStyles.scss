@@ -4,6 +4,7 @@
     @include border-radius(5px);
     background: #f9fafb;
     padding: 25px;
+    box-shadow: 0 0 5px 0 rgba(34, 36, 38, .15);
     &.relative {
         position: relative;
     }
