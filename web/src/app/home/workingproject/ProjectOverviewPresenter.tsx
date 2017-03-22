@@ -17,15 +17,15 @@ export class ProjectOverviewPresenter extends React.Component<IProjectOverviewPr
 
     public render() {
         return <div className="page-content relative" >
-            <Label as="a" className="close-project" corner="right" icon="close" onClick={this.props.closeProject} />
             <Header as="h1" textAlign="center">
                 {this.props.project.name}
             </Header>
+            <Label as="a" className="close-project" corner="right" icon="close" onClick={this.props.closeProject} />
             <Divider />
             <Container>
             <Grid>
                 <Grid.Column width={4}>
-                    <Menu fluid vertical tabular>
+                    <Menu fluid vertical>
                         <Menu.Item name="Video" active={this.state.selectedNavigationItem === "video"} onClick={(e: any) => this.selectNavigationItem("video")}>
                             Video
                             <VideoConfigurationStatus/>

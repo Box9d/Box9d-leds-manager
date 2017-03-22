@@ -4,7 +4,7 @@ import "./NavStyles.scss";
 
 export class NavPresenter extends React.Component<INavProps, undefined> {
     public render() {
-        return <Menu size="huge">
+        return <Menu className="main-nav-menu" size="huge">
                 <Container>
                     <Menu.Item className="borderless" name="Home" active={this.props.selectedNavItem === "home"} onClick={(e) => this.props.selectedNavItemOnChange("home")}>
                         <Icon name="home"/>

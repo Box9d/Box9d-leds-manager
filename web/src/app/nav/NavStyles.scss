@@ -1,23 +1,23 @@
 @import 'src/styles/global';
 
-.ui.menu {
+.ui.menu.main-nav-menu {
     background: $theme-color;
     @include border-radius(0);
     border: none;
     a.item {
-        color: #ddd;
+        color: #fff;
         @include transition(all 0.1s);
         &.active {
             background: #333;
-            color: #eee;
+            color: #fff;
             &:hover {            
                 background: #444;
-                color: #fff;
+                color: #eee;
             }
         }
         &:hover {            
             background: #444;
-            color: #fff;
+            color: #eee;
         }
         &:before {
             background: none;
