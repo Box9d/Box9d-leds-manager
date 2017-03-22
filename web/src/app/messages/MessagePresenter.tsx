@@ -7,11 +7,15 @@ export class MessagePresenter extends React.Component<IMessageProps, IMessageSta
     constructor(props: IMessageProps) {
         super(props);
 
-        this.state = { dismissed: false };
+        this.state = { dismissed: true };
     }
 
     public render() {
-        let isVisible = !this.state.dismissed && this.props.state.Message != null && this.props.state.Message !== "";
+        if (!this.props.state.Message || this.props.state.Type === MessageType.Loading) {
+            return <div></div>
+        }
+
+        let isVisible = !this.state.dismissed;
 
         return <div className="message-wrapper">
             <Sidebar.Pushable as={Segment}>
