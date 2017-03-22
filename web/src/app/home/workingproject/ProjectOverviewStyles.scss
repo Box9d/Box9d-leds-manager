@@ -7,6 +7,9 @@
     @include border-radius(0 5px 0 0);
     overflow: hidden;
     &:hover {
-        border-color: darken($theme-color, 5%);
+        border-color: darken($theme-color, 10%);
+    }
+    .close.icon {
+        opacity: 1;
     }
 }

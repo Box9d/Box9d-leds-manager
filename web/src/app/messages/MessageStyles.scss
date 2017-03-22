@@ -12,6 +12,18 @@
         &>.sidebar {
             line-height: 35px;
             padding: 14px 50px;
+            &>.button {
+                color:white;
+            }
+            &.red>.button {
+                background-color: darken(#db2828, 15%);
+            }
+            &.blue>.button {
+                background-color: darken(#3787fc, 15%);
+            }
+            &.yellow>.button {
+                background-color: darken(#fbbd08, 10%);
+            }
         }
     }
 }
