@@ -15,8 +15,17 @@ namespace Box9.Leds.Manager.Api.Controllers
         }
 
         [HttpGet]
-        [ActionName("GetProjectDeviceVersion")]
-        public GlobalJsonResult<ProjectDeviceVersion> GetLatestProjectDeviceVersion(int projectDeviceId)
+        [ActionName("GetLatestProjectDeviceVersion")]
+        public GlobalJsonResult<ProjectDeviceVersion> GetLatestProjectDeviceVersion(int deviceId, int projectId)
+        {
+            var result = dispatcher.Dispatch(ProjectDeviceActions.GetLatestProjectDeviceVersion(deviceId, projectId));
+
+            return GlobalJsonResult<ProjectDeviceVersion>.Success(System.Net.HttpStatusCode.OK, result);
+        }
+
+        [HttpGet]
+        [ActionName("GetLatest")]
+        public GlobalJsonResult<ProjectDeviceVersion> GetLatest(int projectDeviceId)
         {
             var result = dispatcher.Dispatch(ProjectDeviceActions.GetLatestProjectDeviceVersion(projectDeviceId));
 

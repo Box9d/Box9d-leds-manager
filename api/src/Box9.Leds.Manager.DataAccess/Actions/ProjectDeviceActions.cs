@@ -6,6 +6,7 @@ using Box9.Leds.Manager.DataAccess.Extensions;
 using Box9.Leds.Manager.DataAccess.Models;
 using Dapper;
 using Dapper.Contrib.Extensions;
+using Box9.Leds.Manager.Core.Validation;
 
 namespace Box9.Leds.Manager.DataAccess.Actions
 {
@@ -28,11 +29,33 @@ namespace Box9.Leds.Manager.DataAccess.Actions
             });
         }
 
+        public static DataAccessAction<ProjectDevice> GetProjectDevice(int deviceId, int projectId)
+        {
+            return new DataAccessAction<ProjectDevice>((IDbConnection conn) =>
+            {
+                var projectDevice = conn.Query<ProjectDevice>("SELECT * FROM ProjectDevice WHERE projectid=@projectid AND deviceid=@deviceid", new { projectId, deviceId })
+                    .SingleOrDefault();
+
+                Guard.This(projectDevice).AgainstDefaultValue(string.Format("No project device found with project id {0} and deviceid {1}", projectId, deviceId));
+
+                return projectDevice;
+            });
+        }
+
         public static DataAccessAction<ProjectDeviceVersion> GetProjectDeviceVersion(int projectDeviceVersionId)
         {
             return new DataAccessAction<ProjectDeviceVersion>((IDbConnection conn) =>
             {
                 return conn.Get<ProjectDeviceVersion>(projectDeviceVersionId);
+            });
+        }
+
+        public static DataAccessAction<ProjectDeviceVersion> GetLatestProjectDeviceVersion(int deviceId, int projectId)
+        {
+            return new DataAccessAction<ProjectDeviceVersion>((IDbConnection conn) =>
+            {
+                var projectDevice = GetProjectDevice(deviceId, projectId).Function(conn);
+                return GetLatestProjectDeviceVersion(projectDevice.Id).Function(conn);
             });
         }
 

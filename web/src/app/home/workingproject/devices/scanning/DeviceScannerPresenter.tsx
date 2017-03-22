@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Button, Header, Icon, Loader, Modal, Segment, Table } from "semantic-ui-react";
+import { Button, Divider, Header, Icon, Loader, Modal, Segment, Table } from "semantic-ui-react";
 import * as ApiClient from "../../../../../../../api/build/ApiClient";
 import config from "../../../../../Config";
 
@@ -13,7 +13,6 @@ export class DeviceScannerPresenter extends React.Component<IDeviceScannerProps,
 
        return <div>
            <p>Click scan to begin scanning for devices</p>
-           <br/>
            <Button primary loading={this.props.isScanning} onClick={this.props.scan}>Scan</Button>
            <Button onClick={this.props.cancelScan}>Cancel</Button>
            {
@@ -32,7 +31,7 @@ export class DeviceScannerPresenter extends React.Component<IDeviceScannerProps,
                                 return <Table.Row key={d.ipAddress}>
                                         <Table.Cell>{d.name}</Table.Cell>
                                         <Table.Cell>{d.ipAddress}</Table.Cell>
-                                        <Table.Cell><Button icon onClick={(e: any) => this.props.addDeviceToProject(d, this.props.projectId)}><Icon name="add" /></Button></Table.Cell>
+                                        <Table.Cell><Button floated="right" icon onClick={(e: any) => this.props.addDeviceToProject(d, this.props.projectId)}><Icon name="add" /></Button></Table.Cell>
                                     </Table.Row>;
                             })}
                     </Table.Body>

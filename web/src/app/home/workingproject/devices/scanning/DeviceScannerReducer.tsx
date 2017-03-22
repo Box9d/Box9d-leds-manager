@@ -6,7 +6,6 @@ export const DeviceScannerReducer = (state: IDeviceScannerState, action: IAction
     let newState: IDeviceScannerState = state;
 
     switch (action.type) {
-        // todo:
         case Actions.SetScanningStatus:
             newState.IsScanning = action.value;
             break;

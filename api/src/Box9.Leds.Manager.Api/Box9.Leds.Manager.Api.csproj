@@ -191,6 +191,7 @@
     <Compile Include="Controllers\BackgroundJobsController.cs" />
     <Compile Include="Controllers\DeviceController.cs" />
     <Compile Include="Controllers\Metadata.cs" />
+    <Compile Include="Controllers\ProjectDeviceController.cs" />
     <Compile Include="Controllers\ProjectDeviceVersionController.cs" />
     <Compile Include="Controllers\DeviceDiscoveryController.cs" />
     <Compile Include="Controllers\ProjectDeviceMappingController.cs" />

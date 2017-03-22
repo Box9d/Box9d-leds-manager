@@ -1,5 +1,6 @@
 import { connect } from "react-redux";
 import { IAppState } from "../../../AppState";
+import * as DeviceConfigurationActions from "./configuration/DeviceConfigurationActions";
 import * as DevicesOverviewActions from "./DevicesOverviewActions";
 import * as DevicesOverviewPresenter from "./DevicesOverviewPresenter";
 
@@ -12,6 +13,7 @@ const mapStateToProps = (state: IAppState): DevicesOverviewPresenter.IDevicesOve
 
 const mapDispatchToProps = (dispatch: any): DevicesOverviewPresenter.IDevicesOverviewProps => {
     return {
+        fetchDeviceConfiguration: (deviceId: number, projectId: number) => dispatch(DeviceConfigurationActions.FetchDeviceConfiguration(dispatch, deviceId, projectId)),
         fetchDevices: (projectId: number) => dispatch(DevicesOverviewActions.FetchProjectDevices(dispatch, projectId)),
         removeDeviceFromProject: (deviceId: number, projectId: number) => dispatch(DevicesOverviewActions.RemoveDeviceFromProject(dispatch, deviceId, projectId)),
     };
