@@ -1,0 +1,9 @@
+@import 'src/styles/global';
+
+.ui.corner.label.close-project {
+    color: white;
+    border-color: $theme-color;
+    &:hover {
+        border-color: darken($theme-color, 5%);
+    }
+}

@@ -5,6 +5,7 @@ import DevicesConfigurationStatus from "./devices/DevicesConfigurationStatusCont
 import DevicesOverview from "./devices/DevicesOverviewContainer";
 import SelectVideo from "./video/SelectVideoContainer";
 import VideoConfigurationStatus from "./video/VideoConfigurationStatusContainer";
+import "./ProjectOverviewStyles.scss";
 
 export class ProjectOverviewPresenter extends React.Component<IProjectOverviewProps, IProjectOverviewState> {
 
@@ -16,7 +17,7 @@ export class ProjectOverviewPresenter extends React.Component<IProjectOverviewPr
 
     public render() {
         return <div className="page-content relative" >
-            <Label as='a' color='red' corner='right' icon='close' onClick={this.props.closeProject} />
+            <Label as="a" className="close-project" corner="right" icon="close" onClick={this.props.closeProject} />
             <Header as="h1" textAlign="center">
                 {this.props.project.name}
             </Header>

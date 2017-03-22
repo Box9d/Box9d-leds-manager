@@ -1,7 +1,7 @@
 @import 'src/styles/global';
 
 .ui.menu {
-    background: #3787fc;
+    background: $theme-color;
     @include border-radius(0);
     border: none;
     a.item {

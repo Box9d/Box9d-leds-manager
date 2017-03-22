@@ -3,6 +3,7 @@ import { Button, Container, Divider, Form, Grid, Header, Rail, Segment } from "s
 import OpenProject from "./existingproject/OpenProjectContainer";
 import NewProjectForm from "./newproject/NewProjectFormContainer";
 import ProjectOverview from "./workingproject/ProjectOverviewContainer";
+import "./HomeStyles.scss"
 
 export class HomePresenter extends React.Component<IHomeProps, undefined> {
     public render() {
@@ -19,16 +20,14 @@ export class HomePresenter extends React.Component<IHomeProps, undefined> {
             <Divider />
             <br/>
             <br/>
-            <Grid columns={3}>
-                <Grid.Column width={7}> 
+            <Grid columns={2}>
+                <Grid.Column className="home-column"> 
                     <Header as="h3" textAlign="center">Create a new project</Header>
                         <Divider />
                     <NewProjectForm/>
                 </Grid.Column>
-                <Grid.Column width={2}>
-                    <Divider vertical clearing>Or</Divider>
-                </Grid.Column>
-                <Grid.Column width={7}>   
+                <Divider vertical>Or</Divider>
+                <Grid.Column className="home-column">   
                     <OpenProject/>
                 </Grid.Column>
             </Grid>   
