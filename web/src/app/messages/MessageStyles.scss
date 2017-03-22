@@ -1,0 +1,17 @@
+@import 'src/styles/global';
+.message-wrapper {
+    height: 64px;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    border: none;
+    &>.pushable {
+        @include border-radius(0);
+        border: none;
+        overflow: hidden;
+        &>.sidebar {
+            line-height: 35px;
+            padding: 14px 50px;
+        }
+    }
+}

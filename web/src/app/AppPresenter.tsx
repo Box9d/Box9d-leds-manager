@@ -24,8 +24,8 @@ export class AppPresenter extends React.Component<IAppProps, undefined> {
                     this.props.selectedNavItem === "settings" &&
                     <Settings />
                 }
-                <Messaging />
             </Container>
+            <Messaging />
         </div>;
     }
 }

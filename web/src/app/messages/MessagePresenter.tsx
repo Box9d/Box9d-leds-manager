@@ -1,6 +1,7 @@
 import * as React from "react";
-import { Icon, Message } from "semantic-ui-react";
+import { Icon, Message, Sidebar, Segment, Menu, Button } from "semantic-ui-react";
 import { IMessagingState, MessageType } from "./MessagingState";
+import "./MessageStyles.scss";
 
 export class MessagePresenter extends React.Component<IMessageProps, IMessageState> {
     constructor(props: IMessageProps) {
@@ -10,30 +11,22 @@ export class MessagePresenter extends React.Component<IMessageProps, IMessageSta
     }
 
     public render() {
+        let isVisible = !this.state.dismissed && this.props.state.Message != null && this.props.state.Message !== "";
 
-        let messagingDivStyling = {
-            height: "30px",
-            paddingBottom: "70px",
-        };
-
-        return <div style={messagingDivStyling}>
-            {!this.state.dismissed && this.props.state.Message != null && this.props.state.Message !== "" && this.props.state.Type === MessageType.Loading &&
-                <Message size="tiny" icon onDismiss={this.handleDismiss} color={this.getMessageColourFromType(this.props.state.Type) as any}>
-                    <Icon name="circle notched" size="tiny" loading />
-                    <Message.Content>
-                        <Message.Header>{this.props.state.Message}</Message.Header>
-                    </Message.Content>
-                </Message>
-            }
-
-            {!this.state.dismissed && this.props.state.Message != null && this.props.state.Message !== "" && this.props.state.Type !== MessageType.Loading &&
-                <Message size="small" onDismiss={this.handleDismiss} color={this.getMessageColourFromType(this.props.state.Type) as any} header={this.props.state.Message}/>
-            }
-        </div>;
+        return <div className="message-wrapper">
+            <Sidebar.Pushable as={Segment}>
+                <Sidebar as={Segment} animation='overlay' direction='bottom' visible={isVisible} inverted>
+                    {this.props.state.Message}
+                    <Button floated="right" circular icon="close" onClick={this.handleDismiss} />
+                </Sidebar>
+                <Sidebar.Pusher>
+                </Sidebar.Pusher>
+            </Sidebar.Pushable>
+        </div>
     }
 
     public componentWillReceiveProps(nextProps: IMessageProps) {
-        this.setState({dismissed: false});
+        this.setState({ dismissed: false });
     }
 
     private getMessageColourFromType(messageType: MessageType): string {
@@ -50,7 +43,7 @@ export class MessagePresenter extends React.Component<IMessageProps, IMessageSta
     }
 
     private handleDismiss = () => {
-        this.setState({dismissed: true});
+        this.setState({ dismissed: true });
     }
 }
 

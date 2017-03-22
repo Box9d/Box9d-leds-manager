@@ -22,23 +22,21 @@ export class SettingsPresenter extends React.Component<ISettingsProps, ISettings
         return <div className="page-content">
             <Header as="h1">Settings</Header>
             <Form error={!validator.validateState().isValid}>
-                <fieldset>
-                    <Divider horizontal>IP addresses</Divider>
-                    <Form.Group widths="equal">
-                        <Form.Field>
-                            <Form.Input label="IP start" placeholder="IP start" value={this.state.editIpStart} onChange={(e: any) => this.setState({ editIpStart: e.target.value })} />
-                            {!validator.validateStartIp().isValid && <Label basic color="red" pointing>{validator.validateStartIp().errorMessage}</Label>}
-                        </Form.Field>
-                        <Form.Field error={!validator.validateEndIp().isValid}>
-                            <Form.Input label="IP end" placeholder="IP end" value={this.state.editIpEnd} onChange={(e: any) => this.setState({ editIpEnd: e.target.value })} />
-                            {!validator.validateEndIp().isValid && <Label basic color="red" pointing>{validator.validateEndIp().errorMessage}</Label>}
-                        </Form.Field>
-                    </Form.Group>
-                    <Divider horizontal>Other stuff</Divider>
-                    <Form.Input label="More stuff" placeholder="More stuff" />
-                    <Button disabled={!validator.validateStartIp().isValid} color="green" onClick={(e: any) => { e.preventDefault(); this.props.saveSettings(this.state.editIpStart, this.state.editIpEnd); }}>Save</Button>
-                    <Message error >Can't save until the form is fixed!</Message>
-                </fieldset>
+                <Divider horizontal>IP addresses</Divider>
+                <Form.Group widths="equal">
+                    <Form.Field>
+                        <Form.Input label="IP start" placeholder="IP start" value={this.state.editIpStart} onChange={(e: any) => this.setState({ editIpStart: e.target.value })} />
+                        {!validator.validateStartIp().isValid && <Label basic color="red" pointing>{validator.validateStartIp().errorMessage}</Label>}
+                    </Form.Field>
+                    <Form.Field error={!validator.validateEndIp().isValid}>
+                        <Form.Input label="IP end" placeholder="IP end" value={this.state.editIpEnd} onChange={(e: any) => this.setState({ editIpEnd: e.target.value })} />
+                        {!validator.validateEndIp().isValid && <Label basic color="red" pointing>{validator.validateEndIp().errorMessage}</Label>}
+                    </Form.Field>
+                </Form.Group>
+                <Divider horizontal>Other stuff</Divider>
+                <Form.Input label="More stuff" placeholder="More stuff" />
+                <Button disabled={!validator.validateStartIp().isValid} color="green" onClick={(e: any) => { e.preventDefault(); this.props.saveSettings(this.state.editIpStart, this.state.editIpEnd); }}>Save</Button>
+                <Message error >Can't save until the form is fixed!</Message>
             </Form>
         </div>;
     }
