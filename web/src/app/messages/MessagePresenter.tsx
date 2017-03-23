@@ -11,13 +11,10 @@ export class MessagePresenter extends React.Component<IMessageProps, IMessageSta
     }
 
     public render() {
-        if (!this.props.state.Message || this.props.state.Type === MessageType.Loading) {
-            return <div></div>;
-        }
-
+        let isVisible = !this.state.dismissed && this.props.state.Message !== "" && this.props.state.Type !== MessageType.Loading;
         return <div className="message-wrapper">
             <Sidebar.Pushable as={Segment}>
-                <Sidebar as={Segment} animation="overlay" className={this.getMessageColourFromType(this.props.state.Type)} direction="bottom" visible={!this.state.dismissed} inverted>
+                <Sidebar as={Segment} animation="overlay" className={this.getMessageColourFromType(this.props.state.Type)} direction="bottom" visible={isVisible} inverted>
                     {this.props.state.Message}
                     <Button floated="right" circular icon="close" onClick={this.handleDismiss} />
                 </Sidebar>

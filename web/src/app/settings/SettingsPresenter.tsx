@@ -21,7 +21,7 @@ export class SettingsPresenter extends React.Component<ISettingsProps, ISettings
         let validator = new SettingsValidator(this.state);
 
         if (!this.props.appPreferences.id) {
-            return <div></div>
+            return <div></div>;
         }
 
         return <div className="page-content">
@@ -38,8 +38,6 @@ export class SettingsPresenter extends React.Component<ISettingsProps, ISettings
                         {!validator.validateEndIp().isValid && <Label basic color="red" pointing>{validator.validateEndIp().errorMessage}</Label>}
                     </Form.Field>
                 </Form.Group>
-                <Divider horizontal>Other stuff</Divider>
-                <Form.Input label="More stuff" placeholder="More stuff" />
                 <Button disabled={!validator.validateStartIp().isValid} color="green" onClick={(e: any) => { e.preventDefault(); this.props.saveSettings(this.state.editIpStart, this.state.editIpEnd); }}>Save</Button>
             </Form>
         </div>;
