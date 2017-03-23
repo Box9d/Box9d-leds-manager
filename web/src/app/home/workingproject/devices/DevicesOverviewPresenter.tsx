@@ -36,13 +36,13 @@ export class DevicesOverviewPresenter extends React.Component<IDevicesOverviewPr
                                         <Button floated="right" icon onClick={(e: any) => this.selectConfiguration(d.id)}><Icon name="settings" /></Button>
                                     </Grid.Column>
                                 </Grid.Row>
-                                <Grid.Row>
-                                <Divider/>
                                 {
                                     this.state.selectedDeviceId > 0 &&
-                                    <DeviceConfiguration/>
+                                    <Grid.Row>
+                                        <Divider/>
+                                        <DeviceConfiguration/>
+                                    </Grid.Row>
                                 }
-                                </Grid.Row>
                             </Grid>;
                         })
                     }
