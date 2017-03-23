@@ -33,7 +33,7 @@ export class DevicesOverviewPresenter extends React.Component<IDevicesOverviewPr
                                     </Grid.Column>
                                     <Grid.Column>
                                         <Button floated="right" icon onClick={(e: any) => this.props.removeDeviceFromProject(d.id, this.props.projectId)}><Icon name="delete" /></Button>
-                                        <Button floated="right" icon onClick={(e: any) => this.selectConfiguration(d.id)}><Icon name="settings" /></Button>
+                                        <Button floated="right" icon onClick={(e: any) => this.selectConfiguration(d.id)}><Icon name={this.state.selectedDeviceId === d.id ? "minimize" : "settings"} /></Button>
                                     </Grid.Column>
                                 </Grid.Row>
                                 {
@@ -61,12 +61,21 @@ export class DevicesOverviewPresenter extends React.Component<IDevicesOverviewPr
     }
 
     private selectConfiguration = (deviceId: number) => {
-        this.props.fetchDeviceConfiguration(deviceId, this.props.projectId);
-        this.setState({selectedDeviceId: deviceId});
+
+        if (deviceId === this.state.selectedDeviceId) {
+            // Clicking the configuration button a second time, should collapse and clear the device config
+            this.props.clearDeviceConfiguration();
+            this.setState({selectedDeviceId: 0 });
+        } else {
+            // Clicking for the first time should expand and fetch the device config
+            this.props.fetchDeviceConfiguration(deviceId, this.props.projectId);
+            this.setState({selectedDeviceId: deviceId});
+        }
     }
 }
 
 export interface IDevicesOverviewProps {
+    clearDeviceConfiguration?: () => void;
     fetchDeviceConfiguration?: (deviceId: number, projectId: number) => void;
     removeDeviceFromProject?: (deviceId: number, projectId: number) => void;
     projectId?: number;
