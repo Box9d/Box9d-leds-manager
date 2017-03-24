@@ -109,7 +109,6 @@
     <Compile Include="Actions\AppPreferencesActions.cs" />
     <Compile Include="Actions\BackgroundJobActions.cs" />
     <Compile Include="Actions\DeviceActions.cs" />
-    <Compile Include="Actions\PiSyncJobActions.cs" />
     <Compile Include="Actions\ProjectActions.cs" />
     <Compile Include="Actions\ProjectDeviceActions.cs" />
     <Compile Include="Actions\VideoActions.cs" />
@@ -122,7 +121,6 @@
     <Compile Include="Models\AppPreferences.cs" />
     <Compile Include="Models\BackgroundJob.cs" />
     <Compile Include="Models\Device.cs" />
-    <Compile Include="Models\PiSyncJob.cs" />
     <Compile Include="Models\Project.cs" />
     <Compile Include="Models\ProjectDevice.cs" />
     <Compile Include="Models\ProjectDeviceVersion.cs" />
@@ -141,6 +139,7 @@
     <Compile Include="Scripts\0010_CreateProjectVideoTable.cs" />
     <Compile Include="Scripts\0011_CreatePiSyncJobTable.cs" />
     <Compile Include="Scripts\0012_CreateBackgroundJobTable.cs" />
+    <Compile Include="Scripts\0013_DropAndRecreateBackgroundJobTable.cs" />
     <Compile Include="Scripts\Discovery\IScriptDiscovery.cs" />
     <Compile Include="Scripts\Discovery\ScriptDiscovery.cs" />
   </ItemGroup>

@@ -10,11 +10,11 @@ namespace Box9.Leds.Manager.DataAccess.Models
         [ExplicitKey]
         public int Id { get; set; }
 
-        public string Description { get; set; }
+        public int ProjectDeviceVersionId { get; set; }
 
-        public string LatestError { get; set; }
+        public string LastError { get; set; }
 
-        public string LatestStackTrace { get; set; }
+        public string LastStackTrace { get; set; }
 
         public JobStatus Status { get; set; }
     }

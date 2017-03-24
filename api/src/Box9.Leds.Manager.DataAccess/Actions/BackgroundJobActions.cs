@@ -10,7 +10,7 @@ namespace Box9.Leds.Manager.DataAccess.Actions
 {
     public static class BackgroundJobActions
     {
-        public static DataAccessAction<IEnumerable<BackgroundJob>> GetAllJobs(bool includeCompleted = false)
+        public static DataAccessAction<IEnumerable<BackgroundJob>> GetAllJobs(bool includeCompleted)
         {
             return new DataAccessAction<IEnumerable<BackgroundJob>>((IDbConnection conn) =>
             {
@@ -19,16 +19,14 @@ namespace Box9.Leds.Manager.DataAccess.Actions
             });
         }
          
-        public static DataAccessAction<BackgroundJob> CreateJob(string description)
+        public static DataAccessAction<BackgroundJob> CreateJob(int projectDeviceVersionId)
         {
             return new DataAccessAction<BackgroundJob>((IDbConnection conn) =>
             {
-                Guard.This(description).AgainstNullOrEmpty("Description must be provided for background job");
-
                 var job = new BackgroundJob
                 {
                     Id = conn.GetNextId<BackgroundJob>(),
-                    Description = description,
+                    ProjectDeviceVersionId = projectDeviceVersionId,
                     Status = Core.Jobs.JobStatus.Pending
                 };
                 conn.Insert(job);
@@ -46,8 +44,8 @@ namespace Box9.Leds.Manager.DataAccess.Actions
                 Guard.This(error).AgainstNullOrEmpty("Cannot mark job as errored without an error message");
                 Guard.This(stackTrace).AgainstNullOrEmpty("Cannot mark job as errored without a stack trace");
 
-                job.LatestError = error;
-                job.LatestStackTrace = stackTrace;
+                job.LastError = error;
+                job.LastStackTrace = stackTrace;
                 job.Status = Core.Jobs.JobStatus.Failed;
 
                 conn.Update(job);
@@ -76,8 +74,8 @@ namespace Box9.Leds.Manager.DataAccess.Actions
                 var job = GetJob(backgroundJobId).Function(conn);
                 Guard.This(job).AgainstDefaultValue(string.Format("No job exists with id '{0}'", job.Id));
 
-                job.LatestError = null;
-                job.LatestStackTrace = null;
+                job.LastError = null;
+                job.LastStackTrace = null;
                 job.Status = Core.Jobs.JobStatus.Complete;
 
                 conn.Update(job);

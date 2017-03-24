@@ -201,7 +201,6 @@
     <Compile Include="FileServer.cs" />
     <Compile Include="Filters\GlobalActionFilter.cs" />
     <Compile Include="Filters\GlobalExceptionFilter.cs" />
-    <Compile Include="Filters\HangfireActionFilter.cs" />
     <Compile Include="GlobalJsonResult.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Responses\VideoMetadataResponse.cs" />

@@ -42,6 +42,14 @@ namespace Box9.Leds.Manager.DataAccess.Actions
             });
         }
 
+        public static DataAccessAction<ProjectDevice> GetProjectDevice(int projectDeviceId)
+        {
+            return new DataAccessAction<ProjectDevice>((IDbConnection conn) =>
+            {
+                return conn.Get<ProjectDevice>(projectDeviceId);
+            });
+        }
+
         public static DataAccessAction<ProjectDeviceVersion> GetProjectDeviceVersion(int projectDeviceVersionId)
         {
             return new DataAccessAction<ProjectDeviceVersion>((IDbConnection conn) =>
