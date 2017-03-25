@@ -39,8 +39,9 @@ export class DevicesOverviewPresenter extends React.Component<IDevicesOverviewPr
                                 {
                                     this.state.selectedDeviceId > 0 &&
                                     <Grid.Row>
-                                        <Divider/>
-                                        <DeviceConfiguration/>
+                                        <Grid.Column>
+                                            <DeviceConfiguration />
+                                        </Grid.Column>
                                     </Grid.Row>
                                 }
                             </Grid>;
