@@ -53,32 +53,32 @@
     <Prefer32Bit>true</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.10.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
-    <Reference Include="NJsonSchema, Version=8.10.6282.29572, Culture=neutral, PublicKeyToken=c2f9c3bdfae56102, processorArchitecture=MSIL">
-      <HintPath>..\packages\NJsonSchema.8.10.6282.29572\lib\net45\NJsonSchema.dll</HintPath>
+    <Reference Include="NJsonSchema, Version=8.14.6289.34345, Culture=neutral, PublicKeyToken=c2f9c3bdfae56102, processorArchitecture=MSIL">
+      <HintPath>..\packages\NJsonSchema.8.14.6289.34345\lib\net45\NJsonSchema.dll</HintPath>
     </Reference>
-    <Reference Include="NJsonSchema.CodeGeneration, Version=8.10.6282.29590, Culture=neutral, PublicKeyToken=c2f9c3bdfae56102, processorArchitecture=MSIL">
-      <HintPath>..\packages\NJsonSchema.CodeGeneration.8.10.6282.29590\lib\portable45-net45+win8+wp8+wpa81\NJsonSchema.CodeGeneration.dll</HintPath>
+    <Reference Include="NJsonSchema.CodeGeneration, Version=8.14.6289.34376, Culture=neutral, PublicKeyToken=c2f9c3bdfae56102, processorArchitecture=MSIL">
+      <HintPath>..\packages\NJsonSchema.CodeGeneration.8.14.6289.34376\lib\portable45-net45+win8+wp8+wpa81\NJsonSchema.CodeGeneration.dll</HintPath>
     </Reference>
-    <Reference Include="NJsonSchema.CodeGeneration.TypeScript, Version=8.10.6282.29590, Culture=neutral, PublicKeyToken=c2f9c3bdfae56102, processorArchitecture=MSIL">
-      <HintPath>..\packages\NJsonSchema.CodeGeneration.TypeScript.8.10.6282.29590\lib\portable45-net45+win8+wp8+wpa81\NJsonSchema.CodeGeneration.TypeScript.dll</HintPath>
+    <Reference Include="NJsonSchema.CodeGeneration.TypeScript, Version=8.14.6289.34377, Culture=neutral, PublicKeyToken=c2f9c3bdfae56102, processorArchitecture=MSIL">
+      <HintPath>..\packages\NJsonSchema.CodeGeneration.TypeScript.8.14.6289.34377\lib\portable45-net45+win8+wp8+wpa81\NJsonSchema.CodeGeneration.TypeScript.dll</HintPath>
     </Reference>
-    <Reference Include="NSwag.CodeGeneration, Version=9.11.6282.35317, Culture=neutral, PublicKeyToken=c2d88086e098d109, processorArchitecture=MSIL">
-      <HintPath>..\packages\NSwag.CodeGeneration.9.11.6282.35317\lib\portable45-net45+win8+wp8+wpa81\NSwag.CodeGeneration.dll</HintPath>
+    <Reference Include="NSwag.CodeGeneration, Version=9.12.6284.27590, Culture=neutral, PublicKeyToken=c2d88086e098d109, processorArchitecture=MSIL">
+      <HintPath>..\packages\NSwag.CodeGeneration.9.12.6284.27590\lib\portable45-net45+win8+wp8+wpa81\NSwag.CodeGeneration.dll</HintPath>
     </Reference>
-    <Reference Include="NSwag.CodeGeneration.TypeScript, Version=9.11.6282.35321, Culture=neutral, PublicKeyToken=c2d88086e098d109, processorArchitecture=MSIL">
-      <HintPath>..\packages\NSwag.CodeGeneration.TypeScript.9.11.6282.35321\lib\portable45-net45+win8+wp8+wpa81\NSwag.CodeGeneration.TypeScript.dll</HintPath>
+    <Reference Include="NSwag.CodeGeneration.TypeScript, Version=9.12.6284.27591, Culture=neutral, PublicKeyToken=c2d88086e098d109, processorArchitecture=MSIL">
+      <HintPath>..\packages\NSwag.CodeGeneration.TypeScript.9.12.6284.27591\lib\portable45-net45+win8+wp8+wpa81\NSwag.CodeGeneration.TypeScript.dll</HintPath>
     </Reference>
-    <Reference Include="NSwag.Core, Version=9.11.6282.35315, Culture=neutral, PublicKeyToken=c2d88086e098d109, processorArchitecture=MSIL">
-      <HintPath>..\packages\NSwag.Core.9.11.6282.35315\lib\portable45-net45+win8+wp8+wpa81\NSwag.Core.dll</HintPath>
+    <Reference Include="NSwag.Core, Version=9.12.6284.27589, Culture=neutral, PublicKeyToken=c2d88086e098d109, processorArchitecture=MSIL">
+      <HintPath>..\packages\NSwag.Core.9.12.6284.27589\lib\portable45-net45+win8+wp8+wpa81\NSwag.Core.dll</HintPath>
     </Reference>
-    <Reference Include="NSwag.SwaggerGeneration, Version=9.11.6282.35321, Culture=neutral, PublicKeyToken=c2d88086e098d109, processorArchitecture=MSIL">
-      <HintPath>..\packages\NSwag.SwaggerGeneration.9.11.6282.35321\lib\portable45-net45+win8+wp8+wpa81\NSwag.SwaggerGeneration.dll</HintPath>
+    <Reference Include="NSwag.SwaggerGeneration, Version=9.12.6284.27591, Culture=neutral, PublicKeyToken=c2d88086e098d109, processorArchitecture=MSIL">
+      <HintPath>..\packages\NSwag.SwaggerGeneration.9.12.6284.27591\lib\portable45-net45+win8+wp8+wpa81\NSwag.SwaggerGeneration.dll</HintPath>
     </Reference>
-    <Reference Include="NSwag.SwaggerGeneration.WebApi, Version=9.11.6282.35321, Culture=neutral, PublicKeyToken=c2d88086e098d109, processorArchitecture=MSIL">
-      <HintPath>..\packages\NSwag.SwaggerGeneration.WebApi.9.11.6282.35321\lib\portable45-net45+win8+wp8+wpa81\NSwag.SwaggerGeneration.WebApi.dll</HintPath>
+    <Reference Include="NSwag.SwaggerGeneration.WebApi, Version=9.12.6284.27591, Culture=neutral, PublicKeyToken=c2d88086e098d109, processorArchitecture=MSIL">
+      <HintPath>..\packages\NSwag.SwaggerGeneration.WebApi.9.12.6284.27591\lib\portable45-net45+win8+wp8+wpa81\NSwag.SwaggerGeneration.WebApi.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
@@ -106,7 +106,7 @@
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-	<Target Name="AfterBuild">
-		<Exec Command="Box9.Leds.Manager.CodeGen.exe" WorkingDirectory="$(TargetDir)" />
-	</Target>
+  <Target Name="AfterBuild">
+    <Exec Command="Box9.Leds.Manager.CodeGen.exe" WorkingDirectory="$(TargetDir)" />
+  </Target>
 </Project>

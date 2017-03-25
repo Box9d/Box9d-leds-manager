@@ -213,3 +213,7 @@ src/Box9.Leds.Pi.Api/Properties/PublishProfiles/**/*
 !src/Box9.Leds.Manager.WebHost/x86
 !src/Box9.Leds.Manager.WebHost/x86/*.dll
 build/**/*
+src/BO9.Leds.Manager.Services/**/*.html
+src/BO9.Leds.Manager.Services/**/*.css
+src/BO9.Leds.Manager.PiApiClient/**/*.html
+src/BO9.Leds.Manager.PiApiClient/**/*.css
