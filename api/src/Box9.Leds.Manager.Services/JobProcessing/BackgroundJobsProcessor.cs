@@ -1,10 +1,6 @@
 ﻿using System.Linq;
-using Box9.Leds.Manager.Core.Validation;
 using Box9.Leds.Manager.DataAccess;
 using Box9.Leds.Manager.DataAccess.Actions;
-using Box9.Leds.Manager.PiApiClient;
-using Box9.Leds.Manager.Services.DeviceStatus;
-using Box9.Leds.Manager.Services.VideoProcessing;
 using Box9.Leds.Manager.DataAccess.Models;
 using System.Collections.Concurrent;
 using System.Threading;
