@@ -24,48 +24,81 @@ namespace Box9.Leds.Manager.PiApiClient
 
         public void ClearFrames(int videoId)
         {
-            var response = client.DeleteAsync(string.Format("/VideoFrames/ClearFrames?videoId={0}", videoId)).Result;
-            var globalResult = response.Content.ReadAsAsync<GlobalJsonResult<EmptyResult>>().Result;
+            this.Post<object, EmptyResult>("/VideoFrames/ClearFrames?videoId={0}", new { });
+        }
+
+        public void CreateVideoMetadata(VideoMetadataCreateRequest videoReference)
+        {
+            this.Post<VideoMetadataCreateRequest, EmptyResult>("/VideoMetadata/NewVideo", videoReference);
+        }
+
+        public IEnumerable<VideoMetadataResult> GetAllVideoMetadata()
+        {
+            return this.Get<IEnumerable<VideoMetadataResult>>("/VideoMetadata/GetVideos");
+        }
+
+        public LoadVideoPlaybackResult LoadVideo(int videoId)
+        {
+            return this.Get<LoadVideoPlaybackResult>(string.Format("/VideoPlayback/Load?videoId={0}", videoId));
+        }
+
+        public void PlayVideo(int videoId, PlayVideoRequest request)
+        {
+            this.Post<PlayVideoRequest, EmptyResult>(string.Format("/VideoPlayback/Play?videoId={0}", videoId), request);
+        }
+
+        public void SendFrames(int videoId, AppendFramesRequest request)
+        {
+            this.Post<AppendFramesRequest, EmptyResult>(string.Format("/VideoFrames/AppendFrames?videoId={0}", videoId), request);
+        }
+
+        public void StopVideo(int videoId, StopVideoRequest request)
+        {
+            this.Post<StopVideoRequest, EmptyResult>(string.Format("/VideoPlayback/Stop?videoId={0}", videoId), request);
+        }
+
+        public void UpdateVideoMetadata(VideoMetadataPutRequest videoMetadata)
+        {
+            this.Put<VideoMetadataPutRequest, EmptyResult>(string.Format("/VideoMetadata/UpdateVideo"), videoMetadata);
+        }
+
+        private TResponse Get<TResponse>(string requestUri)
+        {
+            var response = client.GetAsync(requestUri).Result;
+            var globalResult = response.Content.ReadAsAsync<GlobalJsonResult<TResponse>>().Result;
 
             if (!globalResult.Successful)
             {
                 throw new Exception(globalResult.ErrorMessage);
             }
+
+            return globalResult.Result;
         }
 
-        public void CreateVideoMetadata(VideoMetadataCreateRequest videoReference)
+        private TResponse Post<TRequest, TResponse>(string requestUri, TRequest request)
         {
-            throw new NotImplementedException();
+            var response = client.PostAsJsonAsync(requestUri, request).Result;
+            var globalResult = response.Content.ReadAsAsync<GlobalJsonResult<TResponse>>().Result;
+
+            if (!globalResult.Successful)
+            {
+                throw new Exception(globalResult.ErrorMessage);
+            }
+
+            return globalResult.Result;
         }
 
-        public IEnumerable<VideoMetadataResult> GetAllVideoMetadata()
+        private TResponse Put<TRequest, TResponse>(string requestUri, TRequest request)
         {
-            throw new NotImplementedException();
-        }
+            var response = client.PutAsJsonAsync(requestUri, request).Result;
+            var globalResult = response.Content.ReadAsAsync<GlobalJsonResult<TResponse>>().Result;
 
-        public LoadVideoPlaybackResult LoadVideo(int videoId)
-        {
-            throw new NotImplementedException();
-        }
+            if (!globalResult.Successful)
+            {
+                throw new Exception(globalResult.ErrorMessage);
+            }
 
-        public void PlayVideo(int videoId, PlayVideoRequest request)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void SendFrames(int videoId, AppendFramesRequest request)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void StopVideo(int videoId, StopVideoRequest request)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void UpdateVideoMetadata(VideoMetadataPutRequest videoMetadata)
-        {
-            throw new NotImplementedException();
+            return globalResult.Result;
         }
     }
 }
