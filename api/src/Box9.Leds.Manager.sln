@@ -25,6 +25,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Box9.Leds.Manager.CodeGen",
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Box9.Leds.Manager.Services.Tests", "Box9.Leds.Manager.Services.Tests\Box9.Leds.Manager.Services.Tests.csproj", "{055B63A8-03DA-46D0-BC11-EBA6775FED17}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Box9.Leds.Pi.Api.WebHost", "Box9.Leds.Pi.Api.WebHost\Box9.Leds.Pi.Api.WebHost.csproj", "{30ED5380-4088-4637-B3DF-1D42E49841AB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -105,6 +107,14 @@ Global
 		{055B63A8-03DA-46D0-BC11-EBA6775FED17}.Release|Any CPU.Build.0 = Release|Any CPU
 		{055B63A8-03DA-46D0-BC11-EBA6775FED17}.Release|x86.ActiveCfg = Release|Any CPU
 		{055B63A8-03DA-46D0-BC11-EBA6775FED17}.Release|x86.Build.0 = Release|Any CPU
+		{30ED5380-4088-4637-B3DF-1D42E49841AB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{30ED5380-4088-4637-B3DF-1D42E49841AB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{30ED5380-4088-4637-B3DF-1D42E49841AB}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{30ED5380-4088-4637-B3DF-1D42E49841AB}.Debug|x86.Build.0 = Debug|Any CPU
+		{30ED5380-4088-4637-B3DF-1D42E49841AB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{30ED5380-4088-4637-B3DF-1D42E49841AB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{30ED5380-4088-4637-B3DF-1D42E49841AB}.Release|x86.ActiveCfg = Release|Any CPU
+		{30ED5380-4088-4637-B3DF-1D42E49841AB}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -113,5 +123,6 @@ Global
 		{8B4A83CD-7512-4246-8856-7631B965C48A} = {FE1433E4-D4D0-4D6C-B869-C29B446BF340}
 		{C822665E-17EB-42BB-8BD3-AF1AE25A1419} = {47F4402A-3948-46F6-8BE3-166921809976}
 		{055B63A8-03DA-46D0-BC11-EBA6775FED17} = {FE1433E4-D4D0-4D6C-B869-C29B446BF340}
+		{30ED5380-4088-4637-B3DF-1D42E49841AB} = {47F4402A-3948-46F6-8BE3-166921809976}
 	EndGlobalSection
 EndGlobal
