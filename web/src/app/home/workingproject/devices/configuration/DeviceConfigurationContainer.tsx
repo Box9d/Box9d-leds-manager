@@ -8,11 +8,13 @@ import * as DeviceConfigurationPresenter from "./DeviceConfigurationPresenter";
 const mapStateToProps = (state: IAppState): DeviceConfigurationPresenter.IDeviceConfigurationProps => {
     return {
         deviceConfiguration: state.ProjectState.DevicesOverviewState.DeviceConfigurationState.DeviceConfiguration,
+        isMappingConfigured: state.DeviceConfigurationState.IsMappingConfigured,
     };
 };
 
 const mapDispatchToProps = (dispatch: any): DeviceConfigurationPresenter.IDeviceConfigurationProps => {
     return {
+        onModalOpened: () => dispatch(DeviceConfigurationActions.OpenModal()),
     };
 };
 

@@ -6,11 +6,14 @@ import { MessageType } from "../../../../messages/MessagingState";
 
 export class Actions {
     public static SetDeviceConfiguration: string = "SET_DEVICE_CONFIGURATION";
+    public static OpenModal = "OPEN_MAPPING_MODAL";
+    public static CloseModal = "CLOSE_MAPPING_MODAL";
+    public static SetMappingConfigured = "SET_MAPPING_CONFIGURED";
 }
 
 export const FetchDeviceConfiguration = (dispatch: any, deviceId: number, projectId: number): IAction => {
     let projectDeviceVersionClient = new ApiClient.ProjectDeviceVersionClient(config.apiUrl);
-    projectDeviceVersionClient.getLatestProjectDeviceVersion(deviceId, projectId).then((response: ApiClient.GlobalJsonResultOfProjectDeviceVersion) => {
+    projectDeviceVersionClient.getLatestProjectDeviceVersion(deviceId).then((response: ApiClient.GlobalJsonResultOfProjectDeviceVersion) => {
         if (!response.successful) {
             dispatch(MessageActions.SetMessageAndMessageType(dispatch, "Could not retrieve project devices: " + response.errorMessage, MessageType.Error));
         } else {
@@ -27,6 +30,27 @@ export const ClearDeviceConfiguration = (): IAction => {
     return {
         type: Actions.SetDeviceConfiguration,
         value: new ApiClient.ProjectDeviceVersion(),
+    };
+};
+
+export const OpenModal = (): IAction => {
+    return {
+        type: Actions.OpenModal,
+        value: name,
+    };
+};
+
+export const CloseModal = (): IAction => {
+    return {
+        type: Actions.CloseModal,
+        value: name,
+    };
+};
+
+export const SetMappingConfigured = (): IAction => {
+    return {
+        type: Actions.SetMappingConfigured,
+        value: name,
     };
 };
 

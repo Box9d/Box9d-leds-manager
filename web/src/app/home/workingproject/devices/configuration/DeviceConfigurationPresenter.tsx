@@ -2,6 +2,7 @@ import * as React from "react";
 import { Accordion, Button, Divider, Form, Header, Input, Label, Message, Segment, Table } from "semantic-ui-react";
 import * as ApiClient from "../../../../../../../api/build/ApiClient";
 import { DeviceConfigurationValidator } from "./DeviceConfigurationValidator";
+import DeviceConfigurationModal from "./DeviceConfigurationModalContainer";
 
 export class DeviceConfigurationsPresenter extends React.Component<IDeviceConfigurationProps, IDeviceConfigurationLocalState> {
 
@@ -27,9 +28,12 @@ export class DeviceConfigurationsPresenter extends React.Component<IDeviceConfig
                         </Form.Field>
                     </Form.Group>
                     <Divider horizontal>Mapping</Divider>
-                    <Button disabled>Configure mapping</Button>
+                    <Button disabled={!validator.validateWidthAndHeight().isValid} color="blue" onClick={(e: any) => { e.preventDefault(); this.props.onModalOpened(); }}>Configure mapping</Button>
+                    {this.props.isMappingConfigured && <Label color="green">OK</Label>}
+                    {!this.props.isMappingConfigured && <Label color="yellow">Not mapped</Label>}
+                    <DeviceConfigurationModal />
                     <Divider />
-                    <Button disabled={!validator.validateState().isValid} color="green">Save</Button>
+                    <Button disabled={!validator.validateState().isValid || !this.props.isMappingConfigured} color="green">Save</Button>
                 </Form>
             </div>;
     }
@@ -39,6 +43,8 @@ export interface IDeviceConfigurationProps {
     deviceConfiguration?: ApiClient.ProjectDeviceVersion;
     widthPixels?: number;
     heightPixels?: number;
+    isMappingConfigured?: boolean;
+    onModalOpened?: () => void;
 };
 
 export interface IDeviceConfigurationLocalState {

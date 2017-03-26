@@ -7,8 +7,18 @@ export const DeviceConfigurationReducer = (state: IDeviceConfigurationState, act
 
     switch (action.type) {
         case Actions.SetDeviceConfiguration:
-            state.DeviceConfiguration = action.value;
-        default: newState = state;
+            newState.DeviceConfiguration = action.value;
+            break;
+        case Actions.OpenModal:
+            newState.ModalIsOpen = true;
+            break;
+        case Actions.CloseModal:
+            newState.ModalIsOpen = false;
+            break;
+        case Actions.SetMappingConfigured:
+            newState.IsMappingConfigured = true;
+            break;
+        default: return state;
     }
 
     return (Object as any).assign({}, state, {}, { newState });

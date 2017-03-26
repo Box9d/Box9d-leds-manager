@@ -19,8 +19,8 @@ export class DeviceConfigurationValidator {
 
     public validateWidthPixels(): ValidationResult {
 
-        if (this.state.widthPixels < 1) {
-            return ValidationResult.Invalid("Width must be a positive integer");
+        if (this.state.widthPixels < 1 || this.state.widthPixels > 150) {
+            return ValidationResult.Invalid("Width must be a positive integer, no larger than 150");
         }
 
         return ValidationResult.Valid();
@@ -28,10 +28,18 @@ export class DeviceConfigurationValidator {
 
     public validateHeightPixels(): ValidationResult {
 
-        if (this.state.heightPixels < 1) {
-            return ValidationResult.Invalid("Height must be a positive integer");
+        if (this.state.heightPixels < 1 || this.state.widthPixels > 150) {
+            return ValidationResult.Invalid("Height must be a positive integer, no larger than 150");
         }
 
         return ValidationResult.Valid();
+    }
+
+    public validateWidthAndHeight(): ValidationResult {
+        if (this.validateWidthPixels().isValid && this.validateHeightPixels().isValid) {
+            return ValidationResult.Valid();
+        }
+
+        return ValidationResult.Invalid("State is invalid");
     }
 }

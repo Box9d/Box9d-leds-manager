@@ -6,6 +6,7 @@ import * as WorkingProjectState from "./home/workingproject/WorkingProjectState"
 import * as MessageState from "./messages/MessagingState";
 import * as NavState from "./nav/NavState";
 import * as SettingsState from "./settings/SettingsState";
+import * as DeviceConfigurationState from "./home/workingproject/devices/configuration/DeviceConfigurationState";
 
 export interface IAppState {
     NavState?: NavState.INavState;
@@ -16,6 +17,7 @@ export interface IAppState {
     WorkingProjectState?: WorkingProjectState.IWorkingProjectState;
     ProjectState?: ProjectState.IProjectState;
     SettingsState?: SettingsState.ISettingsState;
+    DeviceConfigurationState?: DeviceConfigurationState.IDeviceConfigurationState;
 }
 
 export class AppState implements IAppState {
@@ -27,6 +29,7 @@ export class AppState implements IAppState {
     public WorkingProjectState: WorkingProjectState.WorkingProjectState;
     public ProjectState: ProjectState.ProjectState;
     public SettingsState: SettingsState.ISettingsState;
+    public DeviceConfigurationState: DeviceConfigurationState.IDeviceConfigurationState;
 
     constructor() {
         this.NavState = new NavState.NavState();
@@ -37,5 +40,6 @@ export class AppState implements IAppState {
         this.WorkingProjectState = new WorkingProjectState.WorkingProjectState();
         this.ProjectState = new ProjectState.ProjectState();
         this.SettingsState = new SettingsState.SettingsState();
+        this.DeviceConfigurationState = new DeviceConfigurationState.DeviceConfigurationState();
     }
 }
