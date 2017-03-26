@@ -1,16 +1,19 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
-    <meta charset="utf-8" />
+    <meta charset='utf-8' />
     <title>Visualizer</title>
-    <link rel="stylesheet" type="text/css" href="css/visualizer.css">
+    <link rel='stylesheet' type='text/css' href='css/visualizer.css'>
+    <script src='Scripts/jquery-1.6.4.min.js'></script>
+    <script src='Scripts/jquery.signalR-2.2.1.min.js'></script>
+    <script src='signalr/hubs'></script>
+    <script src='Scripts/index.js'></script>
 </head>
 <body>
     <div>
-        <label for="horizontalpixelscount">Number of pixels in a row</label>
-        <input id="horizontalpixelscount" type="number" />
+        <label for='rowcount'>Number of rows</label>
+        <input id='rowcount' type='number' value='1' />
     </div>
-    <div id="display">
-    </div>
+    <div id='display' class='display'></div>
 </body>
 </html>

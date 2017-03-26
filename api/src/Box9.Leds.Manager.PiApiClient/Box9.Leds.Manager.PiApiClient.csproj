@@ -68,20 +68,20 @@
       <HintPath>..\packages\Autofac.WebApi2.Owin.4.0.0\lib\net45\Autofac.Integration.WebApi.Owin.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Box9.Leds.Pi.Api, Version=1.0.6293.31276, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Box9.Leds.Pi.Api.1.0.6293.31276\lib\net461\Box9.Leds.Pi.Api.dll</HintPath>
+    <Reference Include="Box9.Leds.Pi.Api, Version=1.0.6294.31412, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Box9.Leds.Pi.Api.1.0.6294.31412\lib\net461\Box9.Leds.Pi.Api.dll</HintPath>
     </Reference>
     <Reference Include="Box9.Leds.Pi.Core, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Box9.Leds.Pi.Api.1.0.6293.31276\lib\net461\Box9.Leds.Pi.Core.dll</HintPath>
+      <HintPath>..\packages\Box9.Leds.Pi.Api.1.0.6294.31412\lib\net461\Box9.Leds.Pi.Core.dll</HintPath>
     </Reference>
     <Reference Include="Box9.Leds.Pi.DataAccess, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Box9.Leds.Pi.Api.1.0.6293.31276\lib\net461\Box9.Leds.Pi.DataAccess.dll</HintPath>
+      <HintPath>..\packages\Box9.Leds.Pi.Api.1.0.6294.31412\lib\net461\Box9.Leds.Pi.DataAccess.dll</HintPath>
     </Reference>
     <Reference Include="Box9.Leds.Pi.Database, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Box9.Leds.Pi.Api.1.0.6293.31276\lib\net461\Box9.Leds.Pi.Database.dll</HintPath>
+      <HintPath>..\packages\Box9.Leds.Pi.Api.1.0.6294.31412\lib\net461\Box9.Leds.Pi.Database.dll</HintPath>
     </Reference>
     <Reference Include="Box9.Leds.Pi.Domain, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Box9.Leds.Pi.Api.1.0.6293.31276\lib\net461\Box9.Leds.Pi.Domain.dll</HintPath>
+      <HintPath>..\packages\Box9.Leds.Pi.Api.1.0.6294.31412\lib\net461\Box9.Leds.Pi.Domain.dll</HintPath>
     </Reference>
     <Reference Include="Dapper, Version=1.50.2.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Dapper.1.50.2\lib\net451\Dapper.dll</HintPath>
@@ -96,6 +96,12 @@
     </Reference>
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.SignalR.Core, Version=2.2.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.SignalR.Core.2.2.1\lib\net45\Microsoft.AspNet.SignalR.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.SignalR.SystemWeb, Version=2.2.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.SignalR.SystemWeb.2.2.1\lib\net45\Microsoft.AspNet.SignalR.SystemWeb.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=1.0.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.3\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
@@ -116,6 +122,9 @@
     <Reference Include="Microsoft.Owin.Host.SystemWeb, Version=3.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Owin.Host.SystemWeb.3.0.1\lib\net45\Microsoft.Owin.Host.SystemWeb.dll</HintPath>
       <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security, Version=2.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.2.1.0\lib\net45\Microsoft.Owin.Security.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Owin.StaticFiles, Version=3.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Owin.StaticFiles.3.0.1\lib\net45\Microsoft.Owin.StaticFiles.dll</HintPath>
