@@ -7,13 +7,22 @@ export const DeviceConfigurationReducer = (state: IDeviceConfigurationState, act
 
     switch (action.type) {
         case Actions.SetDeviceConfiguration:
-            newState.DeviceConfiguration = action.value;
+            // How are you supposed to handle this undefined?
+            if (action.value) {
+                newState.DeviceConfiguration = action.value;
+            }
             break;
         case Actions.OpenModal:
             newState.ModalIsOpen = true;
             break;
         case Actions.CloseModal:
             newState.ModalIsOpen = false;
+            break;
+        case Actions.ChangeHorizontalPixels:
+            newState.DeviceConfiguration.numberOfHorizontalPixels = action.value;
+            break;
+        case Actions.ChangeVerticalPixels:
+            newState.DeviceConfiguration.numberOfVerticalPixels = action.value;
             break;
         case Actions.SetMappingConfigured:
             newState.IsMappingConfigured = true;

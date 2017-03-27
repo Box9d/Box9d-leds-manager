@@ -6,6 +6,7 @@ import * as DeviceConfigurationModalPresenter from "./DeviceConfigurationModalPr
 const mapStateToProps = (state: IAppState): DeviceConfigurationModalPresenter.IDeviceConfigurationModalProps => {
     return {
         modalIsOpen: state.DeviceConfigurationState.ModalIsOpen,
+        deviceConfiguration: state.DeviceConfigurationState.DeviceConfiguration,
     };
 };
 

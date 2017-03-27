@@ -9,6 +9,8 @@ export class Actions {
     public static OpenModal = "OPEN_MAPPING_MODAL";
     public static CloseModal = "CLOSE_MAPPING_MODAL";
     public static SetMappingConfigured = "SET_MAPPING_CONFIGURED";
+    public static ChangeHorizontalPixels = "CHANGE_HORIZONTAL_PIXELS";
+    public static ChangeVerticalPixels = "CHANGE_VERTICAL_PIXELS";
 }
 
 export const FetchDeviceConfiguration = (dispatch: any, deviceId: number, projectId: number): IAction => {
@@ -51,6 +53,20 @@ export const SetMappingConfigured = (): IAction => {
     return {
         type: Actions.SetMappingConfigured,
         value: name,
+    };
+};
+
+export const ChangeHorizontalPixels = (number: number): IAction => {
+    return {
+        type: Actions.ChangeHorizontalPixels,
+        value: number,
+    };
+};
+
+export const ChangeVerticalPixels = (number: number): IAction => {
+    return {
+        type: Actions.ChangeVerticalPixels,
+        value: number,
     };
 };
 

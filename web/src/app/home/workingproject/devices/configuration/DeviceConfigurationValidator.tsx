@@ -1,45 +1,45 @@
 import { Guard } from "../../../../../validation/Guard";
 import { ValidationResult } from "../../../../../validation/ValidationResult";
-import { IDeviceConfigurationLocalState } from "./DeviceConfigurationPresenter";
+import { IDeviceConfigurationProps } from "./DeviceConfigurationPresenter";
 
 export class DeviceConfigurationValidator {
-    private state: IDeviceConfigurationLocalState;
+    private props: IDeviceConfigurationProps;
 
-    constructor(state: IDeviceConfigurationLocalState) {
-        this.state = state;
+    constructor(props: IDeviceConfigurationProps) {
+        this.props = props;
     }
 
-    public validateState(): ValidationResult {
-        if (this.validateWidthPixels().isValid && this.validateHeightPixels().isValid) {
+    public validateForm(): ValidationResult {
+        if (this.validateHorizontalPixels().isValid && this.validateVerticalPixels().isValid) {
             return ValidationResult.Valid();
         }
 
-        return ValidationResult.Invalid("State is invalid");
+        return ValidationResult.Invalid("Something is invalid");
     }
 
-    public validateWidthPixels(): ValidationResult {
+    public validateHorizontalPixels(): ValidationResult {
 
-        if (this.state.widthPixels < 1 || this.state.widthPixels > 150) {
+        if (!this.props.deviceConfiguration.numberOfHorizontalPixels || this.props.deviceConfiguration.numberOfHorizontalPixels < 1 || this.props.deviceConfiguration.numberOfHorizontalPixels > 150) {
             return ValidationResult.Invalid("Width must be a positive integer, no larger than 150");
         }
 
         return ValidationResult.Valid();
     }
 
-    public validateHeightPixels(): ValidationResult {
+    public validateVerticalPixels(): ValidationResult {
 
-        if (this.state.heightPixels < 1 || this.state.widthPixels > 150) {
+        if (!this.props.deviceConfiguration.numberOfVerticalPixels || this.props.deviceConfiguration.numberOfVerticalPixels < 1 || this.props.deviceConfiguration.numberOfVerticalPixels > 150) {
             return ValidationResult.Invalid("Height must be a positive integer, no larger than 150");
         }
 
         return ValidationResult.Valid();
     }
 
-    public validateWidthAndHeight(): ValidationResult {
-        if (this.validateWidthPixels().isValid && this.validateHeightPixels().isValid) {
+    public validateHorizontalAndVerticalPixels(): ValidationResult {
+        if (this.validateHorizontalPixels().isValid && this.validateVerticalPixels().isValid) {
             return ValidationResult.Valid();
         }
 
-        return ValidationResult.Invalid("State is invalid");
+        return ValidationResult.Invalid("Something is invalid");
     }
 }
