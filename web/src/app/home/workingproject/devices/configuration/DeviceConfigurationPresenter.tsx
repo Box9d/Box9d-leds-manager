@@ -27,7 +27,7 @@ export class DeviceConfigurationsPresenter extends React.Component<IDeviceConfig
                     <Button color="blue" onClick={(e: any) => { e.preventDefault(); this.props.onModalOpened(); }}>Configure mapping</Button>
                     {this.props.isMappingConfigured && <Label color="green">OK</Label>}
                     {!this.props.isMappingConfigured && <Label color="yellow">Not mapped</Label>}
-                    <DeviceConfigurationModal />
+                    { this.props.modalIsOpen && <DeviceConfigurationModal /> }
                     <Divider />
                     <Button disabled={!this.props.isMappingConfigured} color="green">Save</Button>
                 </Form>
@@ -39,6 +39,7 @@ export interface IDeviceConfigurationProps {
     deviceConfiguration?: ApiClient.ProjectDeviceVersion;
     isMappingConfigured?: boolean;
     onModalOpened?: () => void;
+    modalIsOpen?: boolean;
     horizontalPixelsOnChange?: (value: number) => void;
     verticalPixelsOnChange?: (value: number) => void;
 };

@@ -9,6 +9,7 @@ const mapStateToProps = (state: IAppState): DeviceConfigurationPresenter.IDevice
     return {
         deviceConfiguration: state.ProjectState.DevicesOverviewState.DeviceConfigurationState.DeviceConfiguration,
         isMappingConfigured: state.ProjectState.DevicesOverviewState.DeviceConfigurationState.IsMappingConfigured,
+        modalIsOpen: state.ProjectState.DevicesOverviewState.DeviceConfigurationState.ModalIsOpen,
     };
 };
 

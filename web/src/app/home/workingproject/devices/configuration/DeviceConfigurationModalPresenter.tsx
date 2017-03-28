@@ -1,9 +1,16 @@
 import * as React from "react";
-import { Button, Header, Icon, Modal, Table } from "semantic-ui-react";
+import { Button, Header, Icon, Label, Modal, Table } from "semantic-ui-react";
 import * as ApiClient from "../../../../../../../api/build/ApiClient";
 import "./DeviceConfigurationModalStyles.scss";
 
-export class DeviceConfigurationModalPresenter extends React.Component<IDeviceConfigurationModalProps, undefined> {
+export class DeviceConfigurationModalPresenter extends React.Component<IDeviceConfigurationModalProps, IDeviceConfigurationState> {
+
+    constructor(props: IDeviceConfigurationModalProps) {
+        super(props);
+
+        this.state = {pixelMappings: new Array<ApiClient.ProjectDeviceVersionMapping>()};
+    }
+
     public render() {
 
         if (!this.props.modalIsOpen) {
@@ -26,7 +33,14 @@ export class DeviceConfigurationModalPresenter extends React.Component<IDeviceCo
                             return <div key={rowNum} className="mapping-row">
                                 {
                                     row.map((col) =>
-                                    <div key={col} className="mapping-col"><Icon name="circle" /></div>,
+                                    <div key={col} className="mapping-col">
+                                        <Label as="a" circular color={this.getMapping(rowNum, col).mappingOrder !== 0 ? "blue" : "black"} onClick={(e: any) => this.setMapping(rowNum, col)}>
+                                                {
+                                                    this.getMapping(rowNum, col).mappingOrder !== 0 &&
+                                                    this.getMapping(rowNum, col).mappingOrder
+                                                }
+                                        </Label>
+                                    </div>,
                                 )}
                             </div>;
                         },
@@ -38,6 +52,36 @@ export class DeviceConfigurationModalPresenter extends React.Component<IDeviceCo
             </Modal>
         </div>;
     }
+
+    private setMapping(horizontal: number, vertical: number): void {
+        let existingOrders = this.state.pixelMappings.map((m) => m.mappingOrder);
+        let order = (existingOrders.length > 0 ? Math.max.apply(null, existingOrders) : 0) + 1;
+
+        let mapping: ApiClient.ProjectDeviceVersionMapping = new ApiClient.ProjectDeviceVersionMapping();
+        mapping.horizontalPosition = horizontal;
+        mapping.verticalPosition = vertical;
+        mapping.mappingOrder = order;
+
+        let mappings = this.state.pixelMappings;
+        mappings.push(mapping);
+
+        this.setState({pixelMappings: mappings});
+    }
+
+    private getMapping(horizontal: number, vertical: number): ApiClient.ProjectDeviceVersionMapping  {
+        for (let mapping of this.state.pixelMappings) {
+            if (mapping.horizontalPosition === horizontal && mapping.verticalPosition === vertical) {
+                return mapping;
+            }
+        }
+
+        let mapping = new ApiClient.ProjectDeviceVersionMapping();
+        mapping.horizontalPosition = 0;
+        mapping.verticalPosition = 0;
+        mapping.mappingOrder = 0;
+
+        return mapping;
+    }
 }
 
 export interface IDeviceConfigurationModalProps {
@@ -45,4 +89,8 @@ export interface IDeviceConfigurationModalProps {
     modalIsOpen?: boolean;
     onModalClose?: () => void;
     saveMapping?: () => void;
+}
+
+export interface IDeviceConfigurationState {
+    pixelMappings: ApiClient.ProjectDeviceVersionMapping[];
 }
