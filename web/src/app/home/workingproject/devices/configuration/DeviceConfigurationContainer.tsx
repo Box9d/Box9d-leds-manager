@@ -14,8 +14,8 @@ const mapStateToProps = (state: IAppState): DeviceConfigurationPresenter.IDevice
 
 const mapDispatchToProps = (dispatch: any): DeviceConfigurationPresenter.IDeviceConfigurationProps => {
     return {
-        onModalOpened: () => dispatch(DeviceConfigurationActions.OpenModal()),
         horizontalPixelsOnChange: (value: number) => dispatch(DeviceConfigurationActions.ChangeHorizontalPixels(value)),
+        onModalOpened: () => dispatch(DeviceConfigurationActions.OpenModal()),
         verticalPixelsOnChange: (value: number) => dispatch(DeviceConfigurationActions.ChangeVerticalPixels(value)),
     };
 };
