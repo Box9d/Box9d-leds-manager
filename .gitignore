@@ -1,3 +1,5 @@
 ./index.html
 build/**/*
 /web/uploadedvideos
+yarn.lock
+*.yarn-integrity

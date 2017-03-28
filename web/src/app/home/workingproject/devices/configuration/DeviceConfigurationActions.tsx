@@ -15,11 +15,13 @@ export class Actions {
 
 export const FetchDeviceConfiguration = (dispatch: any, deviceId: number, projectId: number): IAction => {
     let projectDeviceVersionClient = new ApiClient.ProjectDeviceVersionClient(config.apiUrl);
-    projectDeviceVersionClient.getLatestProjectDeviceVersion(deviceId).then((response: ApiClient.GlobalJsonResultOfProjectDeviceVersion) => {
+    projectDeviceVersionClient.getLatestProjectDeviceVersion(deviceId, projectId).then((response: ApiClient.GlobalJsonResultOfProjectDeviceVersion) => {
         if (!response.successful) {
             dispatch(MessageActions.SetMessageAndMessageType(dispatch, "Could not retrieve project devices: " + response.errorMessage, MessageType.Error));
         } else {
-            dispatch(SetDeviceConfiguration(response.result));
+            if (response.result) {
+                dispatch(SetDeviceConfiguration(response.result));
+            }
         }
     });
 

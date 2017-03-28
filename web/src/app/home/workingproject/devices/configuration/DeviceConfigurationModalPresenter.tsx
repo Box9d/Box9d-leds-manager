@@ -1,7 +1,7 @@
 import * as React from "react";
-import { Button, Header, Modal, Table, Icon } from "semantic-ui-react";
+import { Button, Header, Icon, Modal, Table } from "semantic-ui-react";
 import * as ApiClient from "../../../../../../../api/build/ApiClient";
-import "./DeviceConfigurationModalStyles.scss"
+import "./DeviceConfigurationModalStyles.scss";
 
 export class DeviceConfigurationModalPresenter extends React.Component<IDeviceConfigurationModalProps, undefined> {
     public render() {
@@ -11,9 +11,9 @@ export class DeviceConfigurationModalPresenter extends React.Component<IDeviceCo
         }
 
         let data = [];
-        for (var row = 0; row < this.props.deviceConfiguration.numberOfVerticalPixels; row++) {
+        for (let row = 0; row < this.props.deviceConfiguration.numberOfVerticalPixels; row++) {
             data[row] = [];
-            for (var col = 0; col < this.props.deviceConfiguration.numberOfHorizontalPixels; col++) {
+            for (let col = 0; col < this.props.deviceConfiguration.numberOfHorizontalPixels; col++) {
                 data[row].push(col);
             }
         }
@@ -21,12 +21,15 @@ export class DeviceConfigurationModalPresenter extends React.Component<IDeviceCo
         return <div>
             <Modal defaultOpen onClose={this.props.onModalClose} closeIcon="close" dimmer="blurring">
                 <div className="mapping-table">
-                    {data.map((row, rowNum) =>
-                        <div key={rowNum} className="mapping-row">
-                            {row.map((col) =>
-                                <div key={col} className="mapping-col"><Icon name="circle" /></div>
-                            )}
-                        </div>
+                    {
+                        data.map((row, rowNum) => {
+                            return <div key={rowNum} className="mapping-row">
+                                {
+                                    row.map((col) =>
+                                    <div key={col} className="mapping-col"><Icon name="circle" /></div>,
+                                )}
+                            </div>;
+                        },
                     )}
                 </div>
                 <div className="mapping-save-wrapper">

@@ -8,7 +8,7 @@ import * as DeviceConfigurationPresenter from "./DeviceConfigurationPresenter";
 const mapStateToProps = (state: IAppState): DeviceConfigurationPresenter.IDeviceConfigurationProps => {
     return {
         deviceConfiguration: state.ProjectState.DevicesOverviewState.DeviceConfigurationState.DeviceConfiguration,
-        isMappingConfigured: state.DeviceConfigurationState.IsMappingConfigured,
+        isMappingConfigured: state.ProjectState.DevicesOverviewState.DeviceConfigurationState.IsMappingConfigured,
     };
 };
 

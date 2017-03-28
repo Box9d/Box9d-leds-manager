@@ -8,7 +8,6 @@ import { WorkingProjectReducer } from "./home/workingproject/WorkingProjectReduc
 import { MessageReducer } from "./messages/MessageReducer";
 import { NavReducer } from "./nav/NavReducer";
 import { SettingsReducer } from "./settings/SettingsReducer";
-import { DeviceConfigurationReducer } from "./home/workingproject/devices/configuration/DeviceConfigurationReducer";
 
 export const appReducer = (state: IAppState = new AppState(), action: IAction): IAppState => {
     let newState: IAppState = state;
@@ -20,7 +19,6 @@ export const appReducer = (state: IAppState = new AppState(), action: IAction): 
     newState.OpenProjectState = OpenProjectReducer(newState.OpenProjectState, action);
     newState.WorkingProjectState = WorkingProjectReducer(newState.WorkingProjectState, action);
     newState.SettingsState = SettingsReducer(newState.SettingsState, action);
-    newState.DeviceConfigurationState = DeviceConfigurationReducer(newState.DeviceConfigurationState, action);
 
     return (Object as any).assign({}, state, {}, { newState });
 };
