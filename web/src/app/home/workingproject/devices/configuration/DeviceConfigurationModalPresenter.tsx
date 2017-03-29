@@ -20,32 +20,40 @@ export class DeviceConfigurationModalPresenter extends React.Component<IDeviceCo
             }
         }
 
+        let horizontalScrollStyling = {
+            overflowX: "scroll",
+        };
+
         return <div>
-            <Modal defaultOpen onClose={this.props.onModalClose} closeIcon="close" dimmer="blurring">
-                <div className="mapping-table">
-                    {
-                        data.map((row, rowNum) => {
-                            return <div key={rowNum} className="mapping-row">
-                                {
-                                    row.map((col) =>
-                                    <div key={col} className="mapping-col">
-                                        <Label as="a" circular color={this.getMapping(rowNum, col).mappingOrder !== 0 ? "blue" : "black"} onClick={(e: any) => this.setMapping(rowNum, col)}>
-                                                {
-                                                    this.getMapping(rowNum, col).mappingOrder !== 0 &&
-                                                    this.getMapping(rowNum, col).mappingOrder
-                                                }
-                                        </Label>
-                                    </div>,
-                                )}
-                            </div>;
-                        },
-                    )}
-                </div>
-                <div className="mapping-save-wrapper">
-                    <Button icon="undo" content="Undo" labelPosition="right" onClick={this.undoLastMapping} />
-                    <Button icon="erase" content="Clear" labelPosition="right" onClick={this.clearMappings} />
-                    <Button color="green" onClick={this.props.saveMapping} className="mapping-save" floated="right">Save</Button>
-                </div>
+            <Modal defaultOpen onClose={this.props.onModalClose} closeIcon="close" dimmer="blurring" size={"fullscreen" as any}>
+                <Modal.Content>
+                    <div className="description" style={horizontalScrollStyling}>
+                        <div className="mapping-table">
+                            {
+                                data.map((row, rowNum) => {
+                                    return <div key={rowNum} className="mapping-row">
+                                        {
+                                            row.map((col) =>
+                                            <div key={col} className="mapping-col">
+                                                <Label as="a" size="tiny" circular color={this.getMapping(rowNum, col).mappingOrder !== 0 ? "blue" : "black"} onClick={(e: any) => this.setMapping(rowNum, col)}>
+                                                        {
+                                                            this.getMapping(rowNum, col).mappingOrder !== 0 &&
+                                                            this.getMapping(rowNum, col).mappingOrder
+                                                        }
+                                                </Label>
+                                            </div>,
+                                        )}
+                                    </div>;
+                                },
+                            )}
+                        </div>
+                    </div>
+                    <div className="mapping-save-wrapper">
+                        <Button icon="undo" content="Undo" labelPosition="right" onClick={this.undoLastMapping} />
+                        <Button icon="erase" content="Clear" labelPosition="right" onClick={this.clearMappings} />
+                        <Button color="green" onClick={this.props.saveMapping} className="mapping-save" floated="right">Save</Button>
+                    </div>
+                </Modal.Content>
             </Modal>
         </div>;
     }
