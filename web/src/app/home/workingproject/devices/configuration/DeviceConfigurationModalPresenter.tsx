@@ -68,6 +68,11 @@ export class DeviceConfigurationModalPresenter extends React.Component<IDeviceCo
         mapping.mappingOrder = order;
 
         let mappings = this.state.pixelMappings;
+
+        if (mappings.find((m) => m.horizontalPosition === mapping.horizontalPosition && m.verticalPosition === mapping.verticalPosition)) {
+            return; // Do not overwrite existing mapping
+        }
+
         mappings.push(mapping);
 
         this.setState({pixelMappings: mappings});
