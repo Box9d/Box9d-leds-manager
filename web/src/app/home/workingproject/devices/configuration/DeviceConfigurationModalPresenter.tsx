@@ -12,11 +12,6 @@ export class DeviceConfigurationModalPresenter extends React.Component<IDeviceCo
     }
 
     public render() {
-
-        if (!this.props.modalIsOpen) {
-            return <div></div>;
-        }
-
         let data = [];
         for (let row = 0; row < this.props.deviceConfiguration.numberOfVerticalPixels; row++) {
             data[row] = [];
@@ -47,13 +42,14 @@ export class DeviceConfigurationModalPresenter extends React.Component<IDeviceCo
                     )}
                 </div>
                 <div className="mapping-save-wrapper">
-                    <Button color="green" onClick={this.props.saveMapping} fluid className="mapping-save">Save</Button>
-                </div>    
+                    <Button icon="undo" content="Undo" labelPosition="right" onClick={this.undoLastMapping} />
+                    <Button color="green" onClick={this.props.saveMapping} className="mapping-save">Save</Button>
+                </div>
             </Modal>
         </div>;
     }
 
-    private setMapping(horizontal: number, vertical: number): void {
+    private setMapping = (horizontal: number, vertical: number): void => {
         let existingOrders = this.state.pixelMappings.map((m) => m.mappingOrder);
         let order = (existingOrders.length > 0 ? Math.max.apply(null, existingOrders) : 0) + 1;
 
@@ -68,7 +64,7 @@ export class DeviceConfigurationModalPresenter extends React.Component<IDeviceCo
         this.setState({pixelMappings: mappings});
     }
 
-    private getMapping(horizontal: number, vertical: number): ApiClient.ProjectDeviceVersionMapping  {
+    private getMapping = (horizontal: number, vertical: number): ApiClient.ProjectDeviceVersionMapping => {
         for (let mapping of this.state.pixelMappings) {
             if (mapping.horizontalPosition === horizontal && mapping.verticalPosition === vertical) {
                 return mapping;
@@ -81,6 +77,15 @@ export class DeviceConfigurationModalPresenter extends React.Component<IDeviceCo
         mapping.mappingOrder = 0;
 
         return mapping;
+    }
+
+    private undoLastMapping = (): void => {
+        if (this.state.pixelMappings.length > 0) {
+            let mappings = this.state.pixelMappings;
+            mappings.sort((a, b) => { return a.mappingOrder - b.mappingOrder; }).pop();
+
+            this.setState({pixelMappings: mappings});
+        }
     }
 }
 
