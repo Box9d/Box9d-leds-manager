@@ -43,7 +43,8 @@ export class DeviceConfigurationModalPresenter extends React.Component<IDeviceCo
                 </div>
                 <div className="mapping-save-wrapper">
                     <Button icon="undo" content="Undo" labelPosition="right" onClick={this.undoLastMapping} />
-                    <Button color="green" onClick={this.props.saveMapping} className="mapping-save">Save</Button>
+                    <Button icon="erase" content="Clear" labelPosition="right" onClick={this.clearMappings} />
+                    <Button color="green" onClick={this.props.saveMapping} className="mapping-save" floated="right">Save</Button>
                 </div>
             </Modal>
         </div>;
@@ -86,6 +87,10 @@ export class DeviceConfigurationModalPresenter extends React.Component<IDeviceCo
 
             this.setState({pixelMappings: mappings});
         }
+    }
+
+    private clearMappings = (): void => {
+        this.setState({pixelMappings: new Array<ApiClient.ProjectDeviceVersionMapping>()});
     }
 }
 
