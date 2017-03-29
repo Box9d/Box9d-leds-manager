@@ -51,7 +51,7 @@ export class DeviceConfigurationModalPresenter extends React.Component<IDeviceCo
                     <div className="mapping-save-wrapper">
                         <Button icon="undo" content="Undo" labelPosition="right" onClick={this.undoLastMapping} />
                         <Button icon="erase" content="Clear" labelPosition="right" onClick={this.clearMappings} />
-                        <Button color="green" onClick={this.props.saveMapping} className="mapping-save" floated="right">Save</Button>
+                        <Button color="green" onClick={this.saveMappings} className="mapping-save" floated="right">Save</Button>
                     </div>
                 </Modal.Content>
             </Modal>
@@ -94,6 +94,14 @@ export class DeviceConfigurationModalPresenter extends React.Component<IDeviceCo
             mappings.sort((a, b) => { return a.mappingOrder - b.mappingOrder; }).pop();
 
             this.setState({pixelMappings: mappings});
+        }
+    }
+
+    private saveMappings = (): void => {
+        if (this.state.pixelMappings.length > 0) {
+            this.props.saveMapping();
+        } else {
+            this.props.onModalClose();
         }
     }
 
