@@ -23,5 +23,14 @@ namespace Box9.Leds.Manager.Api.Controllers
 
             return GlobalJsonResult<IEnumerable<BackgroundJob>>.Success(System.Net.HttpStatusCode.OK, result);
         }
+
+        [HttpGet]
+        [ActionName("GetAllJobsForProject")]
+        public GlobalJsonResult<IEnumerable<BackgroundJob>> GetAllJobsForProject(int projectId, bool includeCompleted = false)
+        {
+            var result = dispatcher.Dispatch(BackgroundJobActions.GetAllJobsForPoject(projectId, includeCompleted));
+
+            return GlobalJsonResult<IEnumerable<BackgroundJob>>.Success(System.Net.HttpStatusCode.OK, result);
+        }
     }
 }

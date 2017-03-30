@@ -5,6 +5,8 @@ using Dapper.Contrib.Extensions;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
+using System;
+using Dapper;
 
 namespace Box9.Leds.Manager.DataAccess.Actions
 {
@@ -32,6 +34,18 @@ namespace Box9.Leds.Manager.DataAccess.Actions
                 conn.Insert(job);
 
                 return job;
+            });
+        }
+
+        public static DataAccessAction<IEnumerable<BackgroundJob>> GetAllJobsForPoject(int projectId, bool includeCompleted)
+        {
+            return new DataAccessAction<IEnumerable<BackgroundJob>>((IDbConnection conn) =>
+            {
+                return conn.Query<BackgroundJob>("SELECT * FROM BackgroundJob " +
+                    "INNER JOIN ProjectDeviceVersion ON BackgroundJob.projectdeviceversionid = ProjectDeviceVersion.id " +
+                    "INNER JOIN ProjectDevice ON ProjectDeviceVersion.projectdeviceid = ProjectDevice.id " +
+                    "WHERE ProjectDevice.projectid = @projectid", new { projectId })
+                    .Where(j => includeCompleted || j.Status != Core.Jobs.JobStatus.Complete);
             });
         }
 

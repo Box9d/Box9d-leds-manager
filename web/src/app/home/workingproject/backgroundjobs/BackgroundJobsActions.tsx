@@ -4,16 +4,40 @@ import config from "../../../../Config";
 import * as MessageActions from "../../../messages/MessageActions";
 import { MessageType } from "../../../messages/MessagingState";
 
+let isPolling = false;
+
 export class Actions {
     public static SetBackgroundJobs = "SET_BACKGROUND_JOBS";
 }
 
 export const StartPollingBackgroundJobs = (dispatch: any, projectId: number): IAction => {
-    // todo:
+    isPolling = true;
+
+    dispatch(FetchBackgroundJobs(dispatch, projectId));
+
     return {
         type: "DO_NOTHING",
     };
 };
+
+const FetchBackgroundJobs = (dispatch: any, projectId: number): IAction => {
+
+    if (isPolling) {
+        let backgroundJobsClient = new ApiClient.BackgroundJobsClient(config.apiUrl);
+        backgroundJobsClient.getAllJobsForProject(projectId, false).then((response: ApiClient.GlobalJsonResultOfIEnumerableOfBackgroundJob) => {
+            if (!response.successful) {
+                dispatch(MessageActions.SetMessageAndMessageType(dispatch, "Could not retrieve background jobs: " + response.errorMessage, MessageType.Error));
+            } else {
+                dispatch(SetBackgroundJobs(response.result));
+                setTimeout(() => { dispatch(FetchBackgroundJobs(dispatch, projectId)); }, config.backgroundJobsScanPollPeriodInMilliseconds);
+            }
+        });
+    }
+
+    return {
+        type: "DO_NOTHING",
+    };
+}
 
 const SetBackgroundJobs = (jobs: ApiClient.BackgroundJob[]): IAction => {
     return {
@@ -23,7 +47,8 @@ const SetBackgroundJobs = (jobs: ApiClient.BackgroundJob[]): IAction => {
 };
 
 export const StopPollingBackgroundJobs = (dispatch: any): IAction => {
-    // todo:
+    isPolling = false;
+
     return {
         type: "DO_NOTHING",
     };
