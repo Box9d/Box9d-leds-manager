@@ -31,11 +31,11 @@ export class DeviceConfigurationsPresenter extends React.Component<IDeviceConfig
                     </Form.Group>
                     <Divider horizontal>Mapping</Divider>
                     <Button color="blue" onClick={this.configureMappingOnClick}>Configure mapping</Button>
-                    {this.props.isMappingConfigured && <Label color="green">OK</Label>}
-                    {!this.props.isMappingConfigured && <Label color="yellow">Not mapped</Label>}
+                    {this.props.mappings.length > 0 && <Label color="green">OK</Label>}
+                    {this.props.mappings.length === 0 && <Label color="yellow">Not mapped</Label>}
                     { this.props.modalIsOpen && <DeviceConfigurationModal /> }
                     <Divider />
-                    <Button disabled={!this.props.isMappingConfigured} color="green">Save</Button>
+                    <Button disabled={this.props.mappings.length === 0 || !validator.validateForm().isValid} color="green" onClick={this.saveConfiguration}>Save</Button>
                 </Form>
             </div>;
     }
@@ -50,15 +50,23 @@ export class DeviceConfigurationsPresenter extends React.Component<IDeviceConfig
             this.props.onModalOpened();
         }
     }
+
+    private saveConfiguration = (e: any): void => {
+        e.preventDefault();
+
+        this.props.saveConfiguration(this.props.projectDeviceId, this.props.deviceConfiguration, this.props.mappings);
+    }
 }
 
 export interface IDeviceConfigurationProps {
+    projectDeviceId?: number;
     deviceConfiguration?: ApiClient.ProjectDeviceVersion;
-    isMappingConfigured?: boolean;
+    mappings?: ApiClient.ProjectDeviceVersionMapping[];
     onModalOpened?: () => void;
     modalIsOpen?: boolean;
     horizontalPixelsOnChange?: (value: number) => void;
     verticalPixelsOnChange?: (value: number) => void;
+    saveConfiguration?: (projectDeviceId: number, configuration: ApiClient.ProjectDeviceVersion, mappings: ApiClient.ProjectDeviceVersionMapping[]) => void;
 };
 
 export interface IDeviceConfigurationState {

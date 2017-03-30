@@ -8,8 +8,9 @@ import * as DeviceConfigurationPresenter from "./DeviceConfigurationPresenter";
 const mapStateToProps = (state: IAppState): DeviceConfigurationPresenter.IDeviceConfigurationProps => {
     return {
         deviceConfiguration: state.ProjectState.DevicesOverviewState.DeviceConfigurationState.DeviceConfiguration,
-        isMappingConfigured: state.ProjectState.DevicesOverviewState.DeviceConfigurationState.PixelMappings.length > 0,
+        mappings: state.ProjectState.DevicesOverviewState.DeviceConfigurationState.PixelMappings,
         modalIsOpen: state.ProjectState.DevicesOverviewState.DeviceConfigurationState.ModalIsOpen,
+        projectDeviceId: state.ProjectState.DevicesOverviewState.DeviceConfigurationState.DeviceConfiguration.projectDeviceId,
     };
 };
 
@@ -20,6 +21,9 @@ const mapDispatchToProps = (dispatch: any): DeviceConfigurationPresenter.IDevice
             dispatch(DeviceConfigurationActions.DeterminePixelMappingsValidity());
         },
         onModalOpened: () => dispatch(DeviceConfigurationActions.OpenModal()),
+        saveConfiguration: (projectDeviceId: number, configuration: ApiClient.ProjectDeviceVersion, mappings: ApiClient.ProjectDeviceVersionMapping[]) => {
+            dispatch(DeviceConfigurationActions.SaveDeviceConfiguration(dispatch, projectDeviceId, configuration, mappings));
+        },
         verticalPixelsOnChange: (value: number) => {
             dispatch(DeviceConfigurationActions.ChangeVerticalPixels(value));
             dispatch(DeviceConfigurationActions.DeterminePixelMappingsValidity());

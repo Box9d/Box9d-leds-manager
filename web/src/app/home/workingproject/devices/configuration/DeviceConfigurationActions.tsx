@@ -20,10 +20,8 @@ export const FetchDeviceConfiguration = (dispatch: any, deviceId: number, projec
         if (!response.successful) {
             dispatch(MessageActions.SetMessageAndMessageType(dispatch, "Could not retrieve project devices: " + response.errorMessage, MessageType.Error));
         } else {
-            if (response.result) {
-                dispatch(SetDeviceConfiguration(response.result));
-                dispatch(FetchDevicePixelMappings(dispatch, response.result.id));
-            }
+            dispatch(SetDeviceConfiguration(response.result));
+            dispatch(FetchDevicePixelMappings(dispatch, response.result.id));
         }
     });
 
@@ -33,14 +31,45 @@ export const FetchDeviceConfiguration = (dispatch: any, deviceId: number, projec
 };
 
 const FetchDevicePixelMappings = (dispatch: any, projectDeviceVersionId: number): IAction => {
-    let projectDeviceVersionClient = new ApiClient.ProjectDeviceMappingClient(config.apiUrl);
-    projectDeviceVersionClient.getProjectDeviceMappings(projectDeviceVersionId).then((response: ApiClient.GlobalJsonResultOfIEnumerableOfProjectDeviceVersionMapping) => {
+    let projectDeviceMappingClient = new ApiClient.ProjectDeviceMappingClient(config.apiUrl);
+    projectDeviceMappingClient.getProjectDeviceMappings(projectDeviceVersionId).then((response: ApiClient.GlobalJsonResultOfIEnumerableOfProjectDeviceVersionMapping) => {
         if (!response.successful) {
             dispatch(MessageActions.SetMessageAndMessageType(dispatch, "Could not retrieve project device mappings: " + response.errorMessage, MessageType.Error));
         } else {
             if (response.result) {
                 dispatch(SetDevicePixelMappings(response.result));
             }
+        }
+    });
+
+    return {
+        type: "DO_NOTHING",
+    };
+};
+
+export const SaveDeviceConfiguration = (dispatch: any, projectDeviceId: number, configuration: ApiClient.ProjectDeviceVersion, mappings: ApiClient.ProjectDeviceVersionMapping[]): IAction => {
+
+    let projectDeviceVersionClient = new ApiClient.ProjectDeviceVersionClient(config.apiUrl);
+    projectDeviceVersionClient.setLatestProjectDeviceVersion(projectDeviceId, configuration).then((response: ApiClient.GlobalJsonResultOfProjectDeviceVersion) => {
+        if (!response.successful) {
+            dispatch(MessageActions.SetMessageAndMessageType(dispatch, "Could not save project device configuration: " + response.errorMessage, MessageType.Error));
+        } else {
+            dispatch(SaveDevicePixelMappings(dispatch, response.result.id, mappings));
+        }
+    });
+
+    return {
+        type: "DO_NOTHING",
+    };
+};
+
+const SaveDevicePixelMappings = (dispatch: any, projectDeviceVersionId: number, mappings: ApiClient.ProjectDeviceVersionMapping[]): IAction => {
+    let projectDeviceMappingClient = new ApiClient.ProjectDeviceMappingClient(config.apiUrl);
+    projectDeviceMappingClient.setProjectDeviceMappings(projectDeviceVersionId, mappings).then((response: ApiClient.GlobalJsonResultOfProjectDeviceVersion) => {
+        if (!response.successful) {
+            dispatch(MessageActions.SetMessageAndMessageType(dispatch, "Could not save project device mappings: " + response.errorMessage, MessageType.Error));
+        } else {
+            dispatch(MessageActions.SetMessageAndMessageType(dispatch, "Device configuration saved", MessageType.Info));
         }
     });
 
@@ -93,7 +122,7 @@ export const SetDevicePixelMappings = (mappings: ApiClient.ProjectDeviceVersionM
     };
 };
 
-export const ClearDevicePixelMappings = (): IAction => {
+const ClearDevicePixelMappings = (): IAction => {
     return {
         type: Actions.SetDeviceMappings,
         value: new Array<ApiClient.ProjectDeviceVersionMapping>(),

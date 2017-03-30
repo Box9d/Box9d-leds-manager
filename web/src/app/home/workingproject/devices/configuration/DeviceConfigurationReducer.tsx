@@ -44,7 +44,8 @@ const ProjectDeviceVersionReducer = (state: ApiClient.ProjectDeviceVersion, acti
         default: break;
     }
 
-    return (Object as any).assign({}, state, {}, { newState });
+    // API objects aren't immutable, but the state is - so we need to create a new version of the API object
+    return ApiClient.ProjectDeviceVersion.fromJS(newState.toJS());
 };
 
 
