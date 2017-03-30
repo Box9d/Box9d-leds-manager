@@ -1,0 +1,18 @@
+.mapping-table {
+    margin: 20px 0;
+    width: 100%;
+    display: table;
+    .mapping-row {
+        display: table-row;
+        height: 30px;
+        .mapping-col {
+            display: table-cell;    
+            vertical-align: middle;
+            text-align: center;
+        }
+    }
+}
+
+.mapping-save-wrapper {
+    padding: 20px;
+}

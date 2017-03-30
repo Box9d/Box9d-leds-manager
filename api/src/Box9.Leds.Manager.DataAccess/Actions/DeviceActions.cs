@@ -76,6 +76,16 @@ namespace Box9.Leds.Manager.DataAccess.Actions
                         projectDevice.Id = conn.GetNextId<ProjectDevice>();
 
                         conn.Insert(projectDevice, transaction);
+
+                        var projectDeviceVersionId = conn.GetNextId<ProjectDeviceVersion>();
+                        var projectDeviceVersion = new ProjectDeviceVersion
+                        {
+                            Id = projectDeviceVersionId,
+                            ProjectDeviceId = projectDevice.Id,
+                        };
+
+                        conn.Insert(projectDeviceVersion, transaction);
+
                         transaction.Commit();
 
                         return projectDevice;

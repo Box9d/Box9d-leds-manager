@@ -72,7 +72,7 @@ namespace Box9.Leds.Manager.DataAccess.Actions
             return new DataAccessAction<ProjectDeviceVersion>((IDbConnection conn) =>
             {
                 return conn
-                    .Query<ProjectDeviceVersion>("SELECT Version FROM ProjectDeviceVersion WHERE projectdeviceid = @projectdeviceid ORDER BY VERSION DESC LIMIT 1",
+                    .Query<ProjectDeviceVersion>("SELECT * FROM ProjectDeviceVersion WHERE projectdeviceid = @projectdeviceid ORDER BY VERSION DESC LIMIT 1",
                         new { projectDeviceId })
                     .SingleOrDefault();
             });
