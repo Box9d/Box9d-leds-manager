@@ -23,8 +23,6 @@ namespace Box9.Leds.Manager.DataAccess.Tests.Integration
 
                 var projectDeviceVersion = ProjectDeviceActions.GetLatestProjectDeviceVersion(projectDevice.Id).Function(conn);
 
-                Assert.Null(projectDeviceVersion);
-
                 projectDeviceVersion = ProjectDeviceActions.SetLatestProjectDeviceVersion(new ProjectDeviceVersion
                 {
                     ProjectDeviceId = projectDevice.Id,
