@@ -46,12 +46,10 @@ const SetBackgroundJobs = (jobs: ApiClient.BackgroundJob[]): IAction => {
     };
 };
 
-export const StopPollingBackgroundJobs = (dispatch: any): IAction => {
+export const StopPollingBackgroundJobs = (): IAction => {
     isPolling = false;
 
-    return {
-        type: "DO_NOTHING",
-    };
+    return ClearBackgroundJobs();
 };
 
 const ClearBackgroundJobs = (): IAction => {

@@ -14,7 +14,7 @@ const mapStateToProps = (state: IAppState): BackgroundJobsStatusPresenter.IBackg
 const mapDispatchToProps = (dispatch: any): BackgroundJobsStatusPresenter.IBackgroundJobsStatusProps => {
     return {
         startPollingBackgroundJobs: (projectId: number) => dispatch(BackgroundJobActions.StartPollingBackgroundJobs(dispatch, projectId)),
-        stopPollingBackgroundJobs: () => dispatch(BackgroundJobActions.StopPollingBackgroundJobs(dispatch)),
+        stopPollingBackgroundJobs: () => dispatch(BackgroundJobActions.StopPollingBackgroundJobs()),
     };
 };
 
