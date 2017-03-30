@@ -1,11 +1,12 @@
 import * as React from "react";
-import { Button, Container, Divider, Grid, Header, Label, Menu, Modal, Segment, Input } from "semantic-ui-react";
+import { Button, Container, Divider, Grid, Header, Input, Label, Menu, Modal, Segment } from "semantic-ui-react";
 import * as ApiClient from "../../../../../api/build/ApiClient";
+import BackgroundJobs from "./backgroundjobs/BackgroundJobsContainer";
 import DevicesConfigurationStatus from "./devices/DevicesConfigurationStatusContainer";
 import DevicesOverview from "./devices/DevicesOverviewContainer";
+import "./ProjectOverviewStyles.scss";
 import SelectVideo from "./video/SelectVideoContainer";
 import VideoConfigurationStatus from "./video/VideoConfigurationStatusContainer";
-import "./ProjectOverviewStyles.scss";
 
 export class ProjectOverviewPresenter extends React.Component<IProjectOverviewProps, IProjectOverviewState> {
 
@@ -34,6 +35,9 @@ export class ProjectOverviewPresenter extends React.Component<IProjectOverviewPr
                             Devices
                             <DevicesConfigurationStatus/>
                         </Menu.Item>
+                        <Menu.Item name="BackgroundJobs" active={this.state.selectedNavigationItem === "backgroundjobs"} onClick={(e: any) => this.selectNavigationItem("backgroundjobs")}>
+                            Background Jobs
+                        </Menu.Item>
                     </Menu>
                 </Grid.Column> 
                 <Grid.Column stretched width={12}>
@@ -47,6 +51,12 @@ export class ProjectOverviewPresenter extends React.Component<IProjectOverviewPr
                         this.state.selectedNavigationItem === "devices" &&
                         <Segment>
                             <DevicesOverview/>
+                        </Segment>
+                    }
+                    {
+                        this.state.selectedNavigationItem === "backgroundjobs" &&
+                        <Segment>
+                            <BackgroundJobs/>
                         </Segment>
                     }
                 </Grid.Column>         

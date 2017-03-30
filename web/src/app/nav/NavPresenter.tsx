@@ -9,9 +9,6 @@ export class NavPresenter extends React.Component<INavProps, undefined> {
                     <Menu.Item className="borderless" name="Home" active={this.props.selectedNavItem === "home"} onClick={(e) => this.props.selectedNavItemOnChange("home")}>
                         <Icon name="home"/>
                     </Menu.Item>
-                    <Menu.Item name="Background Jobs" active={this.props.selectedNavItem === "backgroundjobs"} onClick={(e) => this.props.selectedNavItemOnChange("backgroundjobs")}>
-                        <Icon name="tasks"/>
-                    </Menu.Item>
                     <Menu.Item name="Settings" active={this.props.selectedNavItem === "settings"} onClick={(e) => this.props.selectedNavItemOnChange("settings")}>
                         <Icon name="wrench"/>
                     </Menu.Item>

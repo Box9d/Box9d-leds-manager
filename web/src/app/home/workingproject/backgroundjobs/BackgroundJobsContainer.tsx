@@ -1,18 +1,17 @@
 import { connect } from "react-redux";
-import { IAppState } from "../AppState";
-import { FetchBackgroundJobs } from "../backgroundjobs/BackgroundJobActions";
+import * as ApiClient from "../../../../../../api/build/ApiClient";
+import { IAppState } from "../../../AppState";
 import * as BackgroundJobsPresenter from "./BackgroundJobsPresenter";
 
 const mapStateToProps = (state: IAppState): BackgroundJobsPresenter.IBackgroundJobsProps => {
     return {
-        backgroundJobs: state.BackgroundJobsState.BackgroundJobs,
-        selectedMenuItem: state.NavState.SelectedNavItem,
+        // todo:
+        backgroundJobs: new Array<ApiClient.BackgroundJob>(),
     };
 };
 
 const mapDispatchToProps = (dispatch: any): BackgroundJobsPresenter.IBackgroundJobsProps => {
     return {
-        refreshJobs: () => dispatch(FetchBackgroundJobs(dispatch)),
     };
 };
 

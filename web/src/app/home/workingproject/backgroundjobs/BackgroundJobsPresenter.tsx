@@ -1,6 +1,6 @@
 import * as React from "react";
-import { Icon, Menu, Table, Header } from "semantic-ui-react";
-import * as ApiClient from "../../../../api/build/ApiClient";
+import { Divider, Header, Table } from "semantic-ui-react";
+import * as ApiClient from "../../../../../../api/build/ApiClient";
 import BackgroundJobs from "./BackgroundJobsContainer";
 
 export class BackgroundJobsPresenter extends React.Component<IBackgroundJobsProps, undefined> {
@@ -9,39 +9,23 @@ export class BackgroundJobsPresenter extends React.Component<IBackgroundJobsProp
         super(props);
     }
 
-    public componentDidMount() {
-        this.refreshJobsInXSeconds(0);
-    }
-
-    public refreshJobsInXSeconds(seconds: number) {
-        if (this.props.selectedMenuItem === "backgroundjobs") {
-            setTimeout(this.props.refreshJobs, seconds * 1000);
-        }
-    }
-
     public render() {
-        if (this.props.selectedMenuItem !== "backgroundjobs") {
-            return <div></div>;
-        }
-
-        this.refreshJobsInXSeconds(5); // Should refresh job list every 5 seconds
-
-        return <div className="page-content">
-            <Header as="h1">Background jobs</Header>
+        return <div>
+            <Divider horizontal>Background Jobs</Divider>
             <Table celled>
                 <Table.Header>
                     <Table.Row>
-                        <Table.HeaderCell>Job Description</Table.HeaderCell>
+                        <Table.HeaderCell>Project device version ID</Table.HeaderCell>
                         <Table.HeaderCell>Status</Table.HeaderCell>
-                        <Table.HeaderCell>Latest Error</Table.HeaderCell>
+                        <Table.HeaderCell>Info</Table.HeaderCell>
                     </Table.Row>
                 </Table.Header>
                 <Table.Body>
                     {this.props.backgroundJobs.map((job: ApiClient.BackgroundJob) => {
                         return <Table.Row key={job.id} error={job.status === ApiClient.JobStatus.Failed}>
-                            <Table.Cell>{job.description}</Table.Cell>
+                            <Table.Cell>{job.projectDeviceVersionId}</Table.Cell>
                             <Table.Cell>{ApiClient.JobStatus[job.status]}</Table.Cell>
-                            <Table.Cell>{job.latestError}</Table.Cell>
+                            <Table.Cell>{job.lastError}</Table.Cell>
                         </Table.Row>;
                     })}
                     {!this.props.backgroundJobs.length && <Table.Row><Table.Cell colSpan="3"><em>Currently no jobs running</em></Table.Cell></Table.Row>}
@@ -52,7 +36,7 @@ export class BackgroundJobsPresenter extends React.Component<IBackgroundJobsProp
 }
 
 export interface IBackgroundJobsProps {
-    selectedMenuItem?: string;
+    projectId?: number;
     backgroundJobs?: ApiClient.BackgroundJob[];
-    refreshJobs?: () => void;
+    fetchBackgroundJobs?: (projectId: number) => void;
 }

@@ -1,6 +1,5 @@
 import { IAction } from "../actions/IAction";
 import { AppState, IAppState } from "./AppState";
-import { BackgroundJobsReducer } from "./backgroundjobs/BackgroundJobsReducer";
 import { OpenProjectReducer } from "./home/existingproject/OpenProjectReducer";
 import { NewProjectFormReducer } from "./home/newproject/NewProjectFormReducer";
 import { ProjectReducer } from "./home/workingproject/ProjectReducer";
@@ -12,7 +11,6 @@ import { SettingsReducer } from "./settings/SettingsReducer";
 export const appReducer = (state: IAppState = new AppState(), action: IAction): IAppState => {
     let newState: IAppState = state;
     newState.NavState = NavReducer(newState.NavState, action);
-    newState = BackgroundJobsReducer(newState, action);
     newState.NewProjectFormState = NewProjectFormReducer(newState.NewProjectFormState, action);
     newState.ProjectState = ProjectReducer(newState.ProjectState, action);
     newState.MessageState = MessageReducer(newState.MessageState, action);
