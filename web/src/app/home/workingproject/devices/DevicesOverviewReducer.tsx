@@ -1,4 +1,5 @@
 import { IAction } from "../../../../actions/IAction";
+import { DeviceConfigurationReducer } from "./configuration/DeviceConfigurationReducer";
 import { Actions } from "./DevicesOverviewActions";
 import { IDevicesOverviewState } from "./DevicesOverviewState";
 import { DeviceScannerReducer } from "./scanning/DeviceScannerReducer";
@@ -6,6 +7,7 @@ import { DeviceScannerReducer } from "./scanning/DeviceScannerReducer";
 export const DevicesOverviewReducer = (state: IDevicesOverviewState, action: IAction): IDevicesOverviewState => {
     let newState: IDevicesOverviewState = state;
     newState.DeviceScannerState = DeviceScannerReducer(state.DeviceScannerState, action);
+    newState.DeviceConfigurationState = DeviceConfigurationReducer(state.DeviceConfigurationState, action);
 
     switch (action.type) {
         case Actions.SetProjectDevices:

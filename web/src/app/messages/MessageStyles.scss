@@ -9,6 +9,7 @@
         @include border-radius(0);
         border: none;
         overflow: hidden;
+        background: none;
         &>.sidebar {
             line-height: 35px;
             padding: 14px 50px;
