@@ -5,8 +5,7 @@ import * as BackgroundJobsPresenter from "./BackgroundJobsPresenter";
 
 const mapStateToProps = (state: IAppState): BackgroundJobsPresenter.IBackgroundJobsProps => {
     return {
-        // todo:
-        backgroundJobs: new Array<ApiClient.BackgroundJob>(),
+        backgroundJobs: state.ProjectState.BackgroundJobsState.Jobs,
     };
 };
 

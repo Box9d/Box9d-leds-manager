@@ -36,7 +36,5 @@ export class BackgroundJobsPresenter extends React.Component<IBackgroundJobsProp
 }
 
 export interface IBackgroundJobsProps {
-    projectId?: number;
     backgroundJobs?: ApiClient.BackgroundJob[];
-    fetchBackgroundJobs?: (projectId: number) => void;
 }

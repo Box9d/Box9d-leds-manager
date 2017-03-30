@@ -2,6 +2,7 @@ import * as React from "react";
 import { Button, Container, Divider, Grid, Header, Input, Label, Menu, Modal, Segment } from "semantic-ui-react";
 import * as ApiClient from "../../../../../api/build/ApiClient";
 import BackgroundJobs from "./backgroundjobs/BackgroundJobsContainer";
+import BackgroundJobsStatus from "./backgroundjobs/BackgroundJobsStatusContainer";
 import DevicesConfigurationStatus from "./devices/DevicesConfigurationStatusContainer";
 import DevicesOverview from "./devices/DevicesOverviewContainer";
 import "./ProjectOverviewStyles.scss";
@@ -37,6 +38,7 @@ export class ProjectOverviewPresenter extends React.Component<IProjectOverviewPr
                         </Menu.Item>
                         <Menu.Item name="BackgroundJobs" active={this.state.selectedNavigationItem === "backgroundjobs"} onClick={(e: any) => this.selectNavigationItem("backgroundjobs")}>
                             Background Jobs
+                            <BackgroundJobsStatus/>
                         </Menu.Item>
                     </Menu>
                 </Grid.Column> 
