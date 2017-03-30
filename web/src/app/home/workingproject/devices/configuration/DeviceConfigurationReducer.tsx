@@ -14,6 +14,11 @@ export const DeviceConfigurationReducer = (state: IDeviceConfigurationState, act
         case Actions.SetDeviceMappings:
             newState.PixelMappings = action.value;
             break;
+        case Actions.DeterminePixelMappingsValidity:
+            if (!pixelMappingsAreValid(state)) {
+                newState.PixelMappings = new Array<ApiClient.ProjectDeviceVersionMapping>();
+            }
+            break;
         case Actions.OpenModal:
             newState.ModalIsOpen = true;
             break;
@@ -41,3 +46,20 @@ const ProjectDeviceVersionReducer = (state: ApiClient.ProjectDeviceVersion, acti
 
     return (Object as any).assign({}, state, {}, { newState });
 };
+
+
+const pixelMappingsAreValid = (state: IDeviceConfigurationState): boolean => {
+    if (state.PixelMappings.length === 0) {
+        return true;
+    }
+
+    let maxHorizontal = Math.max.apply(null, state.PixelMappings.map((m) => m.horizontalPosition));
+    let maxVertical = Math.max.apply(null, state.PixelMappings.map((m) => m.verticalPosition));
+
+    if (state.DeviceConfiguration.numberOfHorizontalPixels >= maxHorizontal
+    && state.DeviceConfiguration.numberOfVerticalPixels >= maxVertical) {
+        return true;
+    }
+
+    return false;
+}

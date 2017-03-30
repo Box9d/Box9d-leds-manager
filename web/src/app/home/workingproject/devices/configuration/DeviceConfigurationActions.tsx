@@ -7,6 +7,7 @@ import { MessageType } from "../../../../messages/MessagingState";
 export class Actions {
     public static SetDeviceConfiguration: string = "SET_DEVICE_CONFIGURATION";
     public static SetDeviceMappings: string = "SET_DEVICE_PIXEL_MAPPINGS";
+    public static DeterminePixelMappingsValidity: string = "DETERMINE_PIXEL_MAPPINGS_VALIDITY";
     public static OpenModal = "OPEN_MAPPING_MODAL";
     public static CloseModal = "CLOSE_MAPPING_MODAL";
     public static ChangeHorizontalPixels = "CHANGE_HORIZONTAL_PIXELS";
@@ -68,6 +69,12 @@ export const SetDevicePixelMappings = (mappings: ApiClient.ProjectDeviceVersionM
     return {
         type: Actions.SetDeviceMappings,
         value: mappings,
+    };
+};
+
+export const DeterminePixelMappingsValidity = (): IAction => {
+    return {
+        type: Actions.DeterminePixelMappingsValidity,
     };
 };
 

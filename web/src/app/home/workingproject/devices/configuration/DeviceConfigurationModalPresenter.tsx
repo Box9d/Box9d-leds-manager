@@ -31,14 +31,14 @@ export class DeviceConfigurationModalPresenter extends React.Component<IDeviceCo
                         <div className="mapping-table">
                             {
                                 data.map((row, rowNum) => {
-                                    return <div key={rowNum} className="mapping-row">
+                                    return <div key={rowNum + 1} className="mapping-row">
                                         {
                                             row.map((col) =>
-                                            <div key={col} className="mapping-col">
-                                                <Label as="a" size="tiny" circular color={this.getMapping(rowNum, col).mappingOrder !== 0 ? "blue" : "black"} onClick={(e: any) => this.setMapping(rowNum, col)}>
+                                            <div key={col + 1} className="mapping-col">
+                                                <Label as="a" size="tiny" circular color={this.getMapping(col + 1, rowNum + 1).mappingOrder !== 0 ? "blue" : "black"} onClick={(e: any) => this.setMapping(col + 1, rowNum + 1)}>
                                                         {
-                                                            this.getMapping(rowNum, col).mappingOrder !== 0 &&
-                                                            this.getMapping(rowNum, col).mappingOrder
+                                                            this.getMapping(col + 1, rowNum + 1).mappingOrder !== 0 &&
+                                                            this.getMapping(col + 1, rowNum + 1).mappingOrder
                                                         }
                                                 </Label>
                                             </div>,

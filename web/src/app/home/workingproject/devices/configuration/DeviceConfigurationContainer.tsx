@@ -15,9 +15,15 @@ const mapStateToProps = (state: IAppState): DeviceConfigurationPresenter.IDevice
 
 const mapDispatchToProps = (dispatch: any): DeviceConfigurationPresenter.IDeviceConfigurationProps => {
     return {
-        horizontalPixelsOnChange: (value: number) => dispatch(DeviceConfigurationActions.ChangeHorizontalPixels(value)),
+        horizontalPixelsOnChange: (value: number) => {
+            dispatch(DeviceConfigurationActions.ChangeHorizontalPixels(value));
+            dispatch(DeviceConfigurationActions.DeterminePixelMappingsValidity());
+        },
         onModalOpened: () => dispatch(DeviceConfigurationActions.OpenModal()),
-        verticalPixelsOnChange: (value: number) => dispatch(DeviceConfigurationActions.ChangeVerticalPixels(value)),
+        verticalPixelsOnChange: (value: number) => {
+            dispatch(DeviceConfigurationActions.ChangeVerticalPixels(value));
+            dispatch(DeviceConfigurationActions.DeterminePixelMappingsValidity());
+        },
     };
 };
 
