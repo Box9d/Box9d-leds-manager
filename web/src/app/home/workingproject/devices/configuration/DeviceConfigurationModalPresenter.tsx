@@ -8,7 +8,7 @@ export class DeviceConfigurationModalPresenter extends React.Component<IDeviceCo
     constructor(props: IDeviceConfigurationModalProps) {
         super(props);
 
-        this.state = {pixelMappings: new Array<ApiClient.ProjectDeviceVersionMapping>()};
+        this.state = {pixelMappings: [].concat(props.currentMapping)};
     }
 
     public render() {
@@ -98,11 +98,7 @@ export class DeviceConfigurationModalPresenter extends React.Component<IDeviceCo
     }
 
     private saveMappings = (): void => {
-        if (this.state.pixelMappings.length > 0) {
-            this.props.saveMapping();
-        } else {
-            this.props.onModalClose();
-        }
+        this.props.saveMapping(this.state.pixelMappings);
     }
 
     private clearMappings = (): void => {
@@ -114,7 +110,8 @@ export interface IDeviceConfigurationModalProps {
     deviceConfiguration?: ApiClient.ProjectDeviceVersion;
     modalIsOpen?: boolean;
     onModalClose?: () => void;
-    saveMapping?: () => void;
+    currentMapping?: ApiClient.ProjectDeviceVersionMapping[];
+    saveMapping?: (pixelMappings: ApiClient.ProjectDeviceVersionMapping[]) => void;
 }
 
 export interface IDeviceConfigurationState {

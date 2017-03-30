@@ -11,14 +11,14 @@ export const DeviceConfigurationReducer = (state: IDeviceConfigurationState, act
         case Actions.SetDeviceConfiguration:
             newState.DeviceConfiguration = action.value;
             break;
+        case Actions.SetDeviceMappings:
+            newState.PixelMappings = action.value;
+            break;
         case Actions.OpenModal:
             newState.ModalIsOpen = true;
             break;
         case Actions.CloseModal:
             newState.ModalIsOpen = false;
-            break;
-        case Actions.SetMappingConfigured:
-            newState.IsMappingConfigured = true;
             break;
         default: return state;
     }
