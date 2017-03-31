@@ -18,7 +18,7 @@ namespace Box9.Leds.Manager.Services.DeviceSearch
                 .Aggregate((prev, curr) => prev += "." + curr);
 
             var ips = new List<string>();
-            ips.Add("127.0.0.1"); // Always search on the loopback IP as well
+            ips.Add("localhost"); // Always search localhost as well
             for (int i = start; i <= end; i++)
             {
                 ips.Add(ipAddressPrefix + "." + i);

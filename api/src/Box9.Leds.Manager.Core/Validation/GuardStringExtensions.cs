@@ -13,7 +13,7 @@ namespace Box9.Leds.Manager.Core.Validation
         {
             var match = Regex.Match(guard.Obj, @"\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}");
 
-            return guard.WithRule(val => match.Success, errorMessage);
+            return guard.WithRule(val => val.ToLowerInvariant() == "localhost" || match.Success, errorMessage);
         }
     }
 }

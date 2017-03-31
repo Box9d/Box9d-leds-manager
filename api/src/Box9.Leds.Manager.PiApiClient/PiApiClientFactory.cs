@@ -17,7 +17,7 @@ namespace Box9.Leds.Manager.PiApiClient
         {
             var piApiPort = int.Parse(config.AppSettings["PiApiPort"]);
 
-            return new PiApiClient(new Uri(string.Format("http://{0}:{1}/api", device.IpAddress, piApiPort)));
+            return new PiApiClient(new Uri(string.Format("http://{0}:{1}", device.IpAddress, piApiPort)));
         }
     }
 }
