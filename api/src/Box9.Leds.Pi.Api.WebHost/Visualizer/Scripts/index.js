@@ -6,21 +6,32 @@
         }
 
         if (name.toLowerCase() === 'frame') {
-            var html = '';
-            var pixelsPerRow = Math.ceil(message.length / $('#rowcount').val());
 
-            for (var i = 0; i < $('#rowcount').val(); i++) {
-                var rowDiv = '<div class=\'row\' style=\'width:' + pixelsPerRow * 15 + 'px;\'>';
-                for (var j = 0; j < pixelsPerRow; j++) {
-                    var color = message[i * pixelsPerRow + j];
-                    rowDiv += '<div class=\'pixel\' style=\'background-color:' + color + '\'/>';
+            var currentNumberOfRows = $('.row').length;
+            var currentNumberOfPixels = $('.pixel').length;
+
+
+            if (currentNumberOfRows != $('#rowcount').val() || currentNumberOfPixels != message.length) {
+                var html = '';
+                var pixelsPerRow = Math.ceil(message.length / $('#rowcount').val());
+                
+                for (var i = 0; i < $('#rowcount').val(); i++) {
+                    var rowDiv = '<div class=\'row\' style=\'width:' + pixelsPerRow * 15 + 'px;\'>';
+                    for (var j = 0; j < pixelsPerRow; j++) {
+                        var color = message[i * pixelsPerRow + j];
+                        rowDiv += '<div id="' + (i * pixelsPerRow + j) + '" class=\'pixel\'/>';
+                    }
+
+                    rowDiv += '</div>';
+                    html += rowDiv;
                 }
 
-                rowDiv += '</div>';
-                html += rowDiv;
+                $('#display').html(html);
             }
 
-            $('#display').html(html);
+            for (var i = 0; i < message.length; i++) {
+                $('#' + i).css('background-color', message[i]);
+            }
         }
     };
 
