@@ -37,7 +37,7 @@ namespace Box9.Leds.Manager.Services.PiSynchronization
             Guard.This(project).AgainstDefaultValue(string.Format("Could not find project from project device with id '{0}'", projectDeviceVersion.ProjectDeviceId));
 
             var video = dispatcher.Dispatch(VideoActions.GetVideoForProject(project.Id));
-            Guard.This(video).AgainstDefaultValue(string.Format("Could not find video for project '{0}", project.Name));
+            Guard.This(video).AgainstDefaultValue(string.Format("Could not find video for project '{0}'", project.Name));
 
             double frameRate;
             var videoFrames = videoProcessor.GetVideoFramesForDevice(projectDeviceVersion.ProjectDeviceId, out frameRate).ToArray();

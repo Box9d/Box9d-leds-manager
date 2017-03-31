@@ -29,7 +29,8 @@ namespace Box9.Leds.Manager.DataAccess.Actions
                 {
                     Id = conn.GetNextId<BackgroundJob>(),
                     ProjectDeviceVersionId = projectDeviceVersionId,
-                    Status = Core.Jobs.JobStatus.Pending
+                    Status = Core.Jobs.JobStatus.Pending,
+                    LastError = "Waiting for other jobs to complete"
                 };
                 conn.Insert(job);
 
@@ -41,7 +42,7 @@ namespace Box9.Leds.Manager.DataAccess.Actions
         {
             return new DataAccessAction<IEnumerable<BackgroundJob>>((IDbConnection conn) =>
             {
-                return conn.Query<BackgroundJob>("SELECT * FROM BackgroundJob " +
+                return conn.Query<BackgroundJob>("SELECT BackgroundJob.* FROM BackgroundJob " +
                     "INNER JOIN ProjectDeviceVersion ON BackgroundJob.projectdeviceversionid = ProjectDeviceVersion.id " +
                     "INNER JOIN ProjectDevice ON ProjectDeviceVersion.projectdeviceid = ProjectDevice.id " +
                     "WHERE ProjectDevice.projectid = @projectid", new { projectId })
@@ -89,6 +90,22 @@ namespace Box9.Leds.Manager.DataAccess.Actions
                 Guard.This(job).AgainstDefaultValue(string.Format("No job exists with id '{0}'", job.Id));
 
                 job.LastError = null;
+                job.LastStackTrace = null;
+                job.Status = Core.Jobs.JobStatus.Complete;
+
+                conn.Update(job);
+                return job;
+            });
+        }
+
+        public static DataAccessAction<BackgroundJob> MarkAsCancelled(int backgroundJobId, string cancellationReason)
+        {
+            return new DataAccessAction<BackgroundJob>((IDbConnection conn) =>
+            {
+                var job = GetJob(backgroundJobId).Function(conn);
+                Guard.This(job).AgainstDefaultValue(string.Format("No job exists with id '{0}'", job.Id));
+
+                job.LastError = cancellationReason;
                 job.LastStackTrace = null;
                 job.Status = Core.Jobs.JobStatus.Complete;
 

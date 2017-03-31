@@ -214,6 +214,7 @@
     <Compile Include="IPiApiClient.cs" />
     <Compile Include="IPiApiClientFactory.cs" />
     <Compile Include="PiApiClient.cs" />
+    <Compile Include="PiApiClientCommunicationException.cs" />
     <Compile Include="PiApiClientFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

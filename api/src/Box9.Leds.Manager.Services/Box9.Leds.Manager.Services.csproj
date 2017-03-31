@@ -254,7 +254,6 @@
     <Compile Include="PiSynchronization\IPiSyncService.cs" />
     <Compile Include="PiSynchronization\PiSyncService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="JobProcessing\IBackgroundJobsProcessor.cs" />
     <Compile Include="JobProcessing\BackgroundJobsProcessor.cs" />
     <Compile Include="Store\InMemoryStore.cs" />
     <Compile Include="Store\IStore.cs" />

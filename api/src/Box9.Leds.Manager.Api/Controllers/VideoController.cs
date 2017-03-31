@@ -92,6 +92,14 @@ namespace Box9.Leds.Manager.Api.Controllers
         {           
             var result = dispatcher.Dispatch(VideoActions.SetVideoForProject(projectId, videoReferenceId));
 
+            // When a video changes, create new version of project devices
+            var projectDevices = dispatcher.Dispatch(DeviceActions.GetProjectDevices(projectId));
+            foreach (var projectDevice in projectDevices)
+            {
+                var latestProjectDeviceVersion = dispatcher.Dispatch(ProjectDeviceActions.GetLatestProjectDeviceVersion(projectDevice.Id));
+                dispatcher.Dispatch(ProjectDeviceActions.SetLatestProjectDeviceVersion(latestProjectDeviceVersion));
+            }
+
             return GlobalJsonResult<ProjectVideo>.Success(System.Net.HttpStatusCode.Created, result);
         }
     }

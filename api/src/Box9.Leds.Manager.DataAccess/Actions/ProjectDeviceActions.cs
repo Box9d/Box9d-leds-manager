@@ -58,6 +58,15 @@ namespace Box9.Leds.Manager.DataAccess.Actions
             });
         }
 
+
+        public static DataAccessAction<IEnumerable<ProjectDeviceVersion>> GetProjectDeviceVersionsForProjectDevice(int projectDeviceId)
+        {
+            return new DataAccessAction<IEnumerable<ProjectDeviceVersion>>((IDbConnection conn) =>
+            {
+                return conn.Query<ProjectDeviceVersion>("SELECT * FROM ProjectDeviceVersion WHERE projectdeviceid = @projectdeviceid", new { projectDeviceId });
+            });
+        }
+
         public static DataAccessAction<ProjectDeviceVersion> GetLatestProjectDeviceVersion(int deviceId, int projectId)
         {
             return new DataAccessAction<ProjectDeviceVersion>((IDbConnection conn) =>
@@ -94,6 +103,10 @@ namespace Box9.Leds.Manager.DataAccess.Actions
                 projectDeviceVersion.Version = currentVersion == 0 ? 1 : currentVersion + 1;
 
                 conn.Insert(projectDeviceVersion);
+
+                // Always create a new background job when the project device version changes
+                BackgroundJobActions.CreateJob(projectDeviceVersion.Id).Function(conn);
+
                 return projectDeviceVersion;
             });
         }

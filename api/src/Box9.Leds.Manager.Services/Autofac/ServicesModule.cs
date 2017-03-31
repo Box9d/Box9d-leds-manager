@@ -21,7 +21,7 @@ namespace Box9.Leds.Manager.Services.Autofac
                 .SingleInstance();
 
             builder.RegisterType<BackgroundJobsProcessor>()
-                .As<IBackgroundJobsProcessor>()
+                .As<IStartable>()
                 .SingleInstance();
 
             builder.RegisterType<InMemoryStore>()
@@ -38,7 +38,6 @@ namespace Box9.Leds.Manager.Services.Autofac
             builder.RegisterType<VideoProcessor>().As<IVideoProcessor>();
             builder.RegisterType<BitmapToBinaryProcessor>().As<IBitmapToBinaryProcessor>();
             builder.RegisterType<DeviceStatusService>().As<IDeviceStatusService>();
-            builder.RegisterType<BackgroundJobsProcessor>().As<IBackgroundJobsProcessor>();
             builder.RegisterType<PiSyncService>().As<IPiSyncService>();
 
             builder.RegisterModule<CoreModule>();

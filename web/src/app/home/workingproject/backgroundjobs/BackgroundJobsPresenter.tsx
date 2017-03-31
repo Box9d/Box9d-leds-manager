@@ -17,11 +17,11 @@ export class BackgroundJobsPresenter extends React.Component<IBackgroundJobsProp
                     <Table.Row>
                         <Table.HeaderCell>Project device version ID</Table.HeaderCell>
                         <Table.HeaderCell>Status</Table.HeaderCell>
-                        <Table.HeaderCell>Info</Table.HeaderCell>
+                        <Table.HeaderCell>Last Message</Table.HeaderCell>
                     </Table.Row>
                 </Table.Header>
                 <Table.Body>
-                    {this.props.backgroundJobs.map((job: ApiClient.BackgroundJob) => {
+                    {this.props.backgroundJobs.sort((bg1, bg2) => bg1.status === ApiClient.JobStatus.Complete ? 1 : -1).map((job: ApiClient.BackgroundJob) => {
                         return <Table.Row key={job.id} error={job.status === ApiClient.JobStatus.Failed}>
                             <Table.Cell>{job.projectDeviceVersionId}</Table.Cell>
                             <Table.Cell>{ApiClient.JobStatus[job.status]}</Table.Cell>

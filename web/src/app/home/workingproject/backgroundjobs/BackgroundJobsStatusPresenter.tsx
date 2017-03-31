@@ -10,7 +10,15 @@ export class BackgroundJobsStatusPresenter extends React.Component<IBackgroundJo
     }
 
     public render() {
-        return <Label color={this.props.backgroundJobs.length > 0 ? "blue" : "green"}>{this.props.backgroundJobs.length}</Label>;
+
+        let incompleteJobCount = 0;
+        for (let job of this.props.backgroundJobs) {
+            if (job.status !== ApiClient.JobStatus.Complete) {
+                incompleteJobCount++;
+            }
+        }
+
+        return <Label color={incompleteJobCount > 0 ? "blue" : "green"}>{incompleteJobCount}</Label>;
     }
 
     public componentDidMount() {

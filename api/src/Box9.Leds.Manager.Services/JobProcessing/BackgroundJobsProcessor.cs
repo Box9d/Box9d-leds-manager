@@ -7,10 +7,12 @@ using System.Threading;
 using System.Threading.Tasks;
 using System;
 using Box9.Leds.Manager.Services.PiSynchronization;
+using Autofac;
+using Box9.Leds.Manager.Core.Tasks;
 
 namespace Box9.Leds.Manager.Services.JobProcessing
 {
-    public class BackgroundJobsProcessor : IBackgroundJobsProcessor
+    public class BackgroundJobsProcessor : IStartable
     {
         private readonly IPiSyncService piSyncService;
         private readonly IDataAccessDispatcher dispatcher;
@@ -25,6 +27,12 @@ namespace Box9.Leds.Manager.Services.JobProcessing
 
             jobQueue = new BlockingCollection<BackgroundJob>();
             pollPeriodInMilliseconds = 5000;
+        }
+
+
+        public void Start()
+        {
+            ProcessJobsAsync(CancellationToken.None).Ignore();
         }
 
         public async Task ProcessJobsAsync(CancellationToken cancellationToken)
@@ -58,17 +66,28 @@ namespace Box9.Leds.Manager.Services.JobProcessing
             while (!cancellationToken.IsCancellationRequested)
             {
                 var job = jobQueue.Take();
-                var jobProcessed = false;
 
-                while (!jobProcessed)
+                while (true)
                 {
                     var retryPeriodInMilliseconds = 5000;
 
                     try
                     {
+                        dispatcher.Dispatch(BackgroundJobActions.MarkAsProcessing(job.Id));
+
+                        // Check if the job is now obsolete (because a newer version of the project device exists)
+                        var jobProjectDeviceVersion = dispatcher.Dispatch(ProjectDeviceActions.GetProjectDeviceVersion(job.ProjectDeviceVersionId));
+                        var projectDeviceVersions = dispatcher.Dispatch(ProjectDeviceActions.GetProjectDeviceVersionsForProjectDevice(jobProjectDeviceVersion.ProjectDeviceId));
+
+                        if (projectDeviceVersions.Select(pdv => pdv.Version).Max() > jobProjectDeviceVersion.Version)
+                        {
+                            dispatcher.Dispatch(BackgroundJobActions.MarkAsCancelled(job.Id, "A newer version of the project device now exists"));
+                            break;
+                        }
+
                         piSyncService.ProcessProjectDeviceVersion(job.ProjectDeviceVersionId);
                         dispatcher.Dispatch(BackgroundJobActions.MarkAsComplete(job.Id));
-                        jobProcessed = true;
+                        break;
                     }
                     catch (Exception ex)
                     {

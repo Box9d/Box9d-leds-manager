@@ -13,7 +13,7 @@ namespace Box9.Leds.Manager.Core.Validation
 
         public GuardThis<T> AgainstDefaultValue(string errorMessage)
         {
-            return WithRule(val => !val.Equals(default(T)), errorMessage);
+            return WithRule(val => val != null && !val.Equals(default(T)), errorMessage);
         }
 
         public GuardThis<T> WithRule(Func<T, bool> rule, string errorMessage)

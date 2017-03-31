@@ -24,7 +24,7 @@ const FetchBackgroundJobs = (dispatch: any, projectId: number): IAction => {
 
     if (isPolling) {
         let backgroundJobsClient = new ApiClient.BackgroundJobsClient(config.apiUrl);
-        backgroundJobsClient.getAllJobsForProject(projectId, false).then((response: ApiClient.GlobalJsonResultOfIEnumerableOfBackgroundJob) => {
+        backgroundJobsClient.getAllJobsForProject(projectId, true).then((response: ApiClient.GlobalJsonResultOfIEnumerableOfBackgroundJob) => {
             if (!response.successful) {
                 dispatch(MessageActions.SetMessageAndMessageType(dispatch, "Could not retrieve background jobs: " + response.errorMessage, MessageType.Error));
             } else {

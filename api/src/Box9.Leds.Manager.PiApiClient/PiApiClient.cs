@@ -64,8 +64,18 @@ namespace Box9.Leds.Manager.PiApiClient
 
         private TResponse Get<TResponse>(string requestUri)
         {
-            var response = client.GetAsync(requestUri).Result;
-            var globalResult = response.Content.ReadAsAsync<GlobalJsonResult<TResponse>>().Result;
+
+            GlobalJsonResult<TResponse> globalResult = null;
+
+            try
+            {
+                var response = client.GetAsync(requestUri).Result;
+                globalResult = response.Content.ReadAsAsync<GlobalJsonResult<TResponse>>().Result;
+            }
+            catch (Exception ex)
+            {
+                throw new PiApiClientCommunicationException(client.BaseAddress.ToString(), requestUri, ex);
+            }
 
             if (!globalResult.Successful)
             {
@@ -77,8 +87,17 @@ namespace Box9.Leds.Manager.PiApiClient
 
         private TResponse Post<TRequest, TResponse>(string requestUri, TRequest request)
         {
-            var response = client.PostAsJsonAsync(requestUri, request).Result;
-            var globalResult = response.Content.ReadAsAsync<GlobalJsonResult<TResponse>>().Result;
+            GlobalJsonResult<TResponse> globalResult = null;
+
+            try
+            {
+                var response = client.PostAsJsonAsync(requestUri, request).Result;
+                globalResult = response.Content.ReadAsAsync<GlobalJsonResult<TResponse>>().Result;
+            }
+            catch (Exception ex)
+            {
+                throw new PiApiClientCommunicationException(client.BaseAddress.ToString(), requestUri, ex);
+            }
 
             if (!globalResult.Successful)
             {
@@ -90,8 +109,17 @@ namespace Box9.Leds.Manager.PiApiClient
 
         private TResponse Put<TRequest, TResponse>(string requestUri, TRequest request)
         {
-            var response = client.PutAsJsonAsync(requestUri, request).Result;
-            var globalResult = response.Content.ReadAsAsync<GlobalJsonResult<TResponse>>().Result;
+            GlobalJsonResult<TResponse> globalResult = null;
+
+            try
+            {
+                var response = client.PutAsJsonAsync(requestUri, request).Result;
+                globalResult = response.Content.ReadAsAsync<GlobalJsonResult<TResponse>>().Result;
+            }
+            catch (Exception ex)
+            {
+                throw new PiApiClientCommunicationException(client.BaseAddress.ToString(), requestUri, ex);
+            }
 
             if (!globalResult.Successful)
             {
