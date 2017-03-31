@@ -68,20 +68,20 @@
       <HintPath>..\packages\Autofac.WebApi2.Owin.4.0.0\lib\net45\Autofac.Integration.WebApi.Owin.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Box9.Leds.Pi.Api, Version=1.0.6294.31412, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Box9.Leds.Pi.Api.1.0.6294.31412\lib\net461\Box9.Leds.Pi.Api.dll</HintPath>
+    <Reference Include="Box9.Leds.Pi.Api, Version=1.0.6295.20184, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Box9.Leds.Pi.Api.1.0.6295.20184\lib\net461\Box9.Leds.Pi.Api.dll</HintPath>
     </Reference>
     <Reference Include="Box9.Leds.Pi.Core, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Box9.Leds.Pi.Api.1.0.6294.31412\lib\net461\Box9.Leds.Pi.Core.dll</HintPath>
+      <HintPath>..\packages\Box9.Leds.Pi.Api.1.0.6295.20184\lib\net461\Box9.Leds.Pi.Core.dll</HintPath>
     </Reference>
     <Reference Include="Box9.Leds.Pi.DataAccess, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Box9.Leds.Pi.Api.1.0.6294.31412\lib\net461\Box9.Leds.Pi.DataAccess.dll</HintPath>
+      <HintPath>..\packages\Box9.Leds.Pi.Api.1.0.6295.20184\lib\net461\Box9.Leds.Pi.DataAccess.dll</HintPath>
     </Reference>
     <Reference Include="Box9.Leds.Pi.Database, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Box9.Leds.Pi.Api.1.0.6294.31412\lib\net461\Box9.Leds.Pi.Database.dll</HintPath>
+      <HintPath>..\packages\Box9.Leds.Pi.Api.1.0.6295.20184\lib\net461\Box9.Leds.Pi.Database.dll</HintPath>
     </Reference>
     <Reference Include="Box9.Leds.Pi.Domain, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Box9.Leds.Pi.Api.1.0.6294.31412\lib\net461\Box9.Leds.Pi.Domain.dll</HintPath>
+      <HintPath>..\packages\Box9.Leds.Pi.Api.1.0.6295.20184\lib\net461\Box9.Leds.Pi.Domain.dll</HintPath>
     </Reference>
     <Reference Include="Dapper, Version=1.50.2.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Dapper.1.50.2\lib\net451\Dapper.dll</HintPath>
@@ -217,6 +217,7 @@
     <Compile Include="PiApiClientCommunicationException.cs" />
     <Compile Include="PiApiClientFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Response\SerializableGlobalJsonResult.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
