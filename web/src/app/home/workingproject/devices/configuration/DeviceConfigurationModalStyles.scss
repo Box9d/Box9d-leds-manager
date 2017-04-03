@@ -1,18 +1,27 @@
-.mapping-table {
+.mapping-table-wrapper {
+    overflow: auto;
     margin: 20px 0;
-    width: 100%;
-    display: table;
-    .mapping-row {
-        display: table-row;
-        height: 30px;
-        .mapping-col {
-            display: table-cell;    
-            vertical-align: middle;
-            text-align: center;
+    background: #e6e6e6;
+    border-radius: 5px;
+    padding: 20px 10px;
+    .mapping-table {
+        width: 100%;
+        display: table;
+        overflow: auto;
+        .mapping-row {
+            display: table-row;
+            height: 30px;
+            .mapping-col {
+                display: table-cell;    
+                vertical-align: middle;
+                text-align: center;
+                .label {
+                    vertical-align: middle;
+                }
+            }
         }
     }
 }
-
 .mapping-save-wrapper {
-    padding: 20px;
+    padding: 20px 0;
 }

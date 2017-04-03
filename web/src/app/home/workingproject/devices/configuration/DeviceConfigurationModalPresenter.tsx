@@ -27,7 +27,7 @@ export class DeviceConfigurationModalPresenter extends React.Component<IDeviceCo
         return <div>
             <Modal defaultOpen onClose={this.props.onModalClose} closeIcon="close" dimmer="blurring" size={"fullscreen" as any}>
                 <Modal.Content>
-                    <div className="description" style={horizontalScrollStyling}>
+                    <div className="mapping-table-wrapper">
                         <div className="mapping-table">
                             {
                                 data.map((row, rowNum) => {
@@ -36,10 +36,7 @@ export class DeviceConfigurationModalPresenter extends React.Component<IDeviceCo
                                             row.map((col) =>
                                             <div key={col + 1} className="mapping-col">
                                                 <Label as="a" size="tiny" circular color={this.getMapping(col + 1, rowNum + 1).mappingOrder !== 0 ? "blue" : "black"} onClick={(e: any) => this.setMapping(col + 1, rowNum + 1)}>
-                                                        {
-                                                            this.getMapping(col + 1, rowNum + 1).mappingOrder !== 0 &&
-                                                            this.getMapping(col + 1, rowNum + 1).mappingOrder
-                                                        }
+                                                        { this.getMapping(col + 1, rowNum + 1).mappingOrder !== 0 && this.getMapping(col + 1, rowNum + 1).mappingOrder }
                                                 </Label>
                                             </div>,
                                         )}
