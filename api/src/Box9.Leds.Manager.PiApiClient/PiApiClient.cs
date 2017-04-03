@@ -25,7 +25,7 @@ namespace Box9.Leds.Manager.PiApiClient
 
         public void ClearFrames(int videoId)
         {
-            this.Post<object, EmptyResult>("api/VideoFrames/ClearFrames?videoId={0}", new { });
+            this.Post<object, EmptyResult>(string.Format("api/VideoFrames/ClearFrames?videoId={0}", videoId), new { });
         }
 
         public void CreateVideoMetadata(VideoMetadataCreateRequest videoReference)

@@ -5,6 +5,7 @@ using Box9.Leds.Manager.PiApiClient;
 using Box9.Leds.Manager.Services.DeviceStatus;
 using Box9.Leds.Manager.Services.VideoProcessing;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace Box9.Leds.Manager.Services.PiSynchronization
@@ -67,13 +68,21 @@ namespace Box9.Leds.Manager.Services.PiSynchronization
             }
 
             // Clear, then send frames to Pi
-            int frameId = 0;
             client.ClearFrames(projectDeviceVersion.ProjectDeviceId);
+
+            var appendedFrames = new List<Pi.Api.ApiRequests.AppendFrameRequest>();
+            foreach (var frame in videoFrames)
+            {
+                appendedFrames.Add(new Pi.Api.ApiRequests.AppendFrameRequest
+                {
+                    BinaryData = frame,
+                    Position = appendedFrames.Count + 1
+                });
+            }
+
             client.SendFrames(projectDeviceVersion.ProjectDeviceId, new Pi.Api.ApiRequests.AppendFramesRequest
             {
-                AppendFrameRequests = videoFrames
-                    .Select(f => new Pi.Api.ApiRequests.AppendFrameRequest { Id = frameId++, BinaryData = f, Position = frameId })
-                    .ToArray()
+                AppendFrameRequests = appendedFrames.ToArray()
             });
         }
     }
