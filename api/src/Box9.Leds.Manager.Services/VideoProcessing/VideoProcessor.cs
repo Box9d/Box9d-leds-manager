@@ -37,11 +37,12 @@ namespace Box9.Leds.Manager.Services.VideoProcessing
                 reader.Open(video.FilePath);
                 frameRate = reader.FrameRate;
 
-                var raw = reader.ReadVideoFrame();
-                var frame = (Bitmap)raw.GetThumbnailImage(0, 0, null, IntPtr.Zero);
-                var binaryData = bitmapToBinaryProcessor.ProcessBitmap(frame, projectDeviceVersion);
-
-                frames.Add(binaryData);
+                while (frames.Count < reader.FrameCount)
+                {
+                    var currentFrame = reader.ReadVideoFrame();
+                    var binaryData = bitmapToBinaryProcessor.ProcessBitmap(currentFrame, projectDeviceVersion);
+                    frames.Add(binaryData);
+                }
             }
 
             return frames;
