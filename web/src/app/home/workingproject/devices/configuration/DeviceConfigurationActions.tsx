@@ -12,6 +12,10 @@ export class Actions {
     public static CloseModal = "CLOSE_MAPPING_MODAL";
     public static ChangeHorizontalPixels = "CHANGE_HORIZONTAL_PIXELS";
     public static ChangeVerticalPixels = "CHANGE_VERTICAL_PIXELS";
+    public static ChangeStartAtHorizontalPercentage = "CHANGE_START_AT_HORIZONTAL_PERCENTAGE";
+    public static ChangeStartAtVerticalPercentage = "CHANGE_START_AT_VERTICAL_PERCENTAGE";
+    public static ChangeHorizontalPercentage = "CHANGE_HORIZONTAL_PERCENTAGE";
+    public static ChangeVerticalPercentage = "CHANGE_VERTICAL_PERCENTAGE";
 }
 
 export const FetchDeviceConfiguration = (dispatch: any, deviceId: number, projectId: number): IAction => {
@@ -112,6 +116,34 @@ export const ChangeVerticalPixels = (number: number): IAction => {
     return {
         type: Actions.ChangeVerticalPixels,
         value: number,
+    };
+};
+
+export const ChangeStartAtHorizontalPercentage = (percentage: number): IAction => {
+    return {
+        type: Actions.ChangeStartAtHorizontalPercentage,
+        value: percentage,
+    };
+};
+
+export const ChangeStartAtVerticalPercentage = (percentage: number): IAction => {
+    return {
+        type: Actions.ChangeStartAtVerticalPercentage,
+        value: percentage,
+    };
+};
+
+export const ChangeHorizontalPercentage = (percentage: number): IAction => {
+    return {
+        type: Actions.ChangeHorizontalPercentage,
+        value: percentage,
+    };
+};
+
+export const ChangeVerticalPercentage = (percentage: number): IAction => {
+    return {
+        type: Actions.ChangeVerticalPercentage,
+        value: percentage,
     };
 };
 

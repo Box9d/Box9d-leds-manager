@@ -41,6 +41,18 @@ const ProjectDeviceVersionReducer = (state: ApiClient.ProjectDeviceVersion, acti
         case Actions.ChangeVerticalPixels:
             newState.numberOfVerticalPixels = action.value;
             break;
+        case Actions.ChangeStartAtHorizontalPercentage:
+            newState.startAtHorizontalPercentage = action.value;
+            break;
+        case Actions.ChangeStartAtVerticalPercentage:
+            newState.startAtVerticalPercentage = action.value;
+            break;
+        case Actions.ChangeHorizontalPercentage:
+            newState.horizontalPercentage = action.value;
+            break;
+        case Actions.ChangeVerticalPercentage:
+            newState.verticalPercentage = action.value;
+            break;
         default: break;
     }
 

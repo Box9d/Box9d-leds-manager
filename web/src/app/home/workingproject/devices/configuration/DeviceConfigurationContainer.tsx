@@ -16,6 +16,7 @@ const mapStateToProps = (state: IAppState): DeviceConfigurationPresenter.IDevice
 
 const mapDispatchToProps = (dispatch: any): DeviceConfigurationPresenter.IDeviceConfigurationProps => {
     return {
+        horizontalPercentageOnChange: (percentage: number) => dispatch(DeviceConfigurationActions.ChangeHorizontalPercentage(percentage)),
         horizontalPixelsOnChange: (value: number) => {
             dispatch(DeviceConfigurationActions.ChangeHorizontalPixels(value));
             dispatch(DeviceConfigurationActions.DeterminePixelMappingsValidity());
@@ -24,6 +25,9 @@ const mapDispatchToProps = (dispatch: any): DeviceConfigurationPresenter.IDevice
         saveConfiguration: (projectDeviceId: number, configuration: ApiClient.ProjectDeviceVersion, mappings: ApiClient.ProjectDeviceVersionMapping[]) => {
             dispatch(DeviceConfigurationActions.SaveDeviceConfiguration(dispatch, projectDeviceId, configuration, mappings));
         },
+        startAtHorizontalPercentageOnChange: (percentage: number) => dispatch(DeviceConfigurationActions.ChangeStartAtHorizontalPercentage(percentage)),
+        startAtVerticalPercentageOnChange: (percentage: number) => dispatch(DeviceConfigurationActions.ChangeStartAtVerticalPercentage(percentage)),
+        verticalPercentageOnChange: (percentage: number) => dispatch(DeviceConfigurationActions.ChangeVerticalPercentage(percentage)),
         verticalPixelsOnChange: (value: number) => {
             dispatch(DeviceConfigurationActions.ChangeVerticalPixels(value));
             dispatch(DeviceConfigurationActions.DeterminePixelMappingsValidity());
