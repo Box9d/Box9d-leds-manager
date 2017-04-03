@@ -9,6 +9,7 @@ using System;
 using Box9.Leds.Manager.Services.PiSynchronization;
 using Autofac;
 using Box9.Leds.Manager.Core.Tasks;
+using System.Collections.Generic;
 
 namespace Box9.Leds.Manager.Services.JobProcessing
 {
@@ -44,16 +45,24 @@ namespace Box9.Leds.Manager.Services.JobProcessing
         {
             var consumerTask = Task.Run(() => ConsumeJobs(cancellationToken), cancellationToken);
 
+            var jobsLastAddedById = new List<int>();
             while (!cancellationToken.IsCancellationRequested)
             {
                 Thread.Sleep(this.pollPeriodInMilliseconds);
 
                 var newJobs = dispatcher.Dispatch(BackgroundJobActions.GetAllJobs(includeCompleted: false))
                     .Where(j => !jobQueue.Select(qj => qj.Id).Contains(j.Id))
+                    .Where(j => !jobsLastAddedById.Contains(j.Id))
                     .OrderBy(j => j.Id);
+
+                if (newJobs.Any())
+                {
+                    jobsLastAddedById = new List<int>();
+                }
 
                 foreach (var job in newJobs)
                 {
+                    jobsLastAddedById.Add(job.Id);
                     jobQueue.Add(job);
                 }
             }
