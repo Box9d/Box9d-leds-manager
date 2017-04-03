@@ -20,14 +20,6 @@ namespace Box9.Leds.Manager.Services.VideoProcessing
         {
             var mappings = dispatcher.Dispatch(ProjectDeviceActions.GetProjectDeviceMappings(projectDeviceVersion.Id));
 
-            var xStart = bitmap.Width * projectDeviceVersion.StartAtHorizontalPercentage / 100;
-            var xFinish = xStart + (bitmap.Width * projectDeviceVersion.HorizontalPercentage / 100);
-            var xGap = (xFinish - xStart) / projectDeviceVersion.NumberOfHorizontalPixels;
-
-            var yStart = bitmap.Height * projectDeviceVersion.StartAtVerticalPercentage / 100;
-            var yFinish = xStart + (bitmap.Width * projectDeviceVersion.VerticalPercentage / 100);
-            var yGap = (xFinish - xStart) / projectDeviceVersion.NumberOfVerticalPixels;
-
             var data = new List<byte>
             {
                 0,0,0,0
@@ -35,10 +27,16 @@ namespace Box9.Leds.Manager.Services.VideoProcessing
 
             foreach (var mapping in mappings.OrderBy(m => m.MappingOrder))
             {
-                var xPixel = xStart + xGap * (mapping.HorizontalPosition - 1);
-                var yPixel = yStart + yGap * (mapping.VerticalPosition - 1);
+                var xPercent = projectDeviceVersion.StartAtHorizontalPercentage + projectDeviceVersion.HorizontalPercentage * (mapping.HorizontalPosition + 1) / projectDeviceVersion.NumberOfHorizontalPixels;
+                var yPercent = projectDeviceVersion.StartAtVerticalPercentage + projectDeviceVersion.VerticalPercentage * (mapping.VerticalPosition + 1) / projectDeviceVersion.NumberOfVerticalPixels;
 
-                var pixelColor = bitmap.GetPixel(xPixel, yPixel);
+                var x = (xPercent * bitmap.Width) / 100;
+                var y = (yPercent * bitmap.Height) / 100;
+
+                x = x >= bitmap.Width ? bitmap.Width - 1 : x;
+                y = y >= bitmap.Height ? bitmap.Height - 1 : y;
+
+                var pixelColor = bitmap.GetPixel(x, y);
 
                 data.Add(pixelColor.R);
                 data.Add(pixelColor.G);
