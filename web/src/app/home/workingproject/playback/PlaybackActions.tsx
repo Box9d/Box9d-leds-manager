@@ -5,7 +5,8 @@ import * as MessageActions from "../../../messages/MessageActions";
 import { MessageType } from "../../../messages/MessagingState";
 
 export class Actions { 
-    public static SetProjectDevices: string = "SET_PROJECT_DEVICES";   
+    public static SetProjectDevices: string = "SET_PROJECT_DEVICES";  
+    public static SetIsLoaded: string = "SET_IS_LOADED";  
 }
 
 export const FetchProjectDevices = (dispatch: any, projectId: number): IAction => {
@@ -21,5 +22,12 @@ export const FetchProjectDevices = (dispatch: any, projectId: number): IAction =
 
     return {
         type: "DO_NOTHING",
+    };
+};
+
+export const SetIsLoaded = (value: boolean): IAction => {
+    return {
+        type: Actions.SetIsLoaded,
+        value: value,
     };
 };

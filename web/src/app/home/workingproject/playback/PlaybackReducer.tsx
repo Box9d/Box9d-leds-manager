@@ -10,6 +10,9 @@ export const PlaybackReducer = (state: IPlaybackState, action: IAction): IPlayba
         case Actions.SetProjectDevices:
             newState.ProjectDevices = action.value;
             break;
+        case Actions.SetIsLoaded:
+            newState.IsLoaded = action.value;
+            break;
         default: break;
     }
 
