@@ -7,12 +7,6 @@ export const PlaybackReducer = (state: IPlaybackState, action: IAction): IPlayba
     let newState: IPlaybackState = state;
 
     switch (action.type) {
-        case Actions.SetProjectDevices:
-            newState.ProjectDevices = action.value;
-            break;
-        case Actions.SetIsLoaded:
-            newState.IsLoaded = action.value;
-            break;
         default: break;
     }
 

@@ -6,7 +6,7 @@ using Box9.Leds.Manager.PiApiClient;
 
 namespace Box9.Leds.Manager.Api.Controllers
 {
-    public class VideoPlaybackController
+    public class VideoPlaybackController : ApiController
     {
         private readonly IDataAccessDispatcher dispatcher;
         private readonly IPiApiClientFactory clientFactory;
