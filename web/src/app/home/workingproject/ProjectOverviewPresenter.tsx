@@ -8,6 +8,7 @@ import DevicesOverview from "./devices/DevicesOverviewContainer";
 import "./ProjectOverviewStyles.scss";
 import SelectVideo from "./video/SelectVideoContainer";
 import VideoConfigurationStatus from "./video/VideoConfigurationStatusContainer";
+import Playback from "./playback/PlaybackContainer";
 
 export class ProjectOverviewPresenter extends React.Component<IProjectOverviewProps, IProjectOverviewState> {
 
@@ -40,6 +41,9 @@ export class ProjectOverviewPresenter extends React.Component<IProjectOverviewPr
                             Background Jobs
                             <BackgroundJobsStatus/>
                         </Menu.Item>
+                        <Menu.Item name="Playback" active={this.state.selectedNavigationItem === "playback"} onClick={(e: any) => this.selectNavigationItem("playback")}>
+                            Playback
+                        </Menu.Item>
                     </Menu>
                 </Grid.Column> 
                 <Grid.Column stretched width={12}>
@@ -59,6 +63,12 @@ export class ProjectOverviewPresenter extends React.Component<IProjectOverviewPr
                         this.state.selectedNavigationItem === "backgroundjobs" &&
                         <Segment>
                             <BackgroundJobs/>
+                        </Segment>
+                    }
+                    {
+                        this.state.selectedNavigationItem === "playback" &&
+                        <Segment>
+                            <Playback/>
                         </Segment>
                     }
                 </Grid.Column>         
