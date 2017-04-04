@@ -1,4 +1,4 @@
-﻿namespace Box9.Leds.Manager.Core.Jobs
+﻿namespace Box9.Leds.Manager.Core.Statuses
 {
     public enum JobStatus
     {

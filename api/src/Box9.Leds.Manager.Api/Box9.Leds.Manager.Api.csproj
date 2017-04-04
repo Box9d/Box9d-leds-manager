@@ -189,6 +189,7 @@
     <Compile Include="Controllers\ProjectDeviceMappingController.cs" />
     <Compile Include="Controllers\ProjectsController.cs" />
     <Compile Include="Controllers\VideoController.cs" />
+    <Compile Include="Controllers\VideoPlaybackController.cs" />
     <Compile Include="EmptyResult.cs" />
     <Compile Include="FileServer.cs" />
     <Compile Include="Filters\GlobalActionFilter.cs" />
