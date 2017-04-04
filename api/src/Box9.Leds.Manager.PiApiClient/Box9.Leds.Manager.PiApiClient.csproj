@@ -216,6 +216,7 @@
     <Compile Include="PiApiClient.cs" />
     <Compile Include="PiApiClientCommunicationException.cs" />
     <Compile Include="PiApiClientFactory.cs" />
+    <Compile Include="PiApiClientRequestException.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Response\SerializableGlobalJsonResult.cs" />
   </ItemGroup>

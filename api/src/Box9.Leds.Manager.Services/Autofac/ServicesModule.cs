@@ -7,6 +7,7 @@ using Box9.Leds.Manager.Services.DeviceStatus;
 using Box9.Leds.Manager.Services.JobProcessing;
 using Box9.Leds.Manager.Services.PiSynchronization;
 using Box9.Leds.Manager.Services.Store;
+using Box9.Leds.Manager.Services.VideoPlayback;
 using Box9.Leds.Manager.Services.VideoProcessing;
 using Box9.Leds.Manager.Services.VideoUpload;
 
@@ -30,6 +31,10 @@ namespace Box9.Leds.Manager.Services.Autofac
 
             builder.RegisterType<VideoUploader>()
                 .As<IVideoUploader>()
+                .SingleInstance();
+
+            builder.RegisterType<VideoPlaybackService>()
+                .As<IVideoPlaybackService>()
                 .SingleInstance();
 
             builder.RegisterType<Pinger>().As<IPinger>();

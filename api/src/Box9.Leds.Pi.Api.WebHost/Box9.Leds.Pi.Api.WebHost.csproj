@@ -187,13 +187,27 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Visualizer\css\visualizer.css" />
-    <Content Include="Visualizer\Index.html" />
-    <Content Include="Visualizer\Scripts\index.js" />
-    <Content Include="Visualizer\Scripts\jquery-1.6.4.js" />
-    <Content Include="Visualizer\Scripts\jquery-1.6.4.min.js" />
-    <Content Include="Visualizer\Scripts\jquery.signalR-2.2.1.js" />
-    <Content Include="Visualizer\Scripts\jquery.signalR-2.2.1.min.js" />
+    <Content Include="Visualizer\css\visualizer.css">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Visualizer\Index.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Visualizer\Scripts\index.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Visualizer\Scripts\jquery-1.6.4.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Visualizer\Scripts\jquery-1.6.4.min.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Visualizer\Scripts\jquery.signalR-2.2.1.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Visualizer\Scripts\jquery.signalR-2.2.1.min.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
