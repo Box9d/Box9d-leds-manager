@@ -1,4 +1,4 @@
-﻿using Box9.Leds.Manager.Core.Jobs;
+﻿using Box9.Leds.Manager.Core.Statuses;
 using Box9.Leds.Manager.DataModels;
 using Dapper.Contrib.Extensions;
 
