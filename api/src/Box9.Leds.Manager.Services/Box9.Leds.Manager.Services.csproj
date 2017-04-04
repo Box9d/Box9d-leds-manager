@@ -257,6 +257,8 @@
     <Compile Include="JobProcessing\BackgroundJobsProcessor.cs" />
     <Compile Include="Store\InMemoryStore.cs" />
     <Compile Include="Store\IStore.cs" />
+    <Compile Include="VideoPlayback\IVideoPlaybackService.cs" />
+    <Compile Include="VideoPlayback\VideoPlaybackService.cs" />
     <Compile Include="VideoProcessing\BitmapToBinaryProcessor.cs" />
     <Compile Include="VideoProcessing\IBitmapToBinaryProcessor.cs" />
     <Compile Include="VideoProcessing\IVideoFileReader.cs" />
@@ -292,6 +294,7 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\Accord.3.4.0\build\Accord.targets" Condition="Exists('..\packages\Accord.3.4.0\build\Accord.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

@@ -11,6 +11,14 @@ namespace Box9.Leds.Manager.PiApiClient
 {
     public class PiApiClient : IPiApiClient
     {
+        public string BaseAddress
+        {
+            get
+            {
+                return client.BaseAddress.ToString();
+            }
+        }
+
         private readonly HttpClient client;
 
         internal PiApiClient(Uri baseUri)
@@ -80,7 +88,7 @@ namespace Box9.Leds.Manager.PiApiClient
 
             if (!globalResult.Successful)
             {
-                throw new Exception(globalResult.ErrorMessage);
+                throw new PiApiClientRequestException(globalResult.ErrorMessage);
             }
 
             return globalResult.Result;
@@ -102,7 +110,7 @@ namespace Box9.Leds.Manager.PiApiClient
 
             if (!globalResult.Successful)
             {
-                throw new Exception(globalResult.ErrorMessage);
+                throw new PiApiClientRequestException(globalResult.ErrorMessage);
             }
 
             return globalResult.Result;
@@ -124,7 +132,7 @@ namespace Box9.Leds.Manager.PiApiClient
 
             if (!globalResult.Successful)
             {
-                throw new Exception(globalResult.ErrorMessage);
+                throw new PiApiClientRequestException(globalResult.ErrorMessage);
             }
 
             return globalResult.Result;
