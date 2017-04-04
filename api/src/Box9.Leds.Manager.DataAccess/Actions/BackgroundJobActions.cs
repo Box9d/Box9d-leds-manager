@@ -17,7 +17,7 @@ namespace Box9.Leds.Manager.DataAccess.Actions
             return new DataAccessAction<IEnumerable<BackgroundJob>>((IDbConnection conn) =>
             {
                 return conn.GetAll<BackgroundJob>()
-                    .Where(j => includeCompleted || j.Status != Core.Jobs.JobStatus.Complete);
+                    .Where(j => includeCompleted || j.Status != Core.Statuses.JobStatus.Complete);
             });
         }
          
@@ -29,7 +29,7 @@ namespace Box9.Leds.Manager.DataAccess.Actions
                 {
                     Id = conn.GetNextId<BackgroundJob>(),
                     ProjectDeviceVersionId = projectDeviceVersionId,
-                    Status = Core.Jobs.JobStatus.Pending,
+                    Status = Core.Statuses.JobStatus.Pending,
                     LastError = "Waiting for other jobs to complete"
                 };
                 conn.Insert(job);
@@ -46,7 +46,7 @@ namespace Box9.Leds.Manager.DataAccess.Actions
                     "INNER JOIN ProjectDeviceVersion ON BackgroundJob.projectdeviceversionid = ProjectDeviceVersion.id " +
                     "INNER JOIN ProjectDevice ON ProjectDeviceVersion.projectdeviceid = ProjectDevice.id " +
                     "WHERE ProjectDevice.projectid = @projectid", new { projectId })
-                    .Where(j => includeCompleted || j.Status != Core.Jobs.JobStatus.Complete);
+                    .Where(j => includeCompleted || j.Status != Core.Statuses.JobStatus.Complete);
             });
         }
 
@@ -61,7 +61,7 @@ namespace Box9.Leds.Manager.DataAccess.Actions
 
                 job.LastError = error;
                 job.LastStackTrace = stackTrace;
-                job.Status = Core.Jobs.JobStatus.Failed;
+                job.Status = Core.Statuses.JobStatus.Failed;
 
                 conn.Update(job);
                 return job;
@@ -75,7 +75,7 @@ namespace Box9.Leds.Manager.DataAccess.Actions
                 var job = GetJob(backgroundJobId).Function(conn);
                 Guard.This(job).AgainstDefaultValue(string.Format("No job exists with id '{0}'", job.Id));
 
-                job.Status = Core.Jobs.JobStatus.Processing;
+                job.Status = Core.Statuses.JobStatus.Processing;
 
                 conn.Update(job);
                 return job;
@@ -91,7 +91,7 @@ namespace Box9.Leds.Manager.DataAccess.Actions
 
                 job.LastError = null;
                 job.LastStackTrace = null;
-                job.Status = Core.Jobs.JobStatus.Complete;
+                job.Status = Core.Statuses.JobStatus.Complete;
 
                 conn.Update(job);
                 return job;
@@ -107,7 +107,7 @@ namespace Box9.Leds.Manager.DataAccess.Actions
 
                 job.LastError = cancellationReason;
                 job.LastStackTrace = null;
-                job.Status = Core.Jobs.JobStatus.Complete;
+                job.Status = Core.Statuses.JobStatus.Complete;
 
                 conn.Update(job);
                 return job;

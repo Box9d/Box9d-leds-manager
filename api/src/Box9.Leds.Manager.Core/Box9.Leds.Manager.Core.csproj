@@ -67,9 +67,10 @@
     <Compile Include="Config\Configuration.cs" />
     <Compile Include="Config\IConfiguration.cs" />
     <Compile Include="Equality\EqualityExtensions.cs" />
-    <Compile Include="Jobs\JobStatus.cs" />
+    <Compile Include="Statuses\JobStatus.cs" />
     <Compile Include="Logging\ILogger.cs" />
     <Compile Include="Logging\Logger.cs" />
+    <Compile Include="Statuses\ProjectDevicePlaybackStatus.cs" />
     <Compile Include="Tasks\TaskExtensions.cs" />
     <Compile Include="Validation\Guard.cs" />
     <Compile Include="Validation\GuardDoubleExtensions.cs" />
