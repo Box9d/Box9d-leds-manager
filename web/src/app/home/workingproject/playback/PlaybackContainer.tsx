@@ -6,13 +6,13 @@ import * as PlaybackActions from "./PlaybackActions";
 
 const mapStateToProps = (state: IAppState): PlaybackPresenter.IPlaybackProps => {
     return {
-        devices: state.ProjectState.DevicesOverviewState.ProjectDevices,
+        devices: state.ProjectState.DevicesOverviewState.DevicesWithStatuses,
     };
 };
 
 const mapDispatchToProps = (dispatch: any): PlaybackPresenter.IPlaybackProps => {
     return {
-        fetchProjectDevicePlaybackStatus: (projectDeviceId: number) => dispatch(PlaybackActions.FetchProjectDevicePlaybackStatus(dispatch, projectDeviceId)),
+        fetchProjectDevicePlaybackStatus: (deviceId: number) => dispatch(PlaybackActions.FetchProjectDevicePlaybackStatus(dispatch, deviceId)),
     };
 };
 

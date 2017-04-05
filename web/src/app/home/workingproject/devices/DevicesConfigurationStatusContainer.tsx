@@ -5,7 +5,7 @@ import * as DevicesOverviewActions from "./DevicesOverviewActions";
 
 const mapStateToProps = (state: IAppState): DevicesConfigurationStatusPresenter.IDevicesConfigurationStatusProps => {
     return {
-        numberOfDevices: state.ProjectState.DevicesOverviewState.ProjectDevices.length,
+        numberOfDevices: state.ProjectState.DevicesOverviewState.DevicesWithStatuses.length,
         projectId: state.WorkingProjectState.Project.id,
     };
 };

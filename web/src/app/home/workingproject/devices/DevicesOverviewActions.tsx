@@ -6,6 +6,7 @@ import { MessageType } from "../../../messages/MessagingState";
 
 export class Actions {
     public static SetProjectDevices: string = "SET_PROJECT_DEVICES";
+    public static SetProjectDeviceStatus: string = "SET_PROJECT_DEVICE_STATUS";
 }
 
 export const FetchProjectDevices = (dispatch: any, projectId: number): IAction => {
@@ -15,7 +16,7 @@ export const FetchProjectDevices = (dispatch: any, projectId: number): IAction =
         if (!response.successful) {
             dispatch(MessageActions.SetMessageAndMessageType(dispatch, "Could not retrieve project devices: " + response.errorMessage, MessageType.Error));
         } else {
-            dispatch({type: Actions.SetProjectDevices, value: response.result});
+            dispatch({ type: Actions.SetProjectDevices, value: response.result });
         }
     });
 

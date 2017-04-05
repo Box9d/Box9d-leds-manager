@@ -6,7 +6,7 @@ import * as DevicesOverviewPresenter from "./DevicesOverviewPresenter";
 
 const mapStateToProps = (state: IAppState): DevicesOverviewPresenter.IDevicesOverviewProps => {
     return {
-        devices: state.ProjectState.DevicesOverviewState.ProjectDevices,
+        devices: state.ProjectState.DevicesOverviewState.DevicesWithStatuses,
         projectId: state.WorkingProjectState.Project.id,
     };
 };

@@ -3,19 +3,24 @@ import * as DeviceConfigurationState from "./configuration/DeviceConfigurationSt
 import * as DeviceScannerState from "./scanning/DeviceScannerState";
 
 export interface IDevicesOverviewState {
-    ProjectDevices: ApiClient.Device[];
+    DevicesWithStatuses: DeviceWithStatus[];
     DeviceScannerState: DeviceScannerState.IDeviceScannerState;
     DeviceConfigurationState: DeviceConfigurationState.IDeviceConfigurationState;
 };
 
 export class DevicesOverviewState implements IDevicesOverviewState {
-    public ProjectDevices: ApiClient.Device[];
+    public DevicesWithStatuses: DeviceWithStatus[];
     public DeviceScannerState: DeviceScannerState.IDeviceScannerState;
     public DeviceConfigurationState: DeviceConfigurationState.IDeviceConfigurationState;
 
     constructor() {
         this.DeviceScannerState = new DeviceScannerState.DeviceScannerState();
-        this.ProjectDevices = new Array<ApiClient.Device>();
+        this.DevicesWithStatuses = new Array<DeviceWithStatus>();
         this.DeviceConfigurationState = new DeviceConfigurationState.DeviceConfigurationState();
     }
+}
+
+export class DeviceWithStatus {
+    public Device: ApiClient.Device;
+    public PlaybackStatus: ApiClient.ProjectDevicePlaybackStatus;
 }
