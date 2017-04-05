@@ -4,7 +4,7 @@ namespace Box9.Leds.Manager.Services.VideoPlayback
 {
     public interface IVideoPlaybackService
     {
-        ProjectDevicePlaybackStatus GetProjectDevicePlaybackStatus(int projectDeviceId);
+        ProjectDevicePlaybackStatus GetProjectDevicePlaybackStatus(int deviceId, int projectId);
 
         void Play(int projectId);
 

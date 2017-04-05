@@ -22,9 +22,9 @@ namespace Box9.Leds.Manager.Api.Controllers
 
         [ActionName("GetProjectDevicePlaybackStatus")]
         [HttpGet]
-        public GlobalJsonResult<ProjectDevicePlaybackStatus> GetProjectDevicePlaybackStatus(int projectDeviceId)
+        public GlobalJsonResult<ProjectDevicePlaybackStatus> GetProjectDevicePlaybackStatus(int deviceId, int projectId)
         {
-            var result = videoPlayback.GetProjectDevicePlaybackStatus(projectDeviceId);
+            var result = videoPlayback.GetProjectDevicePlaybackStatus(deviceId, projectId);
 
             return GlobalJsonResult<ProjectDevicePlaybackStatus>.Success(System.Net.HttpStatusCode.OK, result);
         }

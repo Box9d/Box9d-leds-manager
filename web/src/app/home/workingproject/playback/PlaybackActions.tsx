@@ -9,10 +9,10 @@ export class Actions {
     public static SetPlaying: string = "SET_PLAYING";
 }
 
-export const FetchProjectDevicePlaybackStatus = (dispatch: any, deviceId: number): IAction => {
+export const FetchProjectDevicePlaybackStatus = (dispatch: any, deviceId: number, projectId: number): IAction => {
 
     let apiClient = new ApiClient.VideoPlaybackClient(config.apiUrl);
-    apiClient.getProjectDevicePlaybackStatus(deviceId).then((response: ApiClient.GlobalJsonResultOfProjectDevicePlaybackStatus) => {
+    apiClient.getProjectDevicePlaybackStatus(deviceId, projectId).then((response: ApiClient.GlobalJsonResultOfProjectDevicePlaybackStatus) => {
         if (!response.successful) {
             dispatch(MessageActions.SetMessageAndMessageType(dispatch, "Could not retrieve project device playback status: " + response.errorMessage, MessageType.Error));
         } else {

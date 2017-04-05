@@ -14,7 +14,7 @@ const mapStateToProps = (state: IAppState): PlaybackPresenter.IPlaybackProps => 
 
 const mapDispatchToProps = (dispatch: any): PlaybackPresenter.IPlaybackProps => {
     return {
-        fetchProjectDevicePlaybackStatus: (deviceId: number) => dispatch(PlaybackActions.FetchProjectDevicePlaybackStatus(dispatch, deviceId)),
+        fetchProjectDevicePlaybackStatus: (deviceId: number, projectId: number) => dispatch(PlaybackActions.FetchProjectDevicePlaybackStatus(dispatch, deviceId, projectId)),
         play: (projectId: number) => dispatch(PlaybackActions.Play(dispatch, projectId)),
         stop: (projectId: number) => dispatch(PlaybackActions.Stop(dispatch, projectId)),
     };

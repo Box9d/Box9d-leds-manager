@@ -36,6 +36,15 @@ namespace Box9.Leds.Manager.DataAccess.Actions
             });
         }
 
+        public static DataAccessAction<Device> GetDevice(int deviceId)
+        {
+            return new DataAccessAction<Device>((IDbConnection conn) =>
+            {
+                return conn.Query<Device>("SELECT Device.* FROM Device WHERE Device.id = @deviceId", new { deviceId })
+                    .SingleOrDefault();
+            });
+        }
+
         public static DataAccessAction<ProjectDevice> AddDeviceToProject(int projectId, Device device)
         {
             return new DataAccessAction<ProjectDevice>((IDbConnection conn) =>

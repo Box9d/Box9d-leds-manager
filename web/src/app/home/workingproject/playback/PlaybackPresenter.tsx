@@ -64,7 +64,7 @@ export class PlaybackPresenter extends React.Component<IPlaybackProps, undefined
 
     private refreshPlaybackStatuses() {
         this.props.devices.forEach((d) => {
-            this.props.fetchProjectDevicePlaybackStatus(d.Device.id);
+            this.props.fetchProjectDevicePlaybackStatus(d.Device.id, this.props.projectId);
         })
     }
 }
@@ -72,7 +72,7 @@ export class PlaybackPresenter extends React.Component<IPlaybackProps, undefined
 export interface IPlaybackProps {
     projectId?: number;
     devices?: DeviceWithStatus[];
-    fetchProjectDevicePlaybackStatus?: (projectDeviceId: number) => void;
+    fetchProjectDevicePlaybackStatus?: (deviceId: number, projectId: number) => void;
     play?: (projectDeviceId: number) => void;
     stop?: (projectDeviceId: number) => void;
     isPlaying?: boolean;
