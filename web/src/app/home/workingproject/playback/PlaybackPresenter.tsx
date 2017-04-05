@@ -18,7 +18,8 @@ export class PlaybackPresenter extends React.Component<IPlaybackProps, undefined
                 this.props.devices.length > 0 &&
                 <div>
                     <Button primary onClick={() => this.refreshPlaybackStatuses()}>Load</Button>
-                    <Button color="green" disabled={!allDevicesReady}>Play</Button>
+                    <Button color="green" disabled={!allDevicesReady || this.props.isPlaying} onClick={() => this.props.play(this.props.projectId)}>Play</Button>
+                    <Button color="red" disabled={!allDevicesReady || !this.props.isPlaying} onClick={() => this.props.stop(this.props.projectId)}>Stop</Button>
                     <Segment>
                         {
                             this.props.devices.map((d: DeviceWithStatus) => {
@@ -56,6 +57,10 @@ export class PlaybackPresenter extends React.Component<IPlaybackProps, undefined
 }
 
 export interface IPlaybackProps {
+    projectId?: number;
     devices?: DeviceWithStatus[];
     fetchProjectDevicePlaybackStatus?: (projectDeviceId: number) => void;
+    play?: (projectDeviceId: number) => void;
+    stop?: (projectDeviceId: number) => void;
+    isPlaying?: boolean;
 }
