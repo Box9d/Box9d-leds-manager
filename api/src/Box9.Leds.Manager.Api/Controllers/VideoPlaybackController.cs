@@ -1,41 +1,50 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Web.Http;
 using Box9.Leds.Manager.Core.Statuses;
+using Box9.Leds.Manager.Core.Validation;
 using Box9.Leds.Manager.DataAccess;
+using Box9.Leds.Manager.DataAccess.Actions;
 using Box9.Leds.Manager.PiApiClient;
+using Box9.Leds.Manager.Services.VideoPlayback;
 
 namespace Box9.Leds.Manager.Api.Controllers
 {
     public class VideoPlaybackController : ApiController
     {
-        private readonly IDataAccessDispatcher dispatcher;
-        private readonly IPiApiClientFactory clientFactory;
+        private readonly IVideoPlaybackService videoPlayback;
 
-        public VideoPlaybackController(IDataAccessDispatcher dispatcher, IPiApiClientFactory clientFactory)
+        public VideoPlaybackController(IVideoPlaybackService videoPlayback)
         {
-            this.dispatcher = dispatcher;
-            this.clientFactory = clientFactory;
+            this.videoPlayback = videoPlayback;
         }
 
         [ActionName("GetProjectDevicePlaybackStatus")]
         [HttpGet]
         public GlobalJsonResult<ProjectDevicePlaybackStatus> GetProjectDevicePlaybackStatus(int projectDeviceId)
         {
-            return GlobalJsonResult<ProjectDevicePlaybackStatus>.Success(System.Net.HttpStatusCode.OK, ProjectDevicePlaybackStatus.NotReady); 
+            var result = videoPlayback.GetProjectDevicePlaybackStatus(projectDeviceId);
+
+            return GlobalJsonResult<ProjectDevicePlaybackStatus>.Success(System.Net.HttpStatusCode.OK, result);
         }
 
         [ActionName("Play")]
         [HttpPost]
         public GlobalJsonResult<EmptyResult> Play(int projectId)
         {
-            throw new NotImplementedException();
+            videoPlayback.Play(projectId);
+
+            return GlobalJsonResult<EmptyResult>.Success(System.Net.HttpStatusCode.OK);
         }
 
         [ActionName("Stop")]
         [HttpPost]
         public GlobalJsonResult<EmptyResult> Stop(int projectId)
         {
-            throw new NotImplementedException();
+            videoPlayback.Stop(projectId);
+
+            return GlobalJsonResult<EmptyResult>.Success(System.Net.HttpStatusCode.OK);
         }
     }
 }

@@ -7,6 +7,8 @@ namespace Box9.Leds.Manager.PiApiClient
 {
     public interface IPiApiClient
     {
+        string BaseAddress { get; }
+
         IEnumerable<VideoMetadataResult> GetAllVideoMetadata();
 
         void ClearFrames(int videoId);
