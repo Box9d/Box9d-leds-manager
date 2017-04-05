@@ -17,6 +17,7 @@ export class DevicesOverviewPresenter extends React.Component<IDevicesOverviewPr
     public render() {
 
         return <div>
+            <Divider horizontal>Devices</Divider>
             <DeviceScanner />
             <Divider />
             <br />
