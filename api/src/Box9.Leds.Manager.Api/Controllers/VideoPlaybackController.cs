@@ -21,7 +21,7 @@ namespace Box9.Leds.Manager.Api.Controllers
         [HttpGet]
         public GlobalJsonResult<ProjectDevicePlaybackStatus> GetProjectDevicePlaybackStatus(int projectDeviceId)
         {
-            return GlobalJsonResult<ProjectDevicePlaybackStatus>.Success(System.Net.HttpStatusCode.OK, ProjectDevicePlaybackStatus.Ready); 
+            return GlobalJsonResult<ProjectDevicePlaybackStatus>.Success(System.Net.HttpStatusCode.OK, ProjectDevicePlaybackStatus.NotReady); 
         }
 
         [ActionName("Play")]

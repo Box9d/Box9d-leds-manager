@@ -11,13 +11,14 @@ export class PlaybackPresenter extends React.Component<IPlaybackProps, undefined
     }
 
     public render() {
+        let allDevicesReady = this.props.devices.length > 0 && !this.props.devices.some((d) => d.PlaybackStatus !== ApiClient.ProjectDevicePlaybackStatus.Ready);
         return <div>
             <Divider horizontal>Playback</Divider>
             {
                 this.props.devices.length > 0 &&
                 <div>
                     <Button primary>Load</Button>
-                    <Button color="green">Play</Button>
+                    <Button color="green" disabled={!allDevicesReady}>Play</Button>
                     <Segment>
                         {
                             this.props.devices.map((d: DeviceWithStatus) => {

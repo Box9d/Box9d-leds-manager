@@ -16,10 +16,16 @@ export const DevicesOverviewReducer = (state: IDevicesOverviewState, action: IAc
             for (let device of action.value) {
                 let deviceWithStatus = new DeviceWithStatus();
                 deviceWithStatus.Device = device;
-                newState.DevicesWithStatuses.push(deviceWithStatus)
+                newState.DevicesWithStatuses.push(deviceWithStatus);
             }
             break;
         case Actions.SetProjectDeviceStatus:
+            // Why do I need to completely re-create this array?
+            let oldDevices = state.DevicesWithStatuses;
+            newState.DevicesWithStatuses = new Array<DeviceWithStatus>();
+            for (let device of oldDevices) {
+                newState.DevicesWithStatuses.push(device);
+            }
             newState.DevicesWithStatuses.find((d) => d.Device.id === +action.id).PlaybackStatus = action.value;
             break;
         default: break;
