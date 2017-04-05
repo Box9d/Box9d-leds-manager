@@ -17,7 +17,7 @@ export class PlaybackPresenter extends React.Component<IPlaybackProps, undefined
             {
                 this.props.devices.length > 0 &&
                 <div>
-                    <Button primary>Load</Button>
+                    <Button primary onClick={() => this.refreshPlaybackStatuses()}>Load</Button>
                     <Button color="green" disabled={!allDevicesReady}>Play</Button>
                     <Segment>
                         {
@@ -45,6 +45,10 @@ export class PlaybackPresenter extends React.Component<IPlaybackProps, undefined
     }
 
     public componentDidMount() {
+        this.refreshPlaybackStatuses();
+    }
+
+    private refreshPlaybackStatuses() {
         this.props.devices.forEach((d) => {
             this.props.fetchProjectDevicePlaybackStatus(d.Device.id);
         })
