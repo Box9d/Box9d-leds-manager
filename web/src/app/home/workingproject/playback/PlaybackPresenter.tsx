@@ -2,7 +2,6 @@ import * as React from "react";
 import { Divider, Header, Table, Segment, Grid, Button, Label } from "semantic-ui-react";
 import * as ApiClient from "../../../../../../api/build/ApiClient";
 import Playback from "./PlaybackContainer";
-import { PlaybackDeviceStatus } from "./devicestatus/PlaybackDeviceStatusContainer";
 
 export class PlaybackPresenter extends React.Component<IPlaybackProps, undefined> {
 
@@ -25,7 +24,6 @@ export class PlaybackPresenter extends React.Component<IPlaybackProps, undefined
                                 <Grid.Row>
                                     <Grid.Column width={12}>
                                         {d.name != null && d.name !== "" ? d.name : "unknown name"}{" (" + d.ipAddress + ")"}
-                                        <PlaybackDeviceStatus projectDeviceId={d.id} />
                                     </Grid.Column>
                                 </Grid.Row>
                             </Grid>;
@@ -42,9 +40,13 @@ export class PlaybackPresenter extends React.Component<IPlaybackProps, undefined
     }
 
     public componentDidMount() {
+        this.props.devices.forEach((d) => {
+            this.props.fetchProjectDevicePlaybackStatus(d.id);
+        })
     }
 }
 
 export interface IPlaybackProps {
     devices?: ApiClient.Device[];
+    fetchProjectDevicePlaybackStatus?: (projectDeviceId: number) => void;
 }
