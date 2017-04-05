@@ -22,22 +22,22 @@ namespace Box9.Leds.Manager.Services.VideoPlayback
             this.devicePlaybacks = new List<DevicePlayback>();
         }
 
-        public ProjectDevicePlaybackStatus GetProjectDevicePlaybackStatus(int projectDeviceId)
+        public ProjectDevicePlaybackStatus GetProjectDevicePlaybackStatus(int deviceId, int projectId)
         {
-            var device = dispatcher.Dispatch(DeviceActions.GetProjectDevice(projectDeviceId));
-            Guard.This(device).AgainstDefaultValue(string.Format("Cannot find device with project device id '{0}'", projectDeviceId));
+            var device = dispatcher.Dispatch(DeviceActions.GetDevice(deviceId));
+            Guard.This(device).AgainstDefaultValue(string.Format("Cannot find device with device id '{0}'", deviceId));
 
-            var projectDevice = dispatcher.Dispatch(ProjectDeviceActions.GetProjectDevice(projectDeviceId));
-            Guard.This(projectDevice).AgainstDefaultValue(string.Format("Cannot find project device with project device id '{0}'", projectDeviceId));
+            var projectDevice = dispatcher.Dispatch(ProjectDeviceActions.GetProjectDevice(deviceId, projectId));
+            Guard.This(projectDevice).AgainstDefaultValue(string.Format("Cannot find project device with device id '{0}' and project id '{1}'", deviceId, projectId));
 
             var deviceClient = clientFactory.ForDevice(device);
 
             try
             {
-                var playbackResult = deviceClient.LoadVideo(projectDeviceId);
+                var playbackResult = deviceClient.LoadVideo(projectDevice.Id);
                 if (!devicePlaybacks.Any(dp => dp.Client.BaseAddress == deviceClient.BaseAddress))
                 {
-                    devicePlaybacks.Add(new DevicePlayback(projectDeviceId, playbackResult.PlaybackToken, deviceClient));
+                    devicePlaybacks.Add(new DevicePlayback(projectDevice.Id, playbackResult.PlaybackToken, deviceClient));
                 }
 
                 return ProjectDevicePlaybackStatus.Ready;

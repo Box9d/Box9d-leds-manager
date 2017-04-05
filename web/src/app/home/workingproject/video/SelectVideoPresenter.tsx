@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Button, Header, Loader, Modal, Table } from "semantic-ui-react";
+import { Button, Header, Loader, Modal, Table, Divider } from "semantic-ui-react";
 import * as ApiClient from "../../../../../../api/build/ApiClient";
 import config from "../../../../Config";
 import OpenProjectModal from "../../existingproject/OpenProjectModalContainer";
@@ -20,6 +20,7 @@ export class SelectVideoPresenter extends React.Component<ISelectVideoProps, und
         };
 
         return <div>
+            <Divider horizontal>Video</Divider>
             {
                 !this.props.hasVideo &&
                 <p><em>No video selected</em></p>
@@ -45,9 +46,9 @@ export class SelectVideoPresenter extends React.Component<ISelectVideoProps, und
             }
 
             <div>
-            <form ref={(form: any) => {this.form = form; }} action={config.apiUrl + "/api/Video/StartVideoUpload"} method="post" encType="multipart/form-data">
-                <input id="fileinput" type="file" name="fileInput" style={fileInputStyle} ref={(input: any) => { this.fileBrowser = input; }} onChange={this.submitFile}/>
-            </form>
+                <form ref={(form: any) => { this.form = form; }} action={config.apiUrl + "/api/Video/StartVideoUpload"} method="post" encType="multipart/form-data">
+                    <input id="fileinput" type="file" name="fileInput" style={fileInputStyle} ref={(input: any) => { this.fileBrowser = input; }} onChange={this.submitFile} />
+                </form>
                 <Button id="fileInputButton" primary onClick={this.openFileBrowser}>Browse for video...</Button>
             </div>
         </div>;
