@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Button, Header, Icon, Label, Modal, Table } from "semantic-ui-react";
+import { Button, Header, Icon, Label, Modal, Table, Checkbox } from "semantic-ui-react";
 import * as ApiClient from "../../../../../../../api/build/ApiClient";
 import "./DeviceConfigurationModalStyles.scss";
 
@@ -8,7 +8,7 @@ export class DeviceConfigurationModalPresenter extends React.Component<IDeviceCo
     constructor(props: IDeviceConfigurationModalProps) {
         super(props);
 
-        this.state = {pixelMappings: [].concat(props.currentMapping)};
+        this.state = { pixelMappings: [].concat(props.currentMapping), isDragToggleEnabled: false };
     }
 
     public render() {
@@ -27,6 +27,7 @@ export class DeviceConfigurationModalPresenter extends React.Component<IDeviceCo
         return <div>
             <Modal defaultOpen onClose={this.props.onModalClose} closeIcon="close" dimmer="blurring" size={"fullscreen" as any}>
                 <Modal.Content>
+                    <Checkbox toggle label="Toggle drag to select" onChange={(e: any) => this.setState({ isDragToggleEnabled: !this.state.isDragToggleEnabled })} />
                     <div className="mapping-table-wrapper">
                         <div className="mapping-table">
                             {
@@ -35,7 +36,7 @@ export class DeviceConfigurationModalPresenter extends React.Component<IDeviceCo
                                         {
                                             row.map((col) =>
                                             <div key={col + 1} className="mapping-col">
-                                                <Label as="a" size="tiny" circular color={this.getMapping(col + 1, rowNum + 1).mappingOrder !== 0 ? "blue" : "black"} onClick={(e: any) => this.setMapping(col + 1, rowNum + 1)}>
+                                                    <Label as="a" size="tiny" circular color={this.getMapping(col + 1, rowNum + 1).mappingOrder !== 0 ? "blue" : "black"} onClick={(e: any) => this.setMapping(col + 1, rowNum + 1)} onMouseOver={(e: any) => this.state.isDragToggleEnabled && this.setMapping(col + 1, rowNum + 1)}>
                                                         { this.getMapping(col + 1, rowNum + 1).mappingOrder !== 0 && this.getMapping(col + 1, rowNum + 1).mappingOrder }
                                                 </Label>
                                             </div>,
@@ -118,4 +119,5 @@ export interface IDeviceConfigurationModalProps {
 
 export interface IDeviceConfigurationState {
     pixelMappings: ApiClient.ProjectDeviceVersionMapping[];
+    isDragToggleEnabled: boolean;
 }
