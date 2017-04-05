@@ -40,8 +40,7 @@ namespace Box9.Leds.Manager.DataAccess.Actions
         {
             return new DataAccessAction<Device>((IDbConnection conn) =>
             {
-                return conn.Query<Device>("SELECT Device.* FROM Device WHERE Device.id = @deviceId", new { deviceId })
-                    .SingleOrDefault();
+                return conn.Get<Device>(deviceId);
             });
         }
 
