@@ -36,22 +36,22 @@ const ProjectDeviceVersionReducer = (state: ApiClient.ProjectDeviceVersion, acti
 
     switch (action.type) {
         case Actions.ChangeHorizontalPixels:
-            newState.numberOfHorizontalPixels = action.value;
+            newState.numberOfHorizontalPixels = Number(action.value);
             break;
         case Actions.ChangeVerticalPixels:
-            newState.numberOfVerticalPixels = action.value;
+            newState.numberOfVerticalPixels = Number(action.value);
             break;
         case Actions.ChangeStartAtHorizontalPercentage:
-            newState.startAtHorizontalPercentage = action.value;
+            newState.startAtHorizontalPercentage = Number(action.value);
             break;
         case Actions.ChangeStartAtVerticalPercentage:
-            newState.startAtVerticalPercentage = action.value;
+            newState.startAtVerticalPercentage = Number(action.value);
             break;
         case Actions.ChangeHorizontalPercentage:
-            newState.horizontalPercentage = action.value;
+            newState.horizontalPercentage = Number(action.value);
             break;
         case Actions.ChangeVerticalPercentage:
-            newState.verticalPercentage = action.value;
+            newState.verticalPercentage = Number(action.value);
             break;
         default: break;
     }

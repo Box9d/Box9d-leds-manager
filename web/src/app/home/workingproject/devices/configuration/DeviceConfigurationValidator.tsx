@@ -41,7 +41,7 @@ export class DeviceConfigurationValidator {
     }
 
     public validateStartAtHorizontalPercentage(): ValidationResult {
-        let startAtHorizontalPercentage = this.props.deviceConfiguration.startAtHorizontalPercentage;
+        let startAtHorizontalPercentage: number = this.props.deviceConfiguration.startAtHorizontalPercentage;
 
         if (startAtHorizontalPercentage < 0 || startAtHorizontalPercentage > 99) {
             return ValidationResult.Invalid("Start at horizontal percentage must be between 0 and 99%");
@@ -51,7 +51,7 @@ export class DeviceConfigurationValidator {
     }
 
     public validateStartAtVerticalPercentage(): ValidationResult {
-        let startAtVerticalPercentage = this.props.deviceConfiguration.startAtVerticalPercentage;
+        let startAtVerticalPercentage: number = this.props.deviceConfiguration.startAtVerticalPercentage;
 
         if (startAtVerticalPercentage < 0 || startAtVerticalPercentage > 99) {
             return ValidationResult.Invalid("Start at vertical percentage must be between 0 and 99%");
@@ -61,8 +61,8 @@ export class DeviceConfigurationValidator {
     }
 
     public validateHorizontalPercentage(): ValidationResult {
-        let horizontalPercentage = this.props.deviceConfiguration.horizontalPercentage;
-        let horizontalPercentageSum = this.props.deviceConfiguration.startAtHorizontalPercentage + horizontalPercentage;
+        let horizontalPercentage: number = this.props.deviceConfiguration.horizontalPercentage;
+        let horizontalPercentageSum: number = this.props.deviceConfiguration.startAtHorizontalPercentage + horizontalPercentage;
 
         if (horizontalPercentage < 1) {
             return ValidationResult.Invalid("Width percentage must be between 1 and 100%");
@@ -76,8 +76,8 @@ export class DeviceConfigurationValidator {
     }
 
     public validateVerticalPercentage(): ValidationResult {
-        let verticalPercentage = this.props.deviceConfiguration.verticalPercentage;
-        let verticalPercentageSum = this.props.deviceConfiguration.startAtVerticalPercentage + verticalPercentage;
+        let verticalPercentage: number = this.props.deviceConfiguration.verticalPercentage;
+        let verticalPercentageSum: number = this.props.deviceConfiguration.startAtVerticalPercentage + verticalPercentage;
 
         if (verticalPercentage < 1) {
             return ValidationResult.Invalid("Height percentage must be between 1 and 100%");
