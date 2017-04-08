@@ -93,16 +93,24 @@ namespace Box9.Leds.Manager.DataAccess.Actions
             {
                 projectDeviceVersion.Validate();
 
-                var currentVersion = conn.Query<int>("SELECT Version FROM ProjectDeviceVersion WHERE projectdeviceid = @projectdeviceid ORDER BY Version DESC LIMIT 1", 
+                var currentVersion = conn.Query<ProjectDeviceVersion>("SELECT * FROM ProjectDeviceVersion WHERE projectdeviceid = @projectdeviceid ORDER BY Version DESC LIMIT 1", 
                     new { projectDeviceVersion.ProjectDeviceId })
                     .SingleOrDefault();
 
                 var id = conn.GetNextId<ProjectDeviceVersion>();
 
                 projectDeviceVersion.Id = id;
-                projectDeviceVersion.Version = currentVersion == 0 ? 1 : currentVersion + 1;
+                projectDeviceVersion.Version = currentVersion == null ? 1 : currentVersion.Version + 1;
 
                 conn.Insert(projectDeviceVersion);
+
+                // Update mappings to exist for new version
+                if (currentVersion != null)
+                {
+                    conn.Execute("UPDATE ProjectDeviceVersionMapping SET projectdeviceversionid = @newprojectdeviceversionid WHERE projectdeviceversionid = @currentprojectdeviceversionid",
+                    new { NewProjectDeviceVersionId = id, CurrentProjectDeviceVersionId = currentVersion.Id });
+                }
+                
 
                 // Always create a new background job when the project device version changes
                 BackgroundJobActions.CreateJob(projectDeviceVersion.Id).Function(conn);
