@@ -1,9 +1,11 @@
 import * as React from "react";
-import { Button, Header, Icon, Label, Modal, Table, Checkbox } from "semantic-ui-react";
+import { Button, Checkbox, Header, Icon, Input, Label, Modal, Table } from "semantic-ui-react";
 import * as ApiClient from "../../../../../../../api/build/ApiClient";
 import "./DeviceConfigurationModalStyles.scss";
 
 export class DeviceConfigurationModalPresenter extends React.Component<IDeviceConfigurationModalProps, IDeviceConfigurationState> {
+
+    private modal: any;
 
     constructor(props: IDeviceConfigurationModalProps) {
         super(props);
@@ -27,7 +29,14 @@ export class DeviceConfigurationModalPresenter extends React.Component<IDeviceCo
         return <div>
             <Modal defaultOpen onClose={this.props.onModalClose} closeIcon="close" dimmer="blurring" size={"fullscreen" as any}>
                 <Modal.Content>
-                    <Checkbox toggle label="Toggle drag to select" onChange={(e: any) => this.setState({ isDragToggleEnabled: !this.state.isDragToggleEnabled })} />
+                    <div style={{display: "inline"}}>
+                        <div style={{float: "left"}} className="ui fitted toggle checkbox" onClick={this.toggleDragMapping}>
+                            <input type="checkbox" checked={this.state.isDragToggleEnabled} tabIndex={0} onKeyDown={this.onKeyDown} autoFocus />
+                            <label></label>
+                        </div>
+                        <p style={{float: "left", textIndent: "10px"}}>Click (or press 't') to toggle hover mapping</p>
+                    </div>
+                    <br/>
                     <div className="mapping-table-wrapper">
                         <div className="mapping-table">
                             {
@@ -106,6 +115,16 @@ export class DeviceConfigurationModalPresenter extends React.Component<IDeviceCo
 
     private clearMappings = (): void => {
         this.setState({pixelMappings: new Array<ApiClient.ProjectDeviceVersionMapping>()});
+    }
+
+    private onKeyDown = (e: any): void => {
+        if (e.key.toLowerCase() === "t") {
+            this.toggleDragMapping();
+        }
+    }
+
+    private toggleDragMapping = (): void => {
+        this.setState({isDragToggleEnabled: !this.state.isDragToggleEnabled});
     }
 }
 
