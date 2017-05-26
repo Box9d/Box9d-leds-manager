@@ -39,7 +39,7 @@ export class DevicesOverviewPresenter extends React.Component<IDevicesOverviewPr
                                         </Grid.Column>
                                     </Grid.Row>
                                     {
-                                        this.state.selectedDeviceId > 0 &&
+                                        this.state.selectedDeviceId === d.Device.id &&
                                         <Grid.Row>
                                             <Grid.Column>
                                                 <DeviceConfiguration />
