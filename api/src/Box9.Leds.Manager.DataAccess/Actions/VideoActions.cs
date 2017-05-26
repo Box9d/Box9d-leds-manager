@@ -46,13 +46,15 @@ namespace Box9.Leds.Manager.DataAccess.Actions
                 {
                     try
                     {
+                        var nextProjectVideoId = conn.GetNextId<ProjectVideo>();
+
                         foreach (var existingProjectVideo in existingProjectVideos)
                         {
                             conn.Delete(existingProjectVideo, transaction);
                         }
 
                         var projectVideo = new ProjectVideo();
-                        projectVideo.Id = conn.GetNextId<ProjectVideo>();
+                        projectVideo.Id = nextProjectVideoId;
                         projectVideo.ProjectId = projectId;
                         projectVideo.VideoReferenceId = videoReferenceId;
 
