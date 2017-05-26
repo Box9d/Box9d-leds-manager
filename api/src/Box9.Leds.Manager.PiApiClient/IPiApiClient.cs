@@ -19,7 +19,7 @@ namespace Box9.Leds.Manager.PiApiClient
 
         void UpdateVideoMetadata(VideoMetadataPutRequest videoMetadata);
 
-        LoadVideoPlaybackResult LoadVideo(int videoId);
+        void LoadVideo(int videoId);
 
         void PlayVideo(int videoId, PlayVideoRequest request);
 

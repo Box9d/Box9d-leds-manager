@@ -46,9 +46,9 @@ namespace Box9.Leds.Manager.PiApiClient
             return this.Get<IEnumerable<VideoMetadataResult>>("api/VideoMetadata/GetVideos");
         }
 
-        public LoadVideoPlaybackResult LoadVideo(int videoId)
+        public void LoadVideo(int videoId)
         {
-            return this.Get<LoadVideoPlaybackResult>(string.Format("api/VideoPlayback/Load?videoId={0}", videoId));
+            this.Get<EmptyResult>(string.Format("api/VideoPlayback/Load?videoId={0}", videoId));
         }
 
         public void PlayVideo(int videoId, PlayVideoRequest request)

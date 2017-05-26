@@ -5,6 +5,9 @@ using Box9.Leds.Manager.Core.Validation;
 using Box9.Leds.Manager.DataAccess;
 using Box9.Leds.Manager.DataAccess.Actions;
 using Box9.Leds.Manager.PiApiClient;
+using System;
+using System.Net;
+using System.Net.Sockets;
 
 namespace Box9.Leds.Manager.Services.VideoPlayback
 {
@@ -34,10 +37,10 @@ namespace Box9.Leds.Manager.Services.VideoPlayback
 
             try
             {
-                var playbackResult = deviceClient.LoadVideo(projectDevice.Id);
+                deviceClient.LoadVideo(projectDevice.Id);
                 if (!devicePlaybacks.Any(dp => dp.Client.BaseAddress == deviceClient.BaseAddress))
                 {
-                    devicePlaybacks.Add(new DevicePlayback(projectDevice.Id, playbackResult.PlaybackToken, deviceClient));
+                    devicePlaybacks.Add(new DevicePlayback(projectDevice.Id, deviceClient));
                 }
 
                 return ProjectDevicePlaybackStatus.Ready;
@@ -54,9 +57,16 @@ namespace Box9.Leds.Manager.Services.VideoPlayback
 
         public void Play(int projectId)
         {
+            var startTime = DateTime.Now.AddMilliseconds(2000);
+
             foreach (var devicePlayback in devicePlaybacks)
             {
-                devicePlayback.Client.PlayVideo(devicePlayback.ProjectDeviceId, new Pi.Api.ApiRequests.PlayVideoRequest { PlaybackToken = devicePlayback.PlaybackToken });
+                devicePlayback.Client.PlayVideo(devicePlayback.ProjectDeviceId,
+                    new Pi.Api.ApiRequests.PlayVideoRequest
+                    {
+                        PlayAt = startTime,
+                        TimeReferenceUrl = string.Format("http://{0}:8001/api/time", GetTimeReferenceHost(devicePlayback.Client))
+                    });
             }
         }
 
@@ -66,7 +76,7 @@ namespace Box9.Leds.Manager.Services.VideoPlayback
             {
                 foreach (var devicePlayback in devicePlaybacks)
                 {
-                    devicePlayback.Client.StopVideo(devicePlayback.ProjectDeviceId, new Pi.Api.ApiRequests.StopVideoRequest { PlaybackToken = devicePlayback.PlaybackToken });
+                    devicePlayback.Client.StopVideo(devicePlayback.ProjectDeviceId, new Pi.Api.ApiRequests.StopVideoRequest { });
                 }
             }
             finally
@@ -75,19 +85,36 @@ namespace Box9.Leds.Manager.Services.VideoPlayback
             }
         }
 
+        public static string GetTimeReferenceHost(IPiApiClient piApiClient)
+        {
+            if (piApiClient.BaseAddress.ToLower().Contains("localhost"))
+            {
+                return "localhost";
+            }
+
+            var host = Dns.GetHostEntry(Dns.GetHostName());
+            var localIps = host.AddressList
+                .Where(a => a.AddressFamily == AddressFamily.InterNetwork)
+                .OrderBy(ip => ip.ToString().StartsWith("192") ? 0 : 1);
+
+            if (localIps.Any())
+            {
+                return localIps.First().ToString();
+            }
+
+            throw new Exception("Local IP Address Not Found!");
+        }
+
 
         private class DevicePlayback
         {
             public int ProjectDeviceId { get; }
 
-            public string PlaybackToken { get; }
-
             public IPiApiClient Client { get; }
 
-            public DevicePlayback(int projectDeviceId, string playbackToken, IPiApiClient client)
+            public DevicePlayback(int projectDeviceId, IPiApiClient client)
             {
                 ProjectDeviceId = projectDeviceId;
-                PlaybackToken = playbackToken;
                 Client = client;
             }
         }

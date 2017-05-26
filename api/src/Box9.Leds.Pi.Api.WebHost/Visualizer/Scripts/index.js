@@ -35,6 +35,13 @@
         }
     };
 
+    var log = $.connection.loggerHub;
+    log.client.broadcastMessage = function (name, message) {
+        if (name.toLowerCase() === 'log') {
+            $('#log').append('<tr><td>' + message[0] + '</td><td>' + message[1] + '</td><td>' + message[2] + '</td><tr>');
+        }
+    }
+
     $.connection.hub.start().done(function () {
     });
 });
