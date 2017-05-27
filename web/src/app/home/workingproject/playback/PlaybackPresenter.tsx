@@ -5,10 +5,12 @@ import Playback from "./PlaybackContainer";
 import { DeviceWithStatus } from "../devices/DevicesOverviewState";
 import { SemanticCOLORS } from "semantic-ui-react/dist/commonjs";
 
-export class PlaybackPresenter extends React.Component<IPlaybackProps, undefined> {
+export class PlaybackPresenter extends React.Component<IPlaybackProps, IPlaybackState> {
 
     constructor(props: IPlaybackProps) {
         super(props);
+
+        this.state = {requiresReload: false};
     }
 
     public render() {
@@ -18,9 +20,9 @@ export class PlaybackPresenter extends React.Component<IPlaybackProps, undefined
             {
                 this.props.devices.length > 0 &&
                 <div>
-                    <Button primary onClick={() => this.refreshPlaybackStatuses()}>Load</Button>
-                    <Button color="green" disabled={!allDevicesReady || this.props.isPlaying} onClick={() => this.props.play(this.props.projectId)}>Play</Button>
-                    <Button color="red" disabled={!allDevicesReady || !this.props.isPlaying} onClick={() => this.props.stop(this.props.projectId)}>Stop</Button>
+                    <Button primary onClick={this.load}>Load</Button>
+                    <Button color="green" disabled={!allDevicesReady || this.props.isPlaying || this.state.requiresReload} onClick={this.play}>Play</Button>
+                    <Button color="red" disabled={!allDevicesReady || !this.props.isPlaying} onClick={this.stop}>Stop</Button>
                     <Segment>
                         {
                             this.props.devices.map((d: DeviceWithStatus) => {
@@ -58,6 +60,22 @@ export class PlaybackPresenter extends React.Component<IPlaybackProps, undefined
         </div>;
     }
 
+    public load = () => {
+        this.setState({requiresReload: false});
+
+        this.refreshPlaybackStatuses();
+    }
+
+    public play = () => {
+        this.setState({requiresReload: true});
+
+        this.props.play(this.props.projectId);
+    }
+
+    public stop = () => {
+        this.props.stop(this.props.projectId);
+    }
+
     public componentDidMount() {
         this.refreshPlaybackStatuses();
     }
@@ -76,4 +94,8 @@ export interface IPlaybackProps {
     play?: (projectDeviceId: number) => void;
     stop?: (projectDeviceId: number) => void;
     isPlaying?: boolean;
+}
+
+export interface IPlaybackState {
+    requiresReload: boolean;
 }
