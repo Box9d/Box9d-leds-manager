@@ -11,7 +11,7 @@ namespace Box9.Leds.Manager.WebHost
     {
         static void Main(string[] args)
         {
-            string baseUrl = "http://localhost:8001";
+            string baseUrl = "http://+:8001";
             using (WebApp.Start<Startup>(baseUrl))
             {
                 Console.WriteLine("Starting app...");
