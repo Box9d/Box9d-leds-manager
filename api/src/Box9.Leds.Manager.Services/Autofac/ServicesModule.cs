@@ -2,6 +2,7 @@
 using Box9.Leds.Manager.Core.Autofac;
 using Box9.Leds.Manager.DataAccess.Autofac;
 using Box9.Leds.Manager.PiApiClient.Autofac;
+using Box9.Leds.Manager.Services.AudioPlayback;
 using Box9.Leds.Manager.Services.DeviceSearch;
 using Box9.Leds.Manager.Services.DeviceStatus;
 using Box9.Leds.Manager.Services.JobProcessing;
@@ -44,6 +45,7 @@ namespace Box9.Leds.Manager.Services.Autofac
             builder.RegisterType<BitmapToBinaryProcessor>().As<IBitmapToBinaryProcessor>();
             builder.RegisterType<DeviceStatusService>().As<IDeviceStatusService>();
             builder.RegisterType<PiSyncService>().As<IPiSyncService>();
+            builder.RegisterType<Mp3AudioPlayer>().As<IMp3AudioPlayer>();
 
             builder.RegisterModule<CoreModule>();
             builder.RegisterModule<DataAccessModule>();

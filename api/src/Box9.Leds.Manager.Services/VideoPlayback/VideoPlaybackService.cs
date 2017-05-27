@@ -8,6 +8,7 @@ using Box9.Leds.Manager.PiApiClient;
 using System;
 using System.Net;
 using System.Net.Sockets;
+using Box9.Leds.Manager.Services.AudioPlayback;
 
 namespace Box9.Leds.Manager.Services.VideoPlayback
 {
@@ -15,6 +16,7 @@ namespace Box9.Leds.Manager.Services.VideoPlayback
     {
         private readonly IDataAccessDispatcher dispatcher;
         private readonly IPiApiClientFactory clientFactory;
+        private IMp3AudioPlayer mp3Player;
         private List<DevicePlayback> devicePlaybacks;
 
         public VideoPlaybackService(IDataAccessDispatcher dispatcher, IPiApiClientFactory clientFactory)
@@ -57,6 +59,13 @@ namespace Box9.Leds.Manager.Services.VideoPlayback
 
         public void Play(int projectId)
         {
+            var video = dispatcher.Dispatch(VideoActions.GetVideoForProject(projectId));
+            Guard.This(video).AgainstDefaultValue("No video found for project");
+
+            var audio = AudioTrack.FromVideo(video.FilePath);
+            mp3Player = new Mp3AudioPlayer(audio);
+            mp3Player.Load(audio);
+
             var startTime = DateTime.Now.AddMilliseconds(2000);
 
             foreach (var devicePlayback in devicePlaybacks)
@@ -68,6 +77,13 @@ namespace Box9.Leds.Manager.Services.VideoPlayback
                         TimeReferenceUrl = string.Format("http://{0}:8001/api/time", GetTimeReferenceHost(devicePlayback.Client))
                     });
             }
+
+            while (DateTime.Now.CompareTo(startTime) < 0)
+            {
+                continue;
+            }
+
+            mp3Player.Play();
         }
 
         public void Stop(int projectId)
@@ -78,10 +94,20 @@ namespace Box9.Leds.Manager.Services.VideoPlayback
                 {
                     devicePlayback.Client.StopVideo(devicePlayback.ProjectDeviceId, new Pi.Api.ApiRequests.StopVideoRequest { });
                 }
+
+                if (mp3Player != null)
+                {
+                    mp3Player.Stop();
+                }
             }
             finally
             {
                 this.devicePlaybacks = new List<DevicePlayback>();
+
+                if (mp3Player != null)
+                {
+                    mp3Player.Dispose();
+                }
             }
         }
 

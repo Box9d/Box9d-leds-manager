@@ -8,8 +8,6 @@ using Box9.Leds.Manager.DataAccess;
 using Box9.Leds.Manager.DataAccess.Actions;
 using Box9.Leds.Manager.PiApiClient;
 using Box9.Leds.Manager.Services.VideoPlayback;
-using System.Net;
-using System.Net.Sockets;
 
 namespace Box9.Leds.Manager.Api.Controllers
 {
