@@ -49,6 +49,7 @@ export const Stop = (dispatch: any, projectId: number): IAction => {
             dispatch(MessageActions.SetMessageAndMessageType(dispatch, "Could not retrieve project device playback status: " + response.errorMessage, MessageType.Error));
         } else {
             dispatch({ type: Actions.SetPlaying, value: false });
+            dispatch({ type: DevicesOverviewActions.Actions.ResetProjectDeviceStatuses });
         }
     });
 

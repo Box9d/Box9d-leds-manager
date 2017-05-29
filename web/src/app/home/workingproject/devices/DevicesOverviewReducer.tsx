@@ -26,7 +26,16 @@ export const DevicesOverviewReducer = (state: IDevicesOverviewState, action: IAc
             for (let device of oldDevices) {
                 newState.DevicesWithStatuses.push(device);
             }
-            newState.DevicesWithStatuses.find((d) => d.Device.id === +action.id).PlaybackStatus = action.value;
+            let targetDevice = newState.DevicesWithStatuses.find((d) => d.Device.id === +action.id).PlaybackStatus = action.value;
+            break;
+        case Actions.ResetProjectDeviceStatuses:
+            let devices = state.DevicesWithStatuses;
+            newState.DevicesWithStatuses = new Array<DeviceWithStatus>();
+
+            for (let device of devices) {
+                device.PlaybackStatus = ApiClient.ProjectDevicePlaybackStatus.NotReady;
+                newState.DevicesWithStatuses.push(device);
+            }
             break;
         default: break;
     }

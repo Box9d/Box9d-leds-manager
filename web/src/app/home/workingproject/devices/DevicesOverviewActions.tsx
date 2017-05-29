@@ -7,6 +7,7 @@ import { MessageType } from "../../../messages/MessagingState";
 export class Actions {
     public static SetProjectDevices: string = "SET_PROJECT_DEVICES";
     public static SetProjectDeviceStatus: string = "SET_PROJECT_DEVICE_STATUS";
+    public static ResetProjectDeviceStatuses: string = "RESET_PROJECT_DEVICE_STATUSES";
 }
 
 export const FetchProjectDevices = (dispatch: any, projectId: number): IAction => {

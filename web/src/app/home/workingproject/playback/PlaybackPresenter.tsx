@@ -10,7 +10,7 @@ export class PlaybackPresenter extends React.Component<IPlaybackProps, IPlayback
     constructor(props: IPlaybackProps) {
         super(props);
 
-        this.state = {requiresReload: false};
+        this.state = {requiresReload: false, canLoad: true};
     }
 
     public render() {
@@ -20,7 +20,7 @@ export class PlaybackPresenter extends React.Component<IPlaybackProps, IPlayback
             {
                 this.props.devices.length > 0 &&
                 <div>
-                    <Button primary onClick={this.load}>Load</Button>
+                    <Button primary disabled={!this.state.canLoad} onClick={this.load}>Load</Button>
                     <Button color="green" disabled={!allDevicesReady || this.props.isPlaying || this.state.requiresReload} onClick={this.play}>Play</Button>
                     <Button color="red" disabled={!allDevicesReady || !this.props.isPlaying} onClick={this.stop}>Stop</Button>
                     <Segment>
@@ -61,7 +61,7 @@ export class PlaybackPresenter extends React.Component<IPlaybackProps, IPlayback
     }
 
     public load = () => {
-        this.setState({requiresReload: false});
+        this.setState({requiresReload: false, canLoad: false});
 
         this.refreshPlaybackStatuses();
     }
@@ -74,16 +74,14 @@ export class PlaybackPresenter extends React.Component<IPlaybackProps, IPlayback
 
     public stop = () => {
         this.props.stop(this.props.projectId);
+
+        this.setState({canLoad: true});
     }
 
-    public componentDidMount() {
-        this.refreshPlaybackStatuses();
-    }
-
-    private refreshPlaybackStatuses() {
+    public refreshPlaybackStatuses() {
         this.props.devices.forEach((d) => {
             this.props.fetchProjectDevicePlaybackStatus(d.Device.id, this.props.projectId);
-        })
+        });
     }
 }
 
@@ -97,5 +95,6 @@ export interface IPlaybackProps {
 }
 
 export interface IPlaybackState {
-    requiresReload: boolean;
+    canLoad?: boolean;
+    requiresReload?: boolean;
 }
