@@ -31,7 +31,7 @@ namespace Box9.Leds.Manager.Services.PiSynchronization
             Guard.This(projectDeviceVersion).AgainstDefaultValue(string.Format("Could not find project device version '{0}'", projectDeviceVersionId));
 
             var device = dispatcher.Dispatch(DeviceActions.GetProjectDevice(projectDeviceVersion.ProjectDeviceId));
-            Guard.This(device).AgainstDefaultValue(string.Format("Could not find device from project device version '{0}'", projectDeviceVersion.Id));
+            Guard.This(device).AgainstDefaultValue(string.Format("Could not find project device with project device Id '{0}'", projectDeviceVersion.ProjectDeviceId));
             Guard.This(device).WithRule(d => deviceStatusService.IsOnline(device), string.Format("Device {0} (with IP Address {1}) is not online", device.Name, device.IpAddress));
 
             var project = dispatcher.Dispatch(ProjectActions.GetProjectFromProjectDevice(projectDeviceVersion.ProjectDeviceId));
