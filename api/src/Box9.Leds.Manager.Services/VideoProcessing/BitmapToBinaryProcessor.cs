@@ -4,6 +4,7 @@ using System.Linq;
 using Box9.Leds.Manager.DataAccess;
 using Box9.Leds.Manager.DataAccess.Actions;
 using Box9.Leds.Manager.DataAccess.Models;
+using System;
 
 namespace Box9.Leds.Manager.Services.VideoProcessing
 {
@@ -25,13 +26,13 @@ namespace Box9.Leds.Manager.Services.VideoProcessing
                 0,0,0,0
             };
 
+            var xPixelGap = (double)(100 - projectDeviceVersion.StartAtHorizontalPercentage) / (double)(projectDeviceVersion.NumberOfHorizontalPixels - 1);
+            var yPixelGap = (double)(100 - projectDeviceVersion.StartAtVerticalPercentage) / (double)(projectDeviceVersion.NumberOfVerticalPixels - 1);
+
             foreach (var mapping in mappings.OrderBy(m => m.MappingOrder))
             {
-                var xPercent = projectDeviceVersion.StartAtHorizontalPercentage + projectDeviceVersion.HorizontalPercentage * (mapping.HorizontalPosition + 1) / projectDeviceVersion.NumberOfHorizontalPixels;
-                var yPercent = projectDeviceVersion.StartAtVerticalPercentage + projectDeviceVersion.VerticalPercentage * (mapping.VerticalPosition + 1) / projectDeviceVersion.NumberOfVerticalPixels;
-
-                var x = (xPercent * bitmap.Width) / 100;
-                var y = (yPercent * bitmap.Height) / 100;
+                var x = (int)Math.Round(projectDeviceVersion.StartAtHorizontalPercentage + (mapping.HorizontalPosition - 1) * xPixelGap, 0);
+                var y = (int)Math.Round(projectDeviceVersion.StartAtVerticalPercentage + (mapping.VerticalPosition - 1) * yPixelGap, 0);
 
                 x = x >= bitmap.Width ? bitmap.Width - 1 : x;
                 y = y >= bitmap.Height ? bitmap.Height - 1 : y;
