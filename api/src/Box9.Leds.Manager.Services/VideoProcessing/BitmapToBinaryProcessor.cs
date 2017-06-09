@@ -26,13 +26,16 @@ namespace Box9.Leds.Manager.Services.VideoProcessing
                 0,0,0,0
             };
 
-            var xPixelGap = (double)(100 - projectDeviceVersion.StartAtHorizontalPercentage) / (double)(projectDeviceVersion.NumberOfHorizontalPixels - 1);
-            var yPixelGap = (double)(100 - projectDeviceVersion.StartAtVerticalPercentage) / (double)(projectDeviceVersion.NumberOfVerticalPixels - 1);
+            var xPercentagePixelGap = (double)(projectDeviceVersion.HorizontalPercentage) / (double)(projectDeviceVersion.NumberOfHorizontalPixels - 1);
+            var yPercentagePixelGap = (double)(projectDeviceVersion.VerticalPercentage) / (double)(projectDeviceVersion.NumberOfVerticalPixels - 1);
 
             foreach (var mapping in mappings.OrderBy(m => m.MappingOrder))
             {
-                var x = (int)Math.Round(projectDeviceVersion.StartAtHorizontalPercentage + (mapping.HorizontalPosition - 1) * xPixelGap, 0);
-                var y = (int)Math.Round(projectDeviceVersion.StartAtVerticalPercentage + (mapping.VerticalPosition - 1) * yPixelGap, 0);
+                var xPercent = projectDeviceVersion.StartAtHorizontalPercentage + (mapping.HorizontalPosition - 1) * xPercentagePixelGap;
+                var yPercent = projectDeviceVersion.StartAtVerticalPercentage + (mapping.VerticalPosition - 1) * yPercentagePixelGap;
+
+                var x = (int)Math.Round(xPercent * bitmap.Width / 100, 0);
+                var y = (int)Math.Round(yPercent * bitmap.Height / 100, 0);
 
                 x = x >= bitmap.Width ? bitmap.Width - 1 : x;
                 y = y >= bitmap.Height ? bitmap.Height - 1 : y;
