@@ -68,23 +68,23 @@
       <HintPath>..\packages\Autofac.WebApi2.Owin.4.0.0\lib\net45\Autofac.Integration.WebApi.Owin.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Box9.Leds.Pi.Api, Version=1.0.6355.21609, Culture=neutral, processorArchitecture=x86">
-      <HintPath>..\packages\Box9.Leds.Pi.Api.1.0.6355.21609\lib\net452\Box9.Leds.Pi.Api.dll</HintPath>
+    <Reference Include="Box9.Leds.Pi.Api, Version=1.0.6369.25246, Culture=neutral, processorArchitecture=x86">
+      <HintPath>..\packages\Box9.Leds.Pi.Api.1.0.6369.25246\lib\net452\Box9.Leds.Pi.Api.dll</HintPath>
     </Reference>
     <Reference Include="Box9.Leds.Pi.Core, Version=1.0.0.0, Culture=neutral, processorArchitecture=x86">
-      <HintPath>..\packages\Box9.Leds.Pi.Api.1.0.6355.21609\lib\net452\Box9.Leds.Pi.Core.dll</HintPath>
+      <HintPath>..\packages\Box9.Leds.Pi.Api.1.0.6369.25246\lib\net452\Box9.Leds.Pi.Core.dll</HintPath>
     </Reference>
     <Reference Include="Box9.Leds.Pi.DataAccess, Version=0.0.0.0, Culture=neutral, processorArchitecture=x86">
-      <HintPath>..\packages\Box9.Leds.Pi.Api.1.0.6355.21609\lib\net452\Box9.Leds.Pi.DataAccess.dll</HintPath>
+      <HintPath>..\packages\Box9.Leds.Pi.Api.1.0.6369.25246\lib\net452\Box9.Leds.Pi.DataAccess.dll</HintPath>
     </Reference>
     <Reference Include="Box9.Leds.Pi.Database, Version=0.0.0.0, Culture=neutral, processorArchitecture=x86">
-      <HintPath>..\packages\Box9.Leds.Pi.Api.1.0.6355.21609\lib\net452\Box9.Leds.Pi.Database.dll</HintPath>
+      <HintPath>..\packages\Box9.Leds.Pi.Api.1.0.6369.25246\lib\net452\Box9.Leds.Pi.Database.dll</HintPath>
     </Reference>
     <Reference Include="Box9.Leds.Pi.Domain, Version=1.0.0.0, Culture=neutral, processorArchitecture=x86">
-      <HintPath>..\packages\Box9.Leds.Pi.Api.1.0.6355.21609\lib\net452\Box9.Leds.Pi.Domain.dll</HintPath>
+      <HintPath>..\packages\Box9.Leds.Pi.Api.1.0.6369.25246\lib\net452\Box9.Leds.Pi.Domain.dll</HintPath>
     </Reference>
     <Reference Include="Box9.Leds.WebSocket.ApiClient, Version=1.0.0.0, Culture=neutral, processorArchitecture=x86">
-      <HintPath>..\packages\Box9.Leds.Pi.Api.1.0.6355.21609\lib\net452\Box9.Leds.WebSocket.ApiClient.dll</HintPath>
+      <HintPath>..\packages\Box9.Leds.Pi.Api.1.0.6369.25246\lib\net452\Box9.Leds.WebSocket.ApiClient.dll</HintPath>
     </Reference>
     <Reference Include="Dapper, Version=1.50.2.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Dapper.1.50.2\lib\net451\Dapper.dll</HintPath>
