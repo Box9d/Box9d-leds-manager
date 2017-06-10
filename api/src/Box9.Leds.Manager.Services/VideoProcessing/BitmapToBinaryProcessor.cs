@@ -40,11 +40,18 @@ namespace Box9.Leds.Manager.Services.VideoProcessing
                 x = x >= bitmap.Width ? bitmap.Width - 1 : x;
                 y = y >= bitmap.Height ? bitmap.Height - 1 : y;
 
-                var pixelColor = bitmap.GetPixel(x, y);
+                try
+                {
+                    var pixelColor = bitmap.GetPixel(x, y);
 
-                data.Add(pixelColor.R);
-                data.Add(pixelColor.G);
-                data.Add(pixelColor.B);
+                    data.Add(pixelColor.R);
+                    data.Add(pixelColor.G);
+                    data.Add(pixelColor.B);
+                }
+                catch
+                {
+                    throw;
+                }
             }
 
             return data.ToArray();

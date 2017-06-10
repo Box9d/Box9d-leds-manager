@@ -66,7 +66,7 @@ namespace Box9.Leds.Manager.Services.VideoPlayback
             mp3Player = new Mp3AudioPlayer(audio);
             mp3Player.Load(audio);
 
-            var startTime = DateTime.Now.AddMilliseconds(2000);
+            var startTime = DateTime.Now.AddMilliseconds(10000);
 
             foreach (var devicePlayback in devicePlaybacks)
             {
@@ -121,7 +121,7 @@ namespace Box9.Leds.Manager.Services.VideoPlayback
             var host = Dns.GetHostEntry(Dns.GetHostName());
             var localIps = host.AddressList
                 .Where(a => a.AddressFamily == AddressFamily.InterNetwork)
-                .OrderBy(ip => ip.ToString().StartsWith("192") ? 0 : 1);
+                .OrderBy(ip => ip.ToString().StartsWith("192.168.1") ? 0 : 1);
 
             if (localIps.Any())
             {
