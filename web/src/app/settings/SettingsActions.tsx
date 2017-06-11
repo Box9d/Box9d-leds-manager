@@ -23,11 +23,13 @@ export const FetchAppPreferences = (dispatch: any): IAction => {
     };
 };
 
-export const SaveAppPreferences = (dispatch: any, startIp: string, finishIp: string): IAction => {
+export const SaveAppPreferences = (dispatch: any, startIp: string, finishIp: string, pingTimeout: number, playbackBuffer: number): IAction => {
 
     let appPrefs = new ApiClient.AppPreferences();
     appPrefs.deviceSearchStartIp = startIp;
     appPrefs.deviceSearchEndIp = finishIp;
+    appPrefs.pingTimeout = pingTimeout;
+    appPrefs.playbackBuffer = playbackBuffer;
 
     let apiClient = new ApiClient.AppPreferencesClient(config.apiUrl);
     apiClient.updatePreferences(appPrefs).then((response: ApiClient.GlobalJsonResultOfAppPreferences) => {

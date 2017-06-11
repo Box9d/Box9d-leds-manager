@@ -14,7 +14,8 @@ const mapStateToProps = (state: IAppState): SettingsPresenter.ISettingsProps => 
 const mapDispatchToProps = (dispatch: any): SettingsPresenter.ISettingsProps => {
     return {
         fetchSettings: () => dispatch(SettingsActions.FetchAppPreferences(dispatch)),
-        saveSettings: (ipStart: string, ipFinish: string) => dispatch(SettingsActions.SaveAppPreferences(dispatch, ipStart, ipFinish)),
+        saveSettings: (ipStart: string, ipFinish: string, pingTimeout: number, playbackBuffer: number) =>
+            dispatch(SettingsActions.SaveAppPreferences(dispatch, ipStart, ipFinish, pingTimeout, playbackBuffer)),
     };
 };
 

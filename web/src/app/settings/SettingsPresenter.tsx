@@ -38,7 +38,26 @@ export class SettingsPresenter extends React.Component<ISettingsProps, ISettings
                         {!validator.validateEndIp().isValid && <Label basic color="red" pointing>{validator.validateEndIp().errorMessage}</Label>}
                     </Form.Field>
                 </Form.Group>
-                <Button disabled={!validator.validateStartIp().isValid} color="green" onClick={(e: any) => { e.preventDefault(); this.props.saveSettings(this.state.editIpStart, this.state.editIpEnd); }}>Save</Button>
+                <Divider horizontal>Ping timeout</Divider>
+                <p>Adjust this value to give more time for PIs to respond when scanning</p>
+                <Form.Group widths="equal">
+                    <Form.Field error={!validator.validatePingTimeout().isValid}>
+                        <Form.Input label="Ping timeout (milliseconds)" placeholder="250" value={this.state.pingTimeout} onChange={(e: any) => this.setState({ pingTimeout: e.target.value })} />
+                        {!validator.validatePingTimeout().isValid && <Label basic color="red" pointing>{validator.validatePingTimeout().errorMessage}</Label>}
+                    </Form.Field>
+                </Form.Group>
+                <Divider horizontal>Playback buffer</Divider>
+                <p>Increase this value to allow more time for devices to sync with the manager clock before playback.</p>
+                <Form.Group widths="equal">
+                    <Form.Field error={!validator.validatePlaybackBuffer().isValid}>
+                        <Form.Input label="Playback buffer (milliseconds)" placeholder="10000" value={this.state.playbackBuffer} onChange={(e: any) => this.setState({ playbackBuffer: e.target.value })} />
+                        {!validator.validatePlaybackBuffer().isValid && <Label basic color="red" pointing>{validator.validatePlaybackBuffer().errorMessage}</Label>}
+                    </Form.Field>
+                </Form.Group>
+                <Button disabled={!validator.validateState().isValid} color="green" onClick={(e: any) => {
+                    e.preventDefault();
+                    this.props.saveSettings(this.state.editIpStart, this.state.editIpEnd, this.state.pingTimeout, this.state.playbackBuffer);
+                }}>Save</Button>
             </Form>
         </div>;
     }
@@ -48,18 +67,25 @@ export class SettingsPresenter extends React.Component<ISettingsProps, ISettings
     }
 
     public componentWillReceiveProps(nextProps: ISettingsProps) {
-        this.setState({ editIpStart: nextProps.appPreferences.deviceSearchStartIp, editIpEnd: nextProps.appPreferences.deviceSearchEndIp });
+        this.setState({
+            editIpStart: nextProps.appPreferences.deviceSearchStartIp,
+            editIpEnd: nextProps.appPreferences.deviceSearchEndIp,
+            pingTimeout: nextProps.appPreferences.pingTimeout,
+            playbackBuffer: nextProps.appPreferences.playbackBuffer
+         });
     }
 }
 
 export interface ISettingsProps {
     selectedNavItem?: string;
     fetchSettings?: () => void;
-    saveSettings?: (ipStart: string, ipFinish: string) => void;
+    saveSettings?: (ipStart: string, ipFinish: string, pingTimeout: number, playbackBuffer: number) => void;
     appPreferences?: ApiClient.AppPreferences;
 }
 
 export interface ISettingsLocalState {
     editIpStart?: string;
     editIpEnd?: string;
+    pingTimeout?: number;
+    playbackBuffer?: number;
 }

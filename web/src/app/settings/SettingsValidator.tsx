@@ -11,7 +11,8 @@ export class SettingsValidator {
     }
 
     public validateState(): ValidationResult {
-        if (this.validateStartIp().isValid && this.validateEndIp().isValid) {
+        if (this.validateStartIp().isValid && this.validateEndIp().isValid
+            && this.validatePingTimeout().isValid && this.validatePlaybackBuffer().isValid) {
             return ValidationResult.Valid();
         }
 
@@ -37,6 +38,22 @@ export class SettingsValidator {
 
         if (!this.ipRegex.test(this.state.editIpEnd)) {
             return ValidationResult.Invalid("IP must be a valid IP address");
+        }
+
+        return ValidationResult.Valid();
+    }
+
+    public validatePingTimeout(): ValidationResult {
+        if (!Guard.thisNumber(this.state.pingTimeout).withinRange(1, 1000)) {
+            return ValidationResult.Invalid("Ping timeout should be between 1 and 1000 milliseconds");
+        }
+
+        return ValidationResult.Valid();
+    }
+
+    public validatePlaybackBuffer(): ValidationResult {
+        if (!Guard.thisNumber(this.state.playbackBuffer).withinRange(1000, 60000)) {
+            return ValidationResult.Invalid("Playback buffer time should be between 1000 and 60000 milliseconds");
         }
 
         return ValidationResult.Valid();

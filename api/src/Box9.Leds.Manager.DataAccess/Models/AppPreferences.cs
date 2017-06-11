@@ -32,6 +32,9 @@ namespace Box9.Leds.Manager.DataAccess.Models
             Guard.This(startIpComponents[0]).WithRule(val => val == endIpComponents[0], "Specified IP address range must be in the same subnet");
             Guard.This(startIpComponents[1]).WithRule(val => val == endIpComponents[1], "Specified IP address range must be in the same subnet");
             Guard.This(startIpComponents[2]).WithRule(val => val == endIpComponents[2], "Specified IP address range must be in the same subnet");
+
+            Guard.This(PingTimeout).AgainstOutsideOfRange(1, 1000, "Ping timeout should be between 1 and 1000 milliseconds");
+            Guard.This(PlaybackBuffer).AgainstOutsideOfRange(1000, 60000, "Playback buffer should be between 1000 and 60000 milliseconds");
         }
     }
 }

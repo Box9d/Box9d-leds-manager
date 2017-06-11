@@ -66,7 +66,9 @@ namespace Box9.Leds.Manager.Services.VideoPlayback
             mp3Player = new Mp3AudioPlayer(audio);
             mp3Player.Load(audio);
 
-            var startTime = DateTime.Now.AddMilliseconds(10000);
+            var appPreferences = dispatcher.Dispatch(AppPreferencesActions.GetAppPreferences());
+
+            var startTime = DateTime.Now.AddMilliseconds(appPreferences.PlaybackBuffer);
 
             foreach (var devicePlayback in devicePlaybacks)
             {
