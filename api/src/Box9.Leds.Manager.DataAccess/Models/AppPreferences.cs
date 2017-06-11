@@ -14,6 +14,10 @@ namespace Box9.Leds.Manager.DataAccess.Models
 
         public string DeviceSearchEndIp { get; set; }
 
+        public int PingTimeout { get; set; }
+
+        public int PlaybackBuffer { get; set; }
+
         public void Validate()
         {
             Guard.This(DeviceSearchStartIp).AgainstNonIpAddressFormat(
