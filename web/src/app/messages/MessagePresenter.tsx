@@ -11,7 +11,7 @@ export class MessagePresenter extends React.Component<IMessageProps, IMessageSta
     }
 
     public render() {
-        let isVisible = !this.state.dismissed && this.props.state.Message !== "" && this.props.state.Type !== MessageType.Loading;
+        let isVisible = this.isVisible();
         return <div className="message-wrapper">
             <Sidebar.Pushable as={Segment}>
                 <Sidebar as={Segment} animation="overlay" className={this.getMessageColourFromType(this.props.state.Type)} direction="bottom" visible={isVisible} inverted>
@@ -26,6 +26,10 @@ export class MessagePresenter extends React.Component<IMessageProps, IMessageSta
 
     public componentWillReceiveProps(nextProps: IMessageProps) {
         this.setState({ dismissed: false });
+
+        if (this.isVisible()) {
+            this.autoDismiss();
+        }
     }
 
     private getMessageColourFromType(messageType: MessageType): string {
@@ -41,8 +45,18 @@ export class MessagePresenter extends React.Component<IMessageProps, IMessageSta
         }
     }
 
+    private autoDismiss = () => {
+        setTimeout(() => {
+            this.setState({ dismissed: true });
+        }, 5000);
+    }
+
     private handleDismiss = () => {
         this.setState({ dismissed: true });
+    }
+
+    private isVisible = (): boolean => {
+        return !this.state.dismissed && this.props.state.Message !== "" && this.props.state.Type !== MessageType.Loading;
     }
 }
 
