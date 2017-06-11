@@ -19,7 +19,7 @@ namespace Box9.Leds.Manager.Services.DeviceSearch
         private CancellationTokenSource currentSearchTokenSource;
         private bool isSearching;
 
-        public DeviceSearchService(ILogger logger, 
+        public DeviceSearchService(ILogger logger,
             IDataAccessDispatcher dispatcher,
             IPinger pinger,
             IFadeCandyPinger fadeCandyPinger)
@@ -63,12 +63,13 @@ namespace Box9.Leds.Manager.Services.DeviceSearch
         {
             currentSearchTokenSource = new CancellationTokenSource();
 
-            try
-            {
-                var appPreferences = dispatcher.Dispatch(AppPreferencesActions.GetAppPreferences());
+            var appPreferences = dispatcher.Dispatch(AppPreferencesActions.GetAppPreferences());
 
-                foreach (var ipAddress in appPreferences.GetIpAddressRange())
+            foreach (var ipAddress in appPreferences.GetIpAddressRange())
+            {
+                try
                 {
+
                     if (pinger.IsResponding(ipAddress) && fadeCandyPinger.IsFadecandyDevice(ipAddress))
                     {
                         var hostName = pinger.GetHostName(ipAddress);
@@ -79,10 +80,10 @@ namespace Box9.Leds.Manager.Services.DeviceSearch
                         });
                     }
                 }
-            }
-            catch (Exception ex)
-            {
-                logger.LogException(ex);
+                catch (Exception ex)
+                {
+                    logger.LogException(ex);
+                }
             }
         }
     }
