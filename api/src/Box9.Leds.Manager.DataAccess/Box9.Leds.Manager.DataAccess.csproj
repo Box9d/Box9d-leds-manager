@@ -140,6 +140,7 @@
     <Compile Include="Scripts\0012_CreateBackgroundJobTable.cs" />
     <Compile Include="Scripts\0013_DropAndRecreateBackgroundJobTable.cs" />
     <Compile Include="Scripts\0014_ExtendAppPreferencesTable.cs" />
+    <Compile Include="Scripts\0015_ExtendBackgroundJobsTable.cs" />
     <Compile Include="Scripts\Discovery\IScriptDiscovery.cs" />
     <Compile Include="Scripts\Discovery\ScriptDiscovery.cs" />
   </ItemGroup>

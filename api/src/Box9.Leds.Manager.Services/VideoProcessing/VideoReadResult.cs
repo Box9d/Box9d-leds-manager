@@ -7,10 +7,13 @@ namespace Box9.Leds.Manager.Services.VideoProcessing
         public List<byte[]> Frames { get; }
         public bool MoreFrames { get; }
 
-        public VideoReadResult(List<byte[]> frames, bool moreFrames)
+        public double PercentageComplete { get; }
+
+        public VideoReadResult(List<byte[]> frames, long framesRead, long totalFrames)
         {
             Frames = frames;
-            MoreFrames = moreFrames;
+            MoreFrames = framesRead != totalFrames;
+            PercentageComplete = ((double)framesRead / (double)totalFrames) * 100;
         }
     }
 }

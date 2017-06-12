@@ -17,5 +17,7 @@ namespace Box9.Leds.Manager.DataAccess.Models
         public string LastStackTrace { get; set; }
 
         public JobStatus Status { get; set; }
+
+        public double PercentageComplete { get; set; }
     }
 }

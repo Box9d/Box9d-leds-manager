@@ -30,7 +30,8 @@ namespace Box9.Leds.Manager.DataAccess.Actions
                     Id = conn.GetNextId<BackgroundJob>(),
                     ProjectDeviceVersionId = projectDeviceVersionId,
                     Status = Core.Statuses.JobStatus.Pending,
-                    LastError = "Waiting for other jobs to complete"
+                    LastError = "Waiting for other jobs to complete",
+                    PercentageComplete = 0
                 };
                 conn.Insert(job);
 
@@ -62,8 +63,23 @@ namespace Box9.Leds.Manager.DataAccess.Actions
                 job.LastError = error;
                 job.LastStackTrace = stackTrace;
                 job.Status = Core.Statuses.JobStatus.Failed;
+                job.PercentageComplete = 0;
 
                 conn.Update(job);
+                return job;
+            });
+        }
+
+        public static DataAccessAction<BackgroundJob> MarkPercentageCompletion(int backgroundJobId, double percentage)
+        {
+            return new DataAccessAction<BackgroundJob>((IDbConnection conn) =>
+            {
+                var job = GetJob(backgroundJobId).Function(conn);
+                Guard.This(job).AgainstDefaultValue(string.Format("No job exists with id '{0}'", job.Id));
+
+                job.PercentageComplete = percentage;
+                conn.Update(job);
+
                 return job;
             });
         }
@@ -76,6 +92,7 @@ namespace Box9.Leds.Manager.DataAccess.Actions
                 Guard.This(job).AgainstDefaultValue(string.Format("No job exists with id '{0}'", job.Id));
 
                 job.Status = Core.Statuses.JobStatus.Processing;
+                job.PercentageComplete = 0;
 
                 conn.Update(job);
                 return job;
@@ -92,6 +109,7 @@ namespace Box9.Leds.Manager.DataAccess.Actions
                 job.LastError = null;
                 job.LastStackTrace = null;
                 job.Status = Core.Statuses.JobStatus.Complete;
+                job.PercentageComplete = 100;
 
                 conn.Update(job);
                 return job;
@@ -108,6 +126,7 @@ namespace Box9.Leds.Manager.DataAccess.Actions
                 job.LastError = cancellationReason;
                 job.LastStackTrace = null;
                 job.Status = Core.Statuses.JobStatus.Complete;
+                job.PercentageComplete = 0;
 
                 conn.Update(job);
                 return job;

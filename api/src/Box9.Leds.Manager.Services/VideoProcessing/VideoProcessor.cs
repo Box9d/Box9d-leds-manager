@@ -67,7 +67,7 @@ namespace Box9.Leds.Manager.Services.VideoProcessing
                 framesRead++;
             }
 
-            return new VideoReadResult(frames, framesRead != framesToRead);
+            return new VideoReadResult(frames, framesRead, framesToRead);
         }
 
         public void Dispose()

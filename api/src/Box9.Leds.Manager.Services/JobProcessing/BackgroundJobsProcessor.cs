@@ -30,7 +30,6 @@ namespace Box9.Leds.Manager.Services.JobProcessing
             pollPeriodInMilliseconds = 5000;
         }
 
-
         public void Start()
         {
             ProcessJobsAsync(CancellationToken.None).Ignore();
@@ -94,7 +93,7 @@ namespace Box9.Leds.Manager.Services.JobProcessing
                             break;
                         }
 
-                        piSyncService.ProcessProjectDeviceVersion(job.ProjectDeviceVersionId);
+                        piSyncService.ProcessProjectDeviceVersion(job);
                         dispatcher.Dispatch(BackgroundJobActions.MarkAsComplete(job.Id));
                         break;
                     }

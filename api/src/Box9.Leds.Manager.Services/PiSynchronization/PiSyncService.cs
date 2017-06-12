@@ -1,6 +1,7 @@
 ﻿using Box9.Leds.Manager.Core.Validation;
 using Box9.Leds.Manager.DataAccess;
 using Box9.Leds.Manager.DataAccess.Actions;
+using Box9.Leds.Manager.DataAccess.Models;
 using Box9.Leds.Manager.PiApiClient;
 using Box9.Leds.Manager.Services.DeviceStatus;
 using Box9.Leds.Manager.Services.VideoProcessing;
@@ -26,10 +27,10 @@ namespace Box9.Leds.Manager.Services.PiSynchronization
             this.deviceStatusService = deviceStatusService;
         }
 
-        public void ProcessProjectDeviceVersion(int projectDeviceVersionId)
+        public void ProcessProjectDeviceVersion(BackgroundJob job)
         {
-            var projectDeviceVersion = dispatcher.Dispatch(ProjectDeviceActions.GetProjectDeviceVersion(projectDeviceVersionId));
-            Guard.This(projectDeviceVersion).AgainstDefaultValue(string.Format("Could not find project device version '{0}'", projectDeviceVersionId));
+            var projectDeviceVersion = dispatcher.Dispatch(ProjectDeviceActions.GetProjectDeviceVersion(job.ProjectDeviceVersionId));
+            Guard.This(projectDeviceVersion).AgainstDefaultValue(string.Format("Could not find project device version '{0}'", job.ProjectDeviceVersionId));
 
             var device = dispatcher.Dispatch(DeviceActions.GetProjectDevice(projectDeviceVersion.ProjectDeviceId));
             Guard.This(device).AgainstDefaultValue(string.Format("Could not find project device with project device Id '{0}'", projectDeviceVersion.ProjectDeviceId));
@@ -82,6 +83,8 @@ namespace Box9.Leds.Manager.Services.PiSynchronization
                             .Select(f => new AppendFrameRequest { BinaryData = f, Position = framePosition })
                             .ToArray()
                     });
+
+                    dispatcher.Dispatch(BackgroundJobActions.MarkPercentageCompletion(job.Id, read.PercentageComplete));
 
                     if (!read.MoreFrames)
                     {
