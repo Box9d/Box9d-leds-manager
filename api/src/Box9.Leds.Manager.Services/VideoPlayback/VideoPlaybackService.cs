@@ -9,6 +9,7 @@ using System;
 using System.Net;
 using System.Net.Sockets;
 using Box9.Leds.Manager.Services.AudioPlayback;
+using System.Collections.Concurrent;
 
 namespace Box9.Leds.Manager.Services.VideoPlayback
 {
@@ -17,14 +18,14 @@ namespace Box9.Leds.Manager.Services.VideoPlayback
         private readonly IDataAccessDispatcher dispatcher;
         private readonly IPiApiClientFactory clientFactory;
         private IMp3AudioPlayer mp3Player;
-        private List<DevicePlayback> devicePlaybacks;
+        private ConcurrentBag<DevicePlayback> devicePlaybacks;
 
         public VideoPlaybackService(IDataAccessDispatcher dispatcher, IPiApiClientFactory clientFactory)
         {
             this.dispatcher = dispatcher;
             this.clientFactory = clientFactory;
 
-            this.devicePlaybacks = new List<DevicePlayback>();
+            this.devicePlaybacks = new ConcurrentBag<DevicePlayback>();
         }
 
         public ProjectDevicePlaybackStatus GetProjectDevicePlaybackStatus(int deviceId, int projectId)
@@ -104,7 +105,7 @@ namespace Box9.Leds.Manager.Services.VideoPlayback
             }
             finally
             {
-                this.devicePlaybacks = new List<DevicePlayback>();
+                this.devicePlaybacks = new ConcurrentBag<DevicePlayback>();
 
                 if (mp3Player != null)
                 {
