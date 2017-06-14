@@ -44,7 +44,7 @@ namespace Box9.Leds.Manager.Services.PiSynchronization
 
             using (var videoProcessor = videoProcessorInstantiator())
             {
-                var videoMetadata = videoProcessor.StartReadingVideo(project.Id, device.Id);
+                var videoMetadata = videoProcessor.StartReadingVideo(project.Id, projectDeviceVersion.ProjectDeviceId);
                 var client = piClientFactory.ForDevice(device);
 
                 // Update video metadata (use project device id instead of video id with client (could have the same video in multiple configurations)
