@@ -49,6 +49,73 @@ namespace Box9.Leds.Manager.DataAccess.Actions
             });
         }
 
+        public static DataAccessAction<Project> CopyProject(Project project)
+        {
+            return new DataAccessAction<Project>((IDbConnection conn) =>
+            {
+                var existingProject = conn.Get<Project>(project.Id);
+                Guard.This(existingProject).AgainstDefaultValue(string.Format("No project exists with an id of {0}", project.Id));
+
+                var tran = conn.BeginTransaction();
+
+                try
+                {
+                    var newProject = new Project
+                    {
+                        Id = conn.GetNextId<Project>(),
+                        Name = project.Name
+                    };
+
+                    conn.Insert(newProject, tran);
+
+                    var projectDevices = ProjectDeviceActions.GetProjectDevices(project.Id).Function(conn);
+
+                    var nextProjectDeviceId = conn.GetNextId<ProjectDevice>();
+                    var nextProjectDeviceVersionId = conn.GetNextId<ProjectDeviceVersion>();
+                    foreach (var projectDevice in projectDevices)
+                    {
+                        var projectDeviceId = projectDevice.Id;
+
+                        projectDevice.Id = nextProjectDeviceId;
+                        projectDevice.ProjectId = newProject.Id;
+
+                        conn.Insert(projectDevice, tran);
+
+                        var projectDeviceLatestVersion = ProjectDeviceActions.GetLatestProjectDeviceVersion(projectDeviceId).Function(conn);
+                        var projectDeviceVersionId = projectDeviceLatestVersion.Id;
+                        projectDeviceLatestVersion.ProjectDeviceId = projectDevice.Id;
+                        projectDeviceLatestVersion.Version = 1;
+                        projectDeviceLatestVersion.Id = nextProjectDeviceVersionId;
+
+                        conn.Insert(projectDeviceLatestVersion, tran);
+
+                        var mappings = ProjectDeviceActions.GetProjectDeviceMappings(projectDeviceVersionId).Function(conn);
+                        var nextMappingId = conn.GetNextId<ProjectDeviceVersionMapping>();
+                        foreach (var mapping in mappings)
+                        {
+                            mapping.Id = nextMappingId;
+                            mapping.ProjectDeviceVersionId = projectDeviceLatestVersion.Id;
+
+                            conn.Insert(mapping, tran);
+
+                            nextMappingId++;
+                        }
+
+                        nextProjectDeviceId++;
+                        nextProjectDeviceVersionId++;
+                    }
+
+                    tran.Commit();
+                    return newProject;
+                }
+                catch
+                {
+                    tran.Rollback();
+                    throw;
+                }
+            });
+        }
+
         public static DataAccessAction<Project> UpdateProject(Project project)
         {
             project.Validate();
