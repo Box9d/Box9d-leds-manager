@@ -19,6 +19,7 @@ namespace Box9.Leds.Manager.Services.VideoPlayback
         private readonly IPiApiClientFactory clientFactory;
         private IMp3AudioPlayer mp3Player;
         private ConcurrentBag<DevicePlayback> devicePlaybacks;
+        private AudioTrack audioTrack;
 
         public VideoPlaybackService(IDataAccessDispatcher dispatcher, IPiApiClientFactory clientFactory)
         {
@@ -58,14 +59,29 @@ namespace Box9.Leds.Manager.Services.VideoPlayback
             }
         }
 
+        public void LoadAudio(int projectId)
+        {
+            var video = dispatcher.Dispatch(VideoActions.GetVideoForProject(projectId));
+            Guard.This(video).AgainstDefaultValue("Could not find video for project");
+
+            if (audioTrack == null || audioTrack.AudioFilePath != video.FilePath)
+            {
+                if (audioTrack != null)
+                {
+                    audioTrack.Dispose();
+                }
+
+                audioTrack = AudioTrack.FromVideo(video.FilePath);
+            }
+        }
+
         public void Play(int projectId)
         {
             var video = dispatcher.Dispatch(VideoActions.GetVideoForProject(projectId));
             Guard.This(video).AgainstDefaultValue("No video found for project");
 
-            var audio = AudioTrack.FromVideo(video.FilePath);
-            mp3Player = new Mp3AudioPlayer(audio);
-            mp3Player.Load(audio);
+            mp3Player = new Mp3AudioPlayer(audioTrack);
+            mp3Player.Load(audioTrack);
 
             var appPreferences = dispatcher.Dispatch(AppPreferencesActions.GetAppPreferences());
 
@@ -93,24 +109,26 @@ namespace Box9.Leds.Manager.Services.VideoPlayback
         {
             try
             {
+                if (mp3Player != null)
+                {
+                    mp3Player.Stop();
+                    mp3Player.Dispose();
+                }
+            }
+            catch
+            {
+            }
+
+            try
+            {
                 foreach (var devicePlayback in devicePlaybacks)
                 {
                     devicePlayback.Client.StopVideo(devicePlayback.ProjectDeviceId, new Pi.Api.ApiRequests.StopVideoRequest { });
                 }
-
-                if (mp3Player != null)
-                {
-                    mp3Player.Stop();
-                }
             }
             finally
             {
-                this.devicePlaybacks = new ConcurrentBag<DevicePlayback>();
-
-                if (mp3Player != null)
-                {
-                    mp3Player.Dispose();
-                }
+                devicePlaybacks = new ConcurrentBag<DevicePlayback>();
             }
         }
 

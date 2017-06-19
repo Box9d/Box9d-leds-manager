@@ -29,6 +29,15 @@ namespace Box9.Leds.Manager.Api.Controllers
             return GlobalJsonResult<ProjectDevicePlaybackStatus>.Success(System.Net.HttpStatusCode.OK, result);
         }
 
+        [ActionName("LoadAudio")]
+        [HttpPost]
+        public GlobalJsonResult<EmptyResult> LoadAudio(int projectId)
+        {
+            videoPlayback.LoadAudio(projectId);
+
+            return GlobalJsonResult<EmptyResult>.Success(System.Net.HttpStatusCode.OK);
+        }
+
         [ActionName("Play")]
         [HttpPost]
         public GlobalJsonResult<EmptyResult> Play(int projectId)

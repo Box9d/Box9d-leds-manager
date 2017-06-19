@@ -6,6 +6,8 @@ namespace Box9.Leds.Manager.Services.VideoPlayback
     {
         ProjectDevicePlaybackStatus GetProjectDevicePlaybackStatus(int deviceId, int projectId);
 
+        void LoadAudio(int projectId);
+
         void Play(int projectId);
 
         void Stop(int projectId);
