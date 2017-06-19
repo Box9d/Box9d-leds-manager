@@ -7,6 +7,8 @@ import * as DevicesOverviewActions from "../devices/DevicesOverviewActions";
 
 export class Actions {
     public static SetPlaying: string = "SET_PLAYING";
+    public static SetAudioUnloaded: string = "SET_AUDIO_UNLOADED";
+    public static SetAudioLoaded: string = "SET_AUDIO_LOADED";
 }
 
 export const FetchProjectDevicePlaybackStatus = (dispatch: any, deviceId: number, projectId: number): IAction => {
@@ -18,6 +20,23 @@ export const FetchProjectDevicePlaybackStatus = (dispatch: any, deviceId: number
         } else {
             dispatch({ type: DevicesOverviewActions.Actions.SetProjectDeviceStatus, value: response.result, id: deviceId });
         }
+    });
+
+    return {
+        type: "DO_NOTHING",
+    };
+};
+
+export const UnloadAudio = (): IAction => {
+    return {
+        type: Actions.SetAudioLoaded,
+    };
+};
+
+export const LoadAudio = (dispatch: any, projectId: number): IAction => {
+    let apiClient = new ApiClient.VideoPlaybackClient(config.apiUrl);
+    apiClient.loadAudio(projectId).then((response: ApiClient.GlobalJsonResultOfEmptyResult) => {
+        dispatch({ type: Actions.SetAudioLoaded });
     });
 
     return {
