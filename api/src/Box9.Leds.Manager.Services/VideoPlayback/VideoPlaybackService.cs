@@ -97,7 +97,7 @@ namespace Box9.Leds.Manager.Services.VideoPlayback
                     });
             }
 
-            while (DateTime.Now.CompareTo(startTime) < 0)
+            while (DateTime.Now.CompareTo(startTime.AddMilliseconds(-20)) < 0)
             {
                 continue;
             }
