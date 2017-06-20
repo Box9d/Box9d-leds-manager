@@ -26,7 +26,13 @@ namespace Box9.Leds.Manager.Services.AudioPlayback
         {
             if (File.Exists(AudioFilePath))
             {
-                File.Delete(AudioFilePath);
+                try
+                {
+                    File.Delete(AudioFilePath);
+                }
+                catch
+                {
+                }               
             }
         }
     }

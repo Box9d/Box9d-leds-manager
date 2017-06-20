@@ -119,17 +119,19 @@ namespace Box9.Leds.Manager.Services.VideoPlayback
             {
             }
 
-            try
+
+            foreach (var devicePlayback in devicePlaybacks)
             {
-                foreach (var devicePlayback in devicePlaybacks)
+                try
                 {
                     devicePlayback.Client.StopVideo(devicePlayback.ProjectDeviceId, new Pi.Api.ApiRequests.StopVideoRequest { });
                 }
+                catch
+                {
+                }
             }
-            finally
-            {
-                devicePlaybacks = new ConcurrentBag<DevicePlayback>();
-            }
+            
+            devicePlaybacks = new ConcurrentBag<DevicePlayback>();
         }
 
         public static string GetTimeReferenceHost(IPiApiClient piApiClient)
