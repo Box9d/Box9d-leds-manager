@@ -9,6 +9,12 @@ export const PlaybackReducer = (state: IPlaybackState, action: IAction): IPlayba
         case Actions.SetPlaying:
             newState.IsPlaying = action.value;
             break;
+        case Actions.SetAudioLoaded:
+            newState.isAudioLoaded = true;
+            break;
+        case Actions.SetAudioUnloaded:
+            newState.isAudioLoaded = false;
+            break;
         default: break;
     }
 

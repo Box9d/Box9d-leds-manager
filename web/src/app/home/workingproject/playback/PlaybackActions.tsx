@@ -29,7 +29,7 @@ export const FetchProjectDevicePlaybackStatus = (dispatch: any, deviceId: number
 
 export const UnloadAudio = (): IAction => {
     return {
-        type: Actions.SetAudioLoaded,
+        type: Actions.SetAudioUnloaded,
     };
 };
 
