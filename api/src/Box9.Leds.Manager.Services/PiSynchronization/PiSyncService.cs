@@ -1,9 +1,11 @@
 ﻿using Box9.Leds.Manager.Core.Validation;
 using Box9.Leds.Manager.DataAccess;
 using Box9.Leds.Manager.DataAccess.Actions;
+using Box9.Leds.Manager.DataAccess.Models;
 using Box9.Leds.Manager.PiApiClient;
 using Box9.Leds.Manager.Services.DeviceStatus;
 using Box9.Leds.Manager.Services.VideoProcessing;
+using Box9.Leds.Pi.Api.ApiRequests;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,22 +15,22 @@ namespace Box9.Leds.Manager.Services.PiSynchronization
     public class PiSyncService : IPiSyncService
     {
         private readonly IDataAccessDispatcher dispatcher;
-        private readonly IVideoProcessor videoProcessor;
+        private readonly Func<IVideoProcessor> videoProcessorInstantiator;
         private readonly IPiApiClientFactory piClientFactory;
         private readonly IDeviceStatusService deviceStatusService;
 
-        public PiSyncService(IDataAccessDispatcher dispatcher, IVideoProcessor videoProcessor, IPiApiClientFactory piClientFactory, IDeviceStatusService deviceStatusService)
+        public PiSyncService(IDataAccessDispatcher dispatcher, Func<IVideoProcessor> videoProcessorInstantiator, IPiApiClientFactory piClientFactory, IDeviceStatusService deviceStatusService)
         {
             this.dispatcher = dispatcher;
-            this.videoProcessor = videoProcessor;
+            this.videoProcessorInstantiator = videoProcessorInstantiator;
             this.piClientFactory = piClientFactory;
             this.deviceStatusService = deviceStatusService;
         }
 
-        public void ProcessProjectDeviceVersion(int projectDeviceVersionId)
+        public void ProcessProjectDeviceVersion(BackgroundJob job)
         {
-            var projectDeviceVersion = dispatcher.Dispatch(ProjectDeviceActions.GetProjectDeviceVersion(projectDeviceVersionId));
-            Guard.This(projectDeviceVersion).AgainstDefaultValue(string.Format("Could not find project device version '{0}'", projectDeviceVersionId));
+            var projectDeviceVersion = dispatcher.Dispatch(ProjectDeviceActions.GetProjectDeviceVersion(job.ProjectDeviceVersionId));
+            Guard.This(projectDeviceVersion).AgainstDefaultValue(string.Format("Could not find project device version '{0}'", job.ProjectDeviceVersionId));
 
             var device = dispatcher.Dispatch(DeviceActions.GetProjectDevice(projectDeviceVersion.ProjectDeviceId));
             Guard.This(device).AgainstDefaultValue(string.Format("Could not find project device with project device Id '{0}'", projectDeviceVersion.ProjectDeviceId));
@@ -40,50 +42,58 @@ namespace Box9.Leds.Manager.Services.PiSynchronization
             var video = dispatcher.Dispatch(VideoActions.GetVideoForProject(project.Id));
             Guard.This(video).AgainstDefaultValue(string.Format("Could not find video for project '{0}'", project.Name));
 
-            double frameRate;
-            var videoFrames = videoProcessor.GetVideoFramesForDevice(projectDeviceVersion.ProjectDeviceId, out frameRate).ToArray();
-            var client = piClientFactory.ForDevice(device);
-
-            // Update video metadata (use project device id instead of video id with client (could have the same video in multiple configurations)
-            var existingVideosOnPi = client.GetAllVideoMetadata();
-            var existingVideoOnPi = existingVideosOnPi.SingleOrDefault(v => v.Id == projectDeviceVersion.ProjectDeviceId);
-
-            if (existingVideoOnPi == null)
+            using (var videoProcessor = videoProcessorInstantiator())
             {
-                client.CreateVideoMetadata(new Pi.Api.ApiRequests.VideoMetadataCreateRequest
+                var videoMetadata = videoProcessor.StartReadingVideo(project.Id, projectDeviceVersion.ProjectDeviceId);
+                var client = piClientFactory.ForDevice(device);
+
+                // Update video metadata (use project device id instead of video id with client (could have the same video in multiple configurations)
+                var existingVideosOnPi = client.GetAllVideoMetadata();
+                var existingVideoOnPi = existingVideosOnPi.SingleOrDefault(v => v.Id == projectDeviceVersion.ProjectDeviceId);
+
+                if (existingVideoOnPi == null)
                 {
-                    Id = projectDeviceVersion.ProjectDeviceId,
-                    FileName = video.FilePath,
-                    FrameRate = frameRate
-                });
-            }
-            else
-            {
-                client.UpdateVideoMetadata(new Pi.Api.ApiRequests.VideoMetadataPutRequest
+                    client.CreateVideoMetadata(new VideoMetadataCreateRequest
+                    {
+                        Id = projectDeviceVersion.ProjectDeviceId,
+                        FileName = video.FilePath,
+                        FrameRate = videoMetadata.FrameRate
+                    });
+                }
+                else
                 {
-                    Id = projectDeviceVersion.ProjectDeviceId,
-                    FileName = video.FilePath,
-                    FrameRate = frameRate,
-                });
-            }
+                    client.UpdateVideoMetadata(new VideoMetadataPutRequest
+                    {
+                        Id = projectDeviceVersion.ProjectDeviceId,
+                        FileName = video.FilePath,
+                        FrameRate = videoMetadata.FrameRate,
+                    });
+                }
 
-            // Clear, then send frames to Pi
-            client.ClearFrames(projectDeviceVersion.ProjectDeviceId);
+                // Clear, then send frames to Pi
+                client.ClearFrames(projectDeviceVersion.ProjectDeviceId);
 
-            var appendedFrames = new List<Pi.Api.ApiRequests.AppendFrameRequest>();
-            foreach (var frame in videoFrames)
-            {
-                appendedFrames.Add(new Pi.Api.ApiRequests.AppendFrameRequest
+                int framePosition = 1;
+                while (true)
                 {
-                    BinaryData = frame,
-                    Position = appendedFrames.Count + 1
-                });
-            }
+                    var read = videoProcessor.ReadNext1000Frames();
+                    client.SendFrames(projectDeviceVersion.ProjectDeviceId, new AppendFramesRequest
+                    {
+                        AppendFrameRequests = read.Frames
+                            .Select(f => new AppendFrameRequest { BinaryData = f, Position = framePosition })
+                            .ToArray()
+                    });
 
-            client.SendFrames(projectDeviceVersion.ProjectDeviceId, new Pi.Api.ApiRequests.AppendFramesRequest
-            {
-                AppendFrameRequests = appendedFrames.ToArray()
-            });
+                    dispatcher.Dispatch(BackgroundJobActions.MarkPercentageCompletion(job.Id, read.PercentageComplete));
+
+                    if (!read.MoreFrames)
+                    {
+                        break;
+                    }
+
+                    framePosition++;
+                }
+            }
         }
     }
 }

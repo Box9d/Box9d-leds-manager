@@ -45,6 +45,15 @@ namespace Box9.Leds.Manager.Api.Controllers
             return GlobalJsonResult<Project>.Success(System.Net.HttpStatusCode.Created, project);
         }
 
+        [ActionName("CopyProject")]
+        [HttpPost]
+        public GlobalJsonResult<Project> CopyProject(Project project)
+        {
+            var newProject = dispatcher.Dispatch(ProjectActions.CopyProject(project));
+
+            return GlobalJsonResult<Project>.Success(System.Net.HttpStatusCode.Created, newProject);
+        }
+
         [ActionName("UpdateProject")]
         [HttpPut]
         public GlobalJsonResult<Project> Update([FromBody]Project project)

@@ -1,9 +1,12 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace Box9.Leds.Manager.Services.VideoProcessing
 {
-    public interface IVideoProcessor
+    public interface IVideoProcessor : IDisposable
     {
-        IEnumerable<byte[]> GetVideoFramesForDevice(int projectDeviceId, out double frameRate);
+        VideoMetadata StartReadingVideo(int projectId, int projectDeviceId);
+
+        VideoReadResult ReadNext1000Frames();
     }
 }

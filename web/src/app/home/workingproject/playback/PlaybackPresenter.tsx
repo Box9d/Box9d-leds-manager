@@ -10,7 +10,7 @@ export class PlaybackPresenter extends React.Component<IPlaybackProps, IPlayback
     constructor(props: IPlaybackProps) {
         super(props);
 
-        this.state = {requiresReload: false, canLoad: true};
+        this.state = { requiresReload: false, canLoad: true };
     }
 
     public render() {
@@ -21,7 +21,7 @@ export class PlaybackPresenter extends React.Component<IPlaybackProps, IPlayback
                 this.props.devices.length > 0 &&
                 <div>
                     <Button primary disabled={!this.state.canLoad} onClick={this.load}>Load</Button>
-                    <Button color="green" disabled={!allDevicesReady || this.props.isPlaying || this.state.requiresReload} onClick={this.play}>Play</Button>
+                    <Button color="green" disabled={!allDevicesReady || this.props.isPlaying || this.state.requiresReload || !this.props.isAudioLoaded} onClick={this.play}>Play</Button>
                     <Button color="red" disabled={!allDevicesReady || !this.props.isPlaying} onClick={this.stop}>Stop</Button>
                     <Segment>
                         {
@@ -61,21 +61,23 @@ export class PlaybackPresenter extends React.Component<IPlaybackProps, IPlayback
     }
 
     public load = () => {
-        this.setState({requiresReload: false, canLoad: false});
+        this.setState({ requiresReload: false, canLoad: false });
 
         this.refreshPlaybackStatuses();
+        this.props.loadAudio(this.props.projectId);
     }
 
     public play = () => {
-        this.setState({requiresReload: true});
+        this.setState({ requiresReload: true });
 
         this.props.play(this.props.projectId);
     }
 
     public stop = () => {
         this.props.stop(this.props.projectId);
+        this.props.unloadAudio();
 
-        this.setState({canLoad: true});
+        this.setState({ canLoad: true });
     }
 
     public refreshPlaybackStatuses() {
@@ -89,6 +91,9 @@ export interface IPlaybackProps {
     projectId?: number;
     devices?: DeviceWithStatus[];
     fetchProjectDevicePlaybackStatus?: (deviceId: number, projectId: number) => void;
+    loadAudio?: (projectId: number) => void;
+    unloadAudio?: () => void;
+    isAudioLoaded?: boolean;
     play?: (projectDeviceId: number) => void;
     stop?: (projectDeviceId: number) => void;
     isPlaying?: boolean;

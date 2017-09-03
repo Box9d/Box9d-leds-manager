@@ -29,6 +29,7 @@ namespace Box9.Leds.Manager.PiApiClient
             };
             client.DefaultRequestHeaders.Accept.Clear();
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            client.Timeout = new TimeSpan(1, 0, 0);
         }
 
         public void ClearFrames(int videoId)

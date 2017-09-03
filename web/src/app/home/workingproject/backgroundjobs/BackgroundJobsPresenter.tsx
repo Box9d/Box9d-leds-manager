@@ -17,6 +17,7 @@ export class BackgroundJobsPresenter extends React.Component<IBackgroundJobsProp
                     <Table.Row>
                         <Table.HeaderCell>Project device version ID</Table.HeaderCell>
                         <Table.HeaderCell>Status</Table.HeaderCell>
+                        <Table.HeaderCell>Percentage Complete</Table.HeaderCell>
                         <Table.HeaderCell>Last Message</Table.HeaderCell>
                     </Table.Row>
                 </Table.Header>
@@ -25,6 +26,7 @@ export class BackgroundJobsPresenter extends React.Component<IBackgroundJobsProp
                         return <Table.Row key={job.id} error={job.status === ApiClient.JobStatus.Failed}>
                             <Table.Cell>{job.projectDeviceVersionId}</Table.Cell>
                             <Table.Cell>{ApiClient.JobStatus[job.status]}</Table.Cell>
+                            <Table.Cell>{job.percentageComplete + "%"}</Table.Cell>
                             <Table.Cell>{job.lastError}</Table.Cell>
                         </Table.Row>;
                     })}

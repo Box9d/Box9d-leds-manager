@@ -9,6 +9,7 @@ using System;
 using System.Net;
 using System.Net.Sockets;
 using Box9.Leds.Manager.Services.AudioPlayback;
+using System.Collections.Concurrent;
 
 namespace Box9.Leds.Manager.Services.VideoPlayback
 {
@@ -17,14 +18,15 @@ namespace Box9.Leds.Manager.Services.VideoPlayback
         private readonly IDataAccessDispatcher dispatcher;
         private readonly IPiApiClientFactory clientFactory;
         private IMp3AudioPlayer mp3Player;
-        private List<DevicePlayback> devicePlaybacks;
+        private ConcurrentBag<DevicePlayback> devicePlaybacks;
+        private AudioTrack audioTrack;
 
         public VideoPlaybackService(IDataAccessDispatcher dispatcher, IPiApiClientFactory clientFactory)
         {
             this.dispatcher = dispatcher;
             this.clientFactory = clientFactory;
 
-            this.devicePlaybacks = new List<DevicePlayback>();
+            this.devicePlaybacks = new ConcurrentBag<DevicePlayback>();
         }
 
         public ProjectDevicePlaybackStatus GetProjectDevicePlaybackStatus(int deviceId, int projectId)
@@ -57,6 +59,22 @@ namespace Box9.Leds.Manager.Services.VideoPlayback
             }
         }
 
+        public void LoadAudio(int projectId)
+        {
+            var video = dispatcher.Dispatch(VideoActions.GetVideoForProject(projectId));
+            Guard.This(video).AgainstDefaultValue("Could not find video for project");
+
+            if (audioTrack == null || audioTrack.AudioFilePath != video.FilePath)
+            {
+                if (audioTrack != null)
+                {
+                    audioTrack.Dispose();
+                }
+
+                audioTrack = AudioTrack.FromVideo(video.FilePath);
+            }
+        }
+
         public void Play(int projectId)
         {
             var video = dispatcher.Dispatch(VideoActions.GetVideoForProject(projectId));
@@ -79,7 +97,7 @@ namespace Box9.Leds.Manager.Services.VideoPlayback
                     });
             }
 
-            while (DateTime.Now.CompareTo(startTime) < 0)
+            while (DateTime.Now.CompareTo(startTime.AddMilliseconds(-20)) < 0)
             {
                 continue;
             }
@@ -91,25 +109,29 @@ namespace Box9.Leds.Manager.Services.VideoPlayback
         {
             try
             {
-                foreach (var devicePlayback in devicePlaybacks)
-                {
-                    devicePlayback.Client.StopVideo(devicePlayback.ProjectDeviceId, new Pi.Api.ApiRequests.StopVideoRequest { });
-                }
-
                 if (mp3Player != null)
                 {
                     mp3Player.Stop();
-                }
-            }
-            finally
-            {
-                this.devicePlaybacks = new List<DevicePlayback>();
-
-                if (mp3Player != null)
-                {
                     mp3Player.Dispose();
                 }
             }
+            catch
+            {
+            }
+
+
+            foreach (var devicePlayback in devicePlaybacks)
+            {
+                try
+                {
+                    devicePlayback.Client.StopVideo(devicePlayback.ProjectDeviceId, new Pi.Api.ApiRequests.StopVideoRequest { });
+                }
+                catch
+                {
+                }
+            }
+            
+            devicePlaybacks = new ConcurrentBag<DevicePlayback>();
         }
 
         public static string GetTimeReferenceHost(IPiApiClient piApiClient)

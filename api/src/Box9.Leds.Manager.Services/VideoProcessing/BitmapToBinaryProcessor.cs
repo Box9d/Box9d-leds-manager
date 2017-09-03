@@ -5,6 +5,7 @@ using Box9.Leds.Manager.DataAccess;
 using Box9.Leds.Manager.DataAccess.Actions;
 using Box9.Leds.Manager.DataAccess.Models;
 using System;
+using Box9.Leds.Manager.Core.Validation;
 
 namespace Box9.Leds.Manager.Services.VideoProcessing
 {
@@ -19,6 +20,8 @@ namespace Box9.Leds.Manager.Services.VideoProcessing
 
         public byte[] ProcessBitmap(Bitmap bitmap, ProjectDeviceVersion projectDeviceVersion)
         {
+            Guard.This(bitmap).AgainstDefaultValue("Bitmap cannot be null");
+
             var mappings = dispatcher.Dispatch(ProjectDeviceActions.GetProjectDeviceMappings(projectDeviceVersion.Id));
 
             var data = new List<byte>

@@ -289,6 +289,8 @@
     <Compile Include="VideoProcessing\IVideoFileReader.cs" />
     <Compile Include="VideoProcessing\IVideoProcessor.cs" />
     <Compile Include="VideoProcessing\VideoFileReaderWrapper.cs" />
+    <Compile Include="VideoProcessing\VideoMetadata.cs" />
+    <Compile Include="VideoProcessing\VideoReadResult.cs" />
     <Compile Include="VideoProcessing\VideoProcessor.cs" />
     <Compile Include="VideoUpload\IVideoUploader.cs" />
     <Compile Include="VideoUpload\VideoUploader.cs" />
