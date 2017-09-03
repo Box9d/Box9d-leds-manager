@@ -62,9 +62,8 @@ namespace Box9.Leds.Manager.Services.VideoPlayback
             var video = dispatcher.Dispatch(VideoActions.GetVideoForProject(projectId));
             Guard.This(video).AgainstDefaultValue("No video found for project");
 
-            var audio = AudioTrack.FromVideo(video.FilePath);
-            mp3Player = new Mp3AudioPlayer(audio);
-            mp3Player.Load(audio);
+            mp3Player = new Mp3AudioPlayer();
+            mp3Player.Load(video.AudioFilePath);
 
             var appPreferences = dispatcher.Dispatch(AppPreferencesActions.GetAppPreferences());
 

@@ -6,21 +6,15 @@ namespace Box9.Leds.Manager.Services.AudioPlayback
 {
     public class Mp3AudioPlayer : IMp3AudioPlayer
     {
-        private AudioTrack audioTrack;
         private FileStream fileStream;
         private Mp3FileReader mp3FileReader;
         private WaveStream wavStream;
         private BlockAlignReductionStream baStream;
         private WaveOut wave;
 
-        public Mp3AudioPlayer(AudioTrack audioTrack)
+        public void Load(string filePath)
         {
-            this.audioTrack = audioTrack; 
-        }
-
-        public void Load(AudioTrack audioTrack)
-        {
-            fileStream = File.OpenRead(audioTrack.AudioFilePath);
+            fileStream = File.OpenRead(filePath);
             mp3FileReader = new Mp3FileReader(fileStream);
             wavStream = WaveFormatConversionStream.CreatePcmStream(mp3FileReader);
         }
@@ -56,7 +50,6 @@ namespace Box9.Leds.Manager.Services.AudioPlayback
             wavStream.Dispose();
             baStream.Dispose();
             wave.Dispose();
-            audioTrack.Dispose();
         }
     }
 }

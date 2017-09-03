@@ -10,7 +10,10 @@ namespace Box9.Leds.Manager.Services.AudioPlayback
         private AudioTrack(string videoFilePath)
         {
             var converter = new NReco.VideoConverter.FFMpegConverter();
-            var audioFilePath = Path.Combine(Path.GetTempPath(), Guid.NewGuid().ToString() + ".mp3");
+            var fileInfo = new FileInfo(videoFilePath);
+            var directory = fileInfo.Directory.FullName;
+            var fileName = fileInfo.Name;
+            var audioFilePath = Path.Combine(directory, fileName.Replace(".mp4", ".mp3"));
 
             converter.ConvertMedia(videoFilePath, audioFilePath, "mp3");
 

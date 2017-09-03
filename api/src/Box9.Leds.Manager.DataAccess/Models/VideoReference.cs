@@ -13,6 +13,8 @@ namespace Box9.Leds.Manager.DataAccess.Models
 
         public string FilePath { get; set; }
 
+        public string AudioFilePath { get; set; }
+
         public void Validate()
         {
             Guard.This(FilePath)
@@ -23,6 +25,15 @@ namespace Box9.Leds.Manager.DataAccess.Models
 
             Guard.This(FilePath)
                 .WithRule(p => File.Exists(FilePath), string.Format("File '{0}' does not exist", FilePath));
+
+            Guard.This(AudioFilePath)
+                .AgainstNullOrEmpty(AudioFilePath);
+
+            Guard.This(AudioFilePath)
+                .WithRule(p => p.EndsWith(".mp3"), $"File {AudioFilePath} must be an mp3 audio file");
+
+            Guard.This(AudioFilePath)
+                .WithRule(p => File.Exists(AudioFilePath), $"Audio file path {AudioFilePath} does not exist");
         }
 
         public bool DoesFilePathExist()

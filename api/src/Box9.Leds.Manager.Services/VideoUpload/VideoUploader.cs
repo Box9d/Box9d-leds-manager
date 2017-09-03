@@ -9,6 +9,7 @@ using System.Threading;
 using Box9.Leds.Manager.DataAccess;
 using Box9.Leds.Manager.DataAccess.Actions;
 using System.Linq;
+using Box9.Leds.Manager.Services.AudioPlayback;
 
 namespace Box9.Leds.Manager.Services.VideoUpload
 {
@@ -66,9 +67,12 @@ namespace Box9.Leds.Manager.Services.VideoUpload
             {
                 if (!isUploading)
                 {
+                    var audio = AudioTrack.FromVideo(Path.Combine(UploadDirectory(), fileName));
+                    
                     return dispatcher.Dispatch(VideoActions.CreateVideoReference(new VideoReference
                     {
-                        FilePath = Path.Combine(UploadDirectory(), fileName)
+                        FilePath = Path.Combine(UploadDirectory(), fileName),
+                        AudioFilePath = audio.AudioFilePath
                     }));
                 }
             }
