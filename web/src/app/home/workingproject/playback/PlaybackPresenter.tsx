@@ -49,7 +49,7 @@ export class PlaybackPresenter extends React.Component<IPlaybackProps, IPlayback
                                         <Grid.Column width={4}>
                                             <Form.Field>
                                                 <Checkbox toggle label="Bypass" checked={d.PlaybackStatus === ApiClient.ProjectDevicePlaybackStatus.Bypassed} 
-                                                onClick={(e: any) => this.muteDevice(d.Device.id, d.PlaybackStatus !== ApiClient.ProjectDevicePlaybackStatus.Bypassed)}/>
+                                                onClick={(e: any) => this.bypassDevice(d.Device.id, d.PlaybackStatus !== ApiClient.ProjectDevicePlaybackStatus.Bypassed)}/>
                                             </Form.Field>
                                         </Grid.Column>
                                         <Grid.Column width={4}>
@@ -89,7 +89,7 @@ export class PlaybackPresenter extends React.Component<IPlaybackProps, IPlayback
         this.setState({ canLoad: true });
     }
 
-    public muteDevice = (deviceId: number, bypass: boolean) => {
+    public bypassDevice = (deviceId: number, bypass: boolean) => {
         this.props.bypassDevice(this.props.projectId, deviceId, bypass);
     }
 
