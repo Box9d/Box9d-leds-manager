@@ -14,7 +14,8 @@ export class PlaybackPresenter extends React.Component<IPlaybackProps, IPlayback
     }
 
     public render() {
-        let allDevicesReady = this.props.devices.length > 0 && !this.props.devices.some((d) => d.PlaybackStatus !== ApiClient.ProjectDevicePlaybackStatus.Ready);
+        let allDevicesReady = this.props.devices.length > 0 && !this.props.devices.some(
+            (d) => d.PlaybackStatus !== ApiClient.ProjectDevicePlaybackStatus.Ready && d.PlaybackStatus !== ApiClient.ProjectDevicePlaybackStatus.Bypassed);
         return <div>
             <Divider horizontal>Playback</Divider>
             {
