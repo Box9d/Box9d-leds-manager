@@ -37,6 +37,11 @@ namespace Box9.Leds.Manager.Services.VideoPlayback
             var projectDevice = dispatcher.Dispatch(ProjectDeviceActions.GetProjectDevice(deviceId, projectId));
             Guard.This(projectDevice).AgainstDefaultValue(string.Format("Cannot find project device with device id '{0}' and project id '{1}'", deviceId, projectId));
 
+            if (projectDevice.IsBypassed)
+            {
+                return ProjectDevicePlaybackStatus.Bypassed;
+            }
+
             var deviceClient = clientFactory.ForDevice(device);
 
             try
@@ -57,6 +62,17 @@ namespace Box9.Leds.Manager.Services.VideoPlayback
             {
                 return ProjectDevicePlaybackStatus.NotReady;
             }
+        }
+
+        public void BypassDevice(int deviceId, int projectId, bool bypass)
+        {
+            var device = dispatcher.Dispatch(DeviceActions.GetDevice(deviceId));
+            Guard.This(device).AgainstDefaultValue(string.Format("Cannot find device with device id '{0}'", deviceId));
+
+            var projectDevice = dispatcher.Dispatch(ProjectDeviceActions.GetProjectDevice(deviceId, projectId));
+            Guard.This(projectDevice).AgainstDefaultValue(string.Format("Cannot find project device with device id '{0}' and project id '{1}'", deviceId, projectId));
+
+            dispatcher.Dispatch(ProjectDeviceActions.BypassDevice(projectDevice.Id, bypass));
         }
 
         public void LoadAudio(int projectId)

@@ -29,6 +29,15 @@ namespace Box9.Leds.Manager.Api.Controllers
             return GlobalJsonResult<ProjectDevicePlaybackStatus>.Success(System.Net.HttpStatusCode.OK, result);
         }
 
+        [ActionName("BypassDevice")]
+        [HttpPost]
+        public GlobalJsonResult<EmptyResult> BypassDevice(int deviceId, int projectId, bool bypass)
+        {
+            videoPlayback.BypassDevice(deviceId, projectId, bypass);
+
+            return GlobalJsonResult<EmptyResult>.Success(System.Net.HttpStatusCode.OK);
+        }
+
         [ActionName("LoadAudio")]
         [HttpPost]
         public GlobalJsonResult<EmptyResult> LoadAudio(int projectId)
