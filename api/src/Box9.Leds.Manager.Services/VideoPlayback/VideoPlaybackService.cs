@@ -87,7 +87,7 @@ namespace Box9.Leds.Manager.Services.VideoPlayback
                     audioTrack.Dispose();
                 }
 
-                audioTrack = AudioTrack.FromVideo(video.FilePath);
+                audioTrack = AudioTrack.FromAudioFile(video.AudioFilePath);
             }
         }
 

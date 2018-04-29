@@ -5,7 +5,7 @@ namespace Box9.Leds.Manager.Services.AudioPlayback
 {
     public class AudioTrack : IDisposable
     {
-        public string AudioFilePath { get; }
+        public string AudioFilePath { get; private set; }
 
         private AudioTrack(string videoFilePath)
         {
@@ -20,9 +20,21 @@ namespace Box9.Leds.Manager.Services.AudioPlayback
             this.AudioFilePath = audioFilePath;
         }
 
+        private AudioTrack()
+        {
+        }
+
         public static AudioTrack FromVideo(string videoFilePath)
         {
             return new AudioTrack(videoFilePath);
+        }
+
+        public static AudioTrack FromAudioFile(string audioFilePath)
+        {
+            return new AudioTrack
+            {
+                AudioFilePath = audioFilePath
+            };
         }
 
         public void Dispose()
