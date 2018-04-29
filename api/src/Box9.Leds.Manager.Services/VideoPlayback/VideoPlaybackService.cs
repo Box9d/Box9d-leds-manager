@@ -82,11 +82,6 @@ namespace Box9.Leds.Manager.Services.VideoPlayback
 
             if (audioTrack == null || audioTrack.AudioFilePath != video.FilePath)
             {
-                if (audioTrack != null)
-                {
-                    audioTrack.Dispose();
-                }
-
                 audioTrack = AudioTrack.FromAudioFile(video.AudioFilePath);
             }
         }
