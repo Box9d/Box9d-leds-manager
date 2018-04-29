@@ -3,7 +3,7 @@ using System.IO;
 
 namespace Box9.Leds.Manager.Services.AudioPlayback
 {
-    public class AudioTrack : IDisposable
+    public class AudioTrack
     {
         public string AudioFilePath { get; private set; }
 
@@ -35,20 +35,6 @@ namespace Box9.Leds.Manager.Services.AudioPlayback
             {
                 AudioFilePath = audioFilePath
             };
-        }
-
-        public void Dispose()
-        {
-            if (File.Exists(AudioFilePath))
-            {
-                try
-                {
-                    File.Delete(AudioFilePath);
-                }
-                catch
-                {
-                }               
-            }
         }
     }
 }
