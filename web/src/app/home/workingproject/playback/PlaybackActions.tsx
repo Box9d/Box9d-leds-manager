@@ -76,3 +76,30 @@ export const Stop = (dispatch: any, projectId: number): IAction => {
         type: "DO_NOTHING",
     };
 };
+
+export const BypassDevice = (dispatch: any, projectId: number, deviceId: number, bypass: boolean): IAction => {
+    let apiClient = new ApiClient.VideoPlaybackClient(config.apiUrl);
+    apiClient.bypassDevice(deviceId, projectId, bypass).then((response: ApiClient.GlobalJsonResultOfEmptyResult) => {
+        if (!response.successful) {
+            dispatch(MessageActions.SetMessageAndMessageType(dispatch, "Failed to bypass device playback: " + response.errorMessage, MessageType.Error));
+        }
+
+        return {
+            type: "DO_NOTHING",
+        };
+    });
+
+    if (bypass) {
+        return {
+            type: DevicesOverviewActions.Actions.SetProjectDeviceStatus, 
+            value: ApiClient.ProjectDevicePlaybackStatus.Bypassed, 
+            id: deviceId as any
+        } as IAction;
+    } else {
+        return {
+             type: DevicesOverviewActions.Actions.SetProjectDeviceStatus,
+             value: ApiClient.ProjectDevicePlaybackStatus.NotOnline,
+             id: deviceId as any
+        } as IAction;
+    }
+};

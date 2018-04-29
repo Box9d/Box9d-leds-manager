@@ -171,6 +171,17 @@ namespace Box9.Leds.Manager.DataAccess.Actions
             });
         }
 
+        public static DataAccessAction BypassDevice(int projectDeviceId, bool bypass)
+        {
+            return new DataAccessAction((IDbConnection conn) =>
+            {
+                var projectDevice = conn.Get<ProjectDevice>(projectDeviceId);
+                projectDevice.IsBypassed = bypass;
+
+                conn.Update(projectDevice);
+            });
+        }
+
         public static DataAccessAction<ProjectDeviceVersion> SetProjectDeviceMappings(int projectDeviceVersionId, IEnumerable<ProjectDeviceVersionMapping> mappings)
         {
             return new DataAccessAction<ProjectDeviceVersion>((IDbConnection conn) =>

@@ -4,6 +4,7 @@
     {
         NotOnline,
         NotReady,
-        Ready
+        Ready,
+        Bypassed
     }
 }
